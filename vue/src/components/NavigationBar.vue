@@ -55,11 +55,12 @@ div#sideBar {
     position: fixed;  
     z-index: 1;
     left: 0;
-    top: 25%;
+    
     padding-top: 20px;
     padding-bottom: 20px;  
     overflow-x: hidden;  
     border-right: solid lightgrey 1px;
+    background-color: salmon;
     }
     .form-control {
         display: block;
