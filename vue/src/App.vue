@@ -9,19 +9,11 @@
   </div>
 </template>
 
-<style scoped>
-  #nav {
-    
-      }
- /* div#nav {  
-   height: 100%;
-   width: 20%; 
-    float: top; 
-     z-index: 1;
-      left: 0;  
-      top: 0;  
-      padding-top: 20px;  
-      padding-bottom: 20px;  
-       overflow-x: hidden;  
-       border-right: solid lightgrey 1px;} */
+<style global> 
+* {
+  background-color: rgba(17, 171, 243, 0.87);
+  
+}
+
+
 </style>
