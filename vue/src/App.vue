@@ -7,3 +7,11 @@
     <router-view />
   </div>
 </template>
+<style global> 
+* {
+  background-color: rgba(17, 171, 243, 0.87);
+  
+}
+
+
+</style>

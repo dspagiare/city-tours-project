@@ -1,7 +1,14 @@
 <template>
   <div id="login" class="text-center">
+       <b-container class ="container">
+      <h1>Welcome to Yinzer Tours, 
+        the main place for visitors to plan out the 
+        landmarks and sites you wish to visit!</h1>
+       </b-container>
+ 
     <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+<!--   
+      <h2 class="h2 mb-3 font-weight-normal">Login</h2> -->
       <div
         class="alert alert-danger"
         role="alert"
@@ -12,6 +19,7 @@
         role="alert"
         v-if="this.$route.query.registration"
       >Thank you for registering, please sign in.</div>
+   
       <label for="username" class="sr-only">Username</label>
       <input
         type="text"
@@ -22,6 +30,7 @@
         required
         autofocus
       />
+   
       <label for="password" class="sr-only">Password</label>
       <input
         type="password"
@@ -30,10 +39,10 @@
         placeholder="Password"
         v-model="user.password"
         required
-      />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
+      /> 
       <button type="submit">Sign in</button>
     </form>
+    <router-link :to="{ name: 'register' }">Need an account?</router-link>
   </div>
 </template>
 
@@ -74,3 +83,30 @@ export default {
   }
 };
 </script>
+<style scoped>
+
+.form-signin {
+  display: block;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  height: 100%;
+
+}
+button {
+  background-color: #316786;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  
+}
+button:hover {
+  opacity: 0.8;
+}
+
+
+      
+</style>
