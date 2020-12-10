@@ -1,12 +1,14 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
-    <p>You must be authenticated to see this</p>
+    <navigation-bar />
   </div>
+  
 </template>
 
 <script>
+import NavigationBar from '../components/NavigationBar.vue';
 export default {
+  components: { NavigationBar },
   name: "home"
 };
 </script>
