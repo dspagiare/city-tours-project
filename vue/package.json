@@ -16,6 +16,7 @@
     "core-js": "^2.6.5",
     "vue": "^2.6.11",
     "vue-router": "^3.0.3",
+    "vue-sorted-table": "^1.2.0",
     "vue-table-dynamic": "^0.3.3",
     "vuex": "^3.0.1"
   },
