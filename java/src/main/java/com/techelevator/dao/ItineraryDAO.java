@@ -3,7 +3,7 @@ package com.techelevator.dao;
 import java.util.List;
 
 import com.techelevator.model.Itinerary;
-import com.techelevator.model.Itinerary_Landmarks;
+//import com.techelevator.model.Itinerary_Landmarks;
 
 public interface ItineraryDAO {
 
@@ -20,7 +20,7 @@ public interface ItineraryDAO {
 
 	
 
-	void addLandmarkToItinerary(Itinerary_Landmarks body);
+	//void addLandmarkToItinerary(Itinerary_Landmarks body);
 	
 
 }

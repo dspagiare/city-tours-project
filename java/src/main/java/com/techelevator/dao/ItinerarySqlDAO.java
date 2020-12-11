@@ -10,7 +10,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.techelevator.model.Itinerary;
 import com.techelevator.dao.ItineraryDAO;
-import com.techelevator.model.Itinerary_Landmarks;
+//import com.techelevator.model.Itinerary_Landmarks;
 
 public class ItinerarySqlDAO implements ItineraryDAO {
 
@@ -82,13 +82,13 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 
 	}
 
-	@Override
-	public void addLandmarkToItinerary(Itinerary_Landmarks body) {
-		String sql = "UPDATE itinerary_landmarks SET landmark_id = ? WHERE itinerary_id=?";
-
-		jdbcTemplate.update(sql, body.getLandmark_id(), body.getItinerary_id());
-
-	}
+//	@Override
+//	public void addLandmarkToItinerary(Itinerary_Landmarks body) {
+//		String sql = "UPDATE itinerary_landmarks SET landmark_id = ? WHERE itinerary_id=?";
+//
+//		jdbcTemplate.update(sql, body.getLandmark_id(), body.getItinerary_id());
+//
+//	}
 
 	@Override
 	public Itinerary createItinerary(Itinerary newItinerary, String userName) {
