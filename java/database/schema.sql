@@ -1,12 +1,9 @@
 BEGIN TRANSACTION;
-<<<<<<< HEAD
-DROP TABLE IF EXISTS catcards;
-=======
 
 DROP TABLE IF EXISTS itineraries_landmarks;
 DROP TABLE IF EXISTS users_itineraries;
 DROP TABLE IF EXISTS itineraries;
->>>>>>> f32a9a128a78b3cd7072a528db3a4f7ea274128c
+
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS landmarks;
 
