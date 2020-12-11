@@ -5,70 +5,25 @@
     <h1>Yinzer Tours</h1>
     <h2>Welcome to Yinzer Tours!  Designed to help you plan a day of sight seeing throughout the beautiful city of Pittsburgh, PA</h2>
     <p>Below is a list of landmarks based on popularity, Click "Create Itinerary" in the Navigation bar to start building your route! </p>
-   <div class="text-uppercase text-bold">id selected: {{selected}}</div>
-   <div class="pane">
-   <table class="table table-striped table-hover">
-     <thead>
-        <tr>
-			<th>
-		<label class="form-checkbox">
-    <input type="checkbox" v-model="selectAll" @click="select">
-    <i class="form-icon"></i>
-  </label>
-				</th>
-          <th>Index</th>
-          <th>Location Name</th>
-          <th>Location Type</th>
-          <th>Address</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr v-for="landmark in $store.state.landmarks" v-bind:key="landmark.id">
-        <td>
-					<label class="form-checkbox">
-            <input type="checkbox" :value="landmark.id" v-model="selected">
-					<i class="form-icon"></i>
-          </label>
-				</td>
-        <td>{{landmark.id}}</td>
-        <td>{{landmark.name}}</td>
-        <td>{{landmark.type}}</td>
-        <td>{{landmark.address}}</td>
-      </tr>
-    </tbody>
-  </table>
-   </div>
-  </div>
-  
+    <landmarks-list />
+  </div> 
     <navigation-bar />
-  
+    
   </div>
+  
 </template>
 
 <script>
-
+import LandmarksList from '../components/LandmarksList.vue';
 import NavigationBar from '../components/NavigationBar.vue';
 
 export default {
   components: { 
     NavigationBar,
+    LandmarksList
     },        
   name: "home",
- data: () => ({
-
-		selected: [],
-		selectAll: false
-	}),
-	methods: {
-		select() {
-			this.selected = [];
-			if (!this.selectAll) {
-				for (let i in this.$store.state.landmarks) {
-					this.selected.push(this.$store.state.landmarks[i].id);
-				}
-			}
-		}
-  }
+ 
 };
 </script>
 
