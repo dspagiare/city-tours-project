@@ -1,31 +1,46 @@
 <template>
 
   <div class="home">
+<<<<<<< HEAD
     <navigation-bar />
+=======
+  <div class="main">
+    <h1>Yinzer Tours</h1>
+    <h2>Welcome to Yinzer Tours!  Designed to help you plan a day of sight seeing throughout the beautiful city of Pittsburgh, PA</h2>
+    <p>Below is a list of landmarks based on popularity, Click "Create Itinerary" in the Navigation bar to start building your route! </p>
+    <landmarks-list />
+  </div> 
+    <navigation-bar />
+    
+>>>>>>> f047dfe7841fa86ff85c54ef041ede9f062d6799
   </div>
   
 </template>
 
 <script>
+<<<<<<< HEAD
 import NavigationBar from '../components/NavigationBar.vue';
 export default {
   components: { NavigationBar },
   name: "home"
+=======
+import LandmarksList from '../components/LandmarksList.vue';
+import NavigationBar from '../components/NavigationBar.vue';
+
+export default {
+  components: { 
+    NavigationBar,
+    LandmarksList
+    },        
+  name: "home",
+ 
+>>>>>>> f047dfe7841fa86ff85c54ef041ede9f062d6799
 };
 </script>
+
 <style scoped>
  
-  .home {
-    padding-left: 50px;
-    padding-right: 50px;
-    color: antiquewhite;
-    background-color: blue;
-    font-family: Avenir, Helvetica, san-serif;
-    height: 100vh;
-    width: 100vw;
-    overflow: visible;
-    z-index: 100;
-  }
+
  h1 {
    padding-top: 20px;
    padding-bottom: 20px;
@@ -35,10 +50,35 @@ export default {
  }
  .table {
    background-color: lightgray;
+   
  }
-
+ .pane {
+    display: inline-block;
+    overflow-y: scroll;
+    max-height:450px;
+  }
  p{
    padding-bottom: 10px;
  }
-
+.home {
+  
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 50px;
+  padding-right: 50px;
+  color: antiquewhite;  
+  font-family: Avenir, Helvetica, san-serif;
+  
+  overflow: visible;
+  z-index: 100;
+}
+.main {
+  width: 79%;
+  position: absolute;
+  right: 0;
+  background-color: rgba(17, 171, 243, 0.87) !important;
+  height: 100vh;
+  padding-left: 50px;
+  padding-right: 50px;
+}
 </style>

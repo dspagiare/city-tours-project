@@ -5,14 +5,14 @@
     <div class="ui segment">
       <div class="field">
         <div class="ui right icon input large">
-          <input type="text" placeholder="Enter your address" v-model="coordinates" />
+          <input type="text" placeholder="Enter your address" v-model="address" />
           <i class="dot circle link icon" @click="locatorButtonPressed"></i>
         </div>
       </div>
       <div class="field">
         <div class="two fields">
           <div class="field">
-            <select v-model="type">
+            <select v-model="address">
               <option value="landmark">Landmark</option>
             </select>
           </div>
@@ -55,7 +55,8 @@ export default {
         lng: 0,
         type: "",
         radius: "",
-        places: []
+        places: [],
+        address: ""
      };
     },
     computed: {

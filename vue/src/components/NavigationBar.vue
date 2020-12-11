@@ -4,36 +4,57 @@
         <button class = "btn-block" v-on:click="showForm= !showForm">Add New Itinerary</button>
         <form  v-if ="showForm" v-on:submit="saveItinerary">
             <input class = "form-control" type ="text" placeholder="Enter New Itinerary Name" v-model='newItinerary.name'/>
+            <input class = "form-control" type ="text" placeholder="Enter Date Of Yinzer Tour" v-model='newItinerary.itineraryDate'/>
             <button v-on:click="showForm = false" class="btn-submit">Save</button>
             <button v-on:click="showForm = !showForm" class="btn-cancel">Cancel</button>
         </form>
-        
-        <div>
-
+        <div v-for="itinerary in itineraries" v-bind:key="itinerary.id">
+               <router-link :to="`/${itinerary.id}`">{{ itinerary.name }}</router-link>
         </div>
     </div>
 </template>
 
 <script>
+import ItineraryService from "../services/ItineraryService";
+
 export default {
-    
+    name: "navigation-bar",
     data() {
-        
         return {
+            itineraries: [
+                {
+                    name: "asdjasd",
+                    id: "1"
+                },
+                {
+                    name: "poop poop",
+                    id: "12311"
+                }
+            ],
             newItinerary: {
                 name: '',
+                id: '',
+                itineraryDate: '',
             },
             showForm: false,
         }
     },
     methods: {
+
+        // saveItinerary saves new Itinerary to DB and routes user to newItinerary's
+        // details page
          saveItinerary(){
-        //     SOMETHING SOMETHING CONNECT TO DB THAT DOESNT EXIST YET AND CREATE NEW ITINERARY 
-        //     WITH USER INPUT NAME USING this.newItineraryName
+             ItineraryService.saveItinerary(this.newItinerary, this.$store.currentUser).then((response) => {
+                 if (response.status === 201) {
+                     this.$router.push(`itineraries/${this.newItinerary.id}`)
+                 }
+             })
         },
-        viewItineraryDetails(){
-            // ON CLICK WILL ROUTE TO ITINERARY DETAILS PAGE OF CLICKED ITINERARY
-        }
+    },
+    cretaed() {
+        ItineraryService.getUserItineraries().then((response) => {
+            this.itineraries = response.data;
+        });
     }
 }
 </script>
@@ -55,11 +76,12 @@ div#sideBar {
     position: fixed;  
     z-index: 1;
     left: 0;
-    top: 25%;
+    
     padding-top: 20px;
     padding-bottom: 20px;  
     overflow-x: hidden;  
     border-right: solid lightgrey 1px;
+    background-color: salmon;
     }
     .form-control {
         display: block;
@@ -79,8 +101,6 @@ div#sideBar {
 
 //  needs to display a list of all itineraries for user
 
-//  functions need to:
-//     -route to home page(should be hidden in Home.vue)
+//  functions need to
 //     -add a new itinerary
 //         user needs to name that itinerary
-//     - Logout
