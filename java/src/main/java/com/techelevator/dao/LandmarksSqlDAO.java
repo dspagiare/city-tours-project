@@ -11,11 +11,11 @@ import com.techelevator.model.Landmark;
 import com.techelevator.model.User;
 
 @Service
-public class LandmarkSqlDAO implements LandmarkDAO {
+public class LandmarksSqlDAO implements LandmarksDAO {
 	
 	private JdbcTemplate jdbcTemplate;
 
-    public LandmarkSqlDAO(JdbcTemplate jdbcTemplate) {
+    public LandmarksSqlDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

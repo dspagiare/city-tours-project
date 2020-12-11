@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.techelevator.model.Landmark;
 
-public interface LandmarkDAO {
+public interface LandmarksDAO {
 	
 	List<Landmark> findAll();
 
