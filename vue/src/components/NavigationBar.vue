@@ -8,10 +8,8 @@
             <button v-on:click="showForm = false" class="btn-submit">Save</button>
             <button v-on:click="showForm = !showForm" class="btn-cancel">Cancel</button>
         </form>
-        <div >
-            <ul v-for="itinerary in itineraries" v-bind:key="itinerary.id" v-on:click="viewItineraryDetails(itinerary.id, this.$store.currentUser)">
-                <li>{{ itinerary.name }}</li>
-            </ul>
+        <div v-for="itinerary in itineraries" v-bind:key="itinerary.id" v-on:click="viewItineraryDetails(itinerary.id, this.$store.currentUser)">
+               <router-link :to="`/${itinerary.id}`">{{ itinerary.name }}</router-link>
         </div>
     </div>
 </template>
