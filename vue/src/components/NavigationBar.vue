@@ -8,7 +8,7 @@
             <button v-on:click="showForm = false" class="btn-submit">Save</button>
             <button v-on:click="showForm = !showForm" class="btn-cancel">Cancel</button>
         </form>
-        <div v-for="itinerary in itineraries" v-bind:key="itinerary.id" v-on:click="viewItineraryDetails(itinerary.id, this.$store.currentUser)">
+        <div v-for="itinerary in itineraries" v-bind:key="itinerary.id">
                <router-link :to="`/${itinerary.id}`">{{ itinerary.name }}</router-link>
         </div>
     </div>
@@ -50,11 +50,6 @@ export default {
                  }
              })
         },
-
-        // ON CLICK WILL ROUTE USER TO ITINERARY DETAILS PAGE OF CLICKED ITINERARY
-        viewItineraryDetails(id){
-            this.$router.push(`itineraries/${id}`)
-        }
     },
     cretaed() {
         ItineraryService.getUserItineraries().then((response) => {
