@@ -56,7 +56,7 @@ export default {
 			this.selected = [];
 			if (!this.selectAll) {
 				for (let i in this.landmarks) {
-					this.selected.push(this.$store.state.landmarks[i].id);
+					this.selected.push(this.landmarks[i].id);
 				}
 			}
         },
