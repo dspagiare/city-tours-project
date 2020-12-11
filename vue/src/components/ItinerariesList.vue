@@ -1,6 +1,6 @@
 <template>
 
-  <div class="landmarks">
+<div class="itinerary">
    <div class="text-uppercase text-bold">id selected: {{selected}}</div>
    <div class="pane">
    <table class="table table-striped table-hover" >
@@ -16,7 +16,6 @@
           <th>Location Name</th>
           <th>Location Type</th>
           <th>Address</th>
-          <th>Up Votes</th>
       </tr>
     </thead>
     <tbody >
@@ -31,7 +30,6 @@
         <td>{{landmark.name}}</td>
         <td>{{landmark.type}}</td>
         <td>{{landmark.address}}</td>
-        <td>{{landmark.thumbsUp}}</td>
       </tr>
     </tbody>
   </table>
@@ -40,7 +38,7 @@
 </template>
 
 <script>
-import landmarksService from '../services/LandmarksService.js'
+import itineraryService from '../services/ItineraryService.js'
 
 export default {
   components: { 
@@ -55,14 +53,14 @@ export default {
 		select() {
 			this.selected = [];
 			if (!this.selectAll) {
-				for (let i in this.landmarks) {
+				for (let i in this.$store.state.landmarks) {
 					this.selected.push(this.$store.state.landmarks[i].id);
 				}
 			}
         },
     },  
    created() {
-            landmarksService.list().then( (response) => {
+            itineraryService.list().then( (response) => {
                 this.landmarks = response.data;
             });
         }
