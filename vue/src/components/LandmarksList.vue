@@ -16,6 +16,7 @@
           <th>Location Name</th>
           <th>Location Type</th>
           <th>Address</th>
+          <th>Up Votes</th>
       </tr>
     </thead>
     <tbody >
@@ -30,6 +31,7 @@
         <td>{{landmark.name}}</td>
         <td>{{landmark.type}}</td>
         <td>{{landmark.address}}</td>
+        <td>{{landmark.thumbsUp}}</td>
       </tr>
     </tbody>
   </table>
@@ -53,7 +55,7 @@ export default {
 		select() {
 			this.selected = [];
 			if (!this.selectAll) {
-				for (let i in this.$store.state.landmarks) {
+				for (let i in this.landmarks) {
 					this.selected.push(this.$store.state.landmarks[i].id);
 				}
 			}
