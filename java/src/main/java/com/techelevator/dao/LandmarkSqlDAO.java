@@ -33,7 +33,6 @@ public class LandmarkSqlDAO implements LandmarkDAO {
 
         return landmarks;
 
-		return null;
 	}
 	
 	private Landmark mapRowToLandmark(SqlRowSet rs) {
@@ -41,9 +40,17 @@ public class LandmarkSqlDAO implements LandmarkDAO {
         landmark.setId(rs.getLong("landmark_id"));
         landmark.setName(rs.getString("landmark_name"));
         landmark.setDescription(rs.getString("description"));
-        user.setAuthorities(rs.getString("role"));
-        user.setActivated(true);
-        return user;
+        landmark.setVenueType(rs.getString("venue_type"));
+        landmark.setAddress(rs.getString("address"));
+        landmark.setAvailableFromDay(rs.getString("available_from_day"));
+        landmark.setAvailableToDay(rs.getString("available_to_day"));
+        landmark.setAvailableFromHour(rs.getString("available_from_hour"));
+        landmark.setAvailableToHour(rs.getString("available_to_hour"));
+        landmark.setImgUrl(rs.getString("landmark_img_url"));
+        landmark.setNumThumbsUp(rs.getLong("num_thumbs_up"));
+        landmark.setNumThumbsdown(rs.getLong("num_thumbs_down"));
+     
+        return landmark;
     }
 
 }
