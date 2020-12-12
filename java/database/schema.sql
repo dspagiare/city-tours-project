@@ -37,7 +37,7 @@ CREATE SEQUENCE seq_itinerary_id
 
 CREATE TABLE itineraries (
         itinerary_id int DEFAULT nextval('seq_itinerary_id'::regclass) NOT NULL,
-        user_id int,
+        user_id int NOT NULL,
         itinerary_name varchar(200) NOT NULL,
         itinerary_date DATE,
         staring_point varchar(200),
@@ -80,6 +80,7 @@ CREATE TABLE landmarks (
 CREATE TABLE itineraries_landmarks (
         itinerary_id int,
         landmark_id int,
+        landmark_rank_order int UNIQUE,
         
         CONSTRAINT pk_itinerary_id_landmark_id_ PRIMARY KEY (itinerary_id, landmark_id),
         CONSTRAINT fk_itinerary_id FOREIGN KEY (itinerary_id) REFERENCES itineraries(itinerary_id),
@@ -87,8 +88,8 @@ CREATE TABLE itineraries_landmarks (
 );
 
 --Dummy data
-INSERT INTO itineraries (itinerary_name, itinerary_date, staring_point)
-VALUES ('First Itenarary Test', '2020-12-15', 'TBD');
+INSERT INTO itineraries (user_id, itinerary_name, itinerary_date, staring_point)
+VALUES ('1', 'First Itenarary Test', '2020-12-15', 'TBD');
 
 INSERT INTO landmarks (landmark_name, description, venue_type, address, available_from_day, available_to_day, 
 available_from_hour, available_to_hour, landmark_img_url, num_thumbs_up, num_thumbs_down)
@@ -114,8 +115,3 @@ INSERT INTO itineraries_landmarks (itinerary_id, landmark_id)
 VALUES ('1', '1');
         
 COMMIT TRANSACTION;
-
-
-INSERT INTO itineraries(itinerary_name, itinerary_date) VALUES('test itinerary', '12-20-2020');
-
-DELETE FROM itineraries WHERE itinerary_name = 'test itinerary';
