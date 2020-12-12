@@ -37,12 +37,13 @@ CREATE SEQUENCE seq_itinerary_id
 
 CREATE TABLE itineraries (
         itinerary_id int DEFAULT nextval('seq_itinerary_id'::regclass) NOT NULL,
+        user_id int,
         itinerary_name varchar(200) NOT NULL,
         itinerary_date DATE,
         staring_point varchar(200),
         created_date DATE DEFAULT CURRENT_DATE,
-        CONSTRAINT pk_itinerary_id PRIMARY KEY (itinerary_id)
-
+        CONSTRAINT pk_itinerary_id PRIMARY KEY (itinerary_id),
+        CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE SEQUENCE seq_landmark_id
@@ -75,14 +76,6 @@ CREATE TABLE landmarks (
 
 );
 
-CREATE TABLE users_itineraries (
-        user_id int,
-        itinerary_id int,
-        
-        CONSTRAINT pk_user_id_itinerary_id PRIMARY KEY (user_id, itinerary_id),
-        CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
-        CONSTRAINT fk_itinerary_id FOREIGN KEY (itinerary_id) REFERENCES itineraries(itinerary_id)
-);
 
 CREATE TABLE itineraries_landmarks (
         itinerary_id int,
@@ -115,10 +108,14 @@ VALUES ('Cathedral of Learning', 'The Cathedral of Learning is a building that s
        ('Strip District', 'What was once a primarily industrial neighborhood is now packed with restaurants, international markets, museums and shops. The Strip District, which runs alongside the Allegheny River in Pittsburgh, measures only half a square mile, but it has plenty of attractions and eateries to fill up your day (and your stomach).', 'Historic Neighborhood', '2101 Smallman St, Pittsburgh, PA 15222', 'Monday', 'Friday', '9:00', '5:00', 'TBD', '5', '0'),
        ('Three Rivers Heritage Trail', 'An asphalt link between some of Pittsburghs most notable spots, the Three Rivers Heritage Trail lines the banks of the Allegheny, Monongahela and Ohio waterways. The 24-mile-long path connects the downtown area to the surrounding neighborhoods and makes it easy for people to travel across the city without getting in a car or on a bus.', 'Park', 'Three Rivers Heritage Trail, Pittsburgh, PA 15203', 'Monday', 'Friday', '9:00', '5:00', 'TBD', '5', '0');
 
-INSERT INTO users_itineraries (user_id, itinerary_id)
-VALUES ('1', '1');
+
 
 INSERT INTO itineraries_landmarks (itinerary_id, landmark_id)
 VALUES ('1', '1');
         
 COMMIT TRANSACTION;
+
+
+INSERT INTO itineraries(itinerary_name, itinerary_date) VALUES('test itinerary', '12-20-2020');
+
+DELETE FROM itineraries WHERE itinerary_name = 'test itinerary';

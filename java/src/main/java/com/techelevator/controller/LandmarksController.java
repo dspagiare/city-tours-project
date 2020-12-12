@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 import java.security.Principal;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -22,9 +23,12 @@ import com.techelevator.model.User;
 import com.techelevator.model.UserAlreadyExistsException;
 import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
+
+
 @RequestMapping("/landmarks")
 @RestController
 @CrossOrigin
+
 public class LandmarksController {
 //	private UserDAO userDAO;
 	private LandmarksDAO landmarksDAO;

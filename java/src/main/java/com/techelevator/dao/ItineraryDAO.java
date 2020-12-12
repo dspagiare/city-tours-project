@@ -2,9 +2,13 @@ package com.techelevator.dao;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Configuration;
+
+
 import com.techelevator.model.Itinerary;
 //import com.techelevator.model.Itinerary_Landmarks;
 
+@Configuration
 public interface ItineraryDAO {
 
 	Itinerary getItineraryById(Integer id, String userName);

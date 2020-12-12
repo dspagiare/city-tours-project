@@ -7,11 +7,12 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import com.techelevator.model.Itinerary;
 import com.techelevator.dao.ItineraryDAO;
 //import com.techelevator.model.Itinerary_Landmarks;
-
+@Component
 public class ItinerarySqlDAO implements ItineraryDAO {
 
 	private JdbcTemplate jdbcTemplate;
@@ -92,7 +93,7 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 
 	@Override
 	public Itinerary createItinerary(Itinerary newItinerary, String userName) {
-		String sql = "INSERT INTO itineraries (user_id, itinerary_name, itinerary_date) VALUES((SELECT user_id FROM users WHERE username = ?), ?, ?)";
+		String sql = "INSERT INTO itineraries (user_id, itinerary_name, itinerary_date, starting_point) VALUES((SELECT user_id FROM users WHERE username = ?), ?, ?, 'TBD')";
 
 		newItinerary.setItinerary_id(getNextItineraryId());
 
