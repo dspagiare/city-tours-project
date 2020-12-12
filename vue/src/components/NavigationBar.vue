@@ -2,10 +2,10 @@
 <template>
     <div id = "sideBar">
         <button class = "btn-block" v-on:click="showForm= !showForm">Add New Itinerary</button>
-        <form  v-if ="showForm" v-on:submit="saveItinerary">
+        <form  v-if ="showForm" v-on:submit.prevent="saveItinerary">
             <input class = "form-control" type ="text" placeholder="Enter New Itinerary Name" v-model='newItinerary.name'/>
             <input class = "form-control" type ="text" placeholder="Enter Date Of Yinzer Tour" v-model='newItinerary.itineraryDate'/>
-            <button v-on:click="showForm = false" class="btn-submit">Save</button>
+            <input type="submit" v-on:submit.prevent="saveItinerary" class="btn-submit">
             <button v-on:click="showForm = !showForm" class="btn-cancel">Cancel</button>
         </form>
         <div v-for="itinerary in itineraries" v-bind:key="itinerary.id">
@@ -44,9 +44,10 @@ export default {
         // saveItinerary saves new Itinerary to DB and routes user to newItinerary's
         // details page
          saveItinerary(){
-             ItineraryService.saveItinerary(this.newItinerary, this.$store.currentUser).then((response) => {
+             ItineraryService.saveItinerary(this.newItinerary, this.$store.state.currentUser).then((response) => {
+
                  if (response.status === 201) {
-                     this.$router.push(`itineraries/${this.newItinerary.id}`)
+                     this.$router.push(`/itineraries/${this.newItinerary.id}`)
                  }
              })
         },
