@@ -34,6 +34,7 @@ const router = new Router({
         requiresAuth: true
       }
     },
+<<<<<<< HEAD
     // {
     //   // path: '/:id',
     //   // name: 'itinerary',
@@ -42,6 +43,16 @@ const router = new Router({
     //   //   requiresAuth: true
     //   // }
     // },
+=======
+    {
+      path: '/itinerary/:id',
+      name: 'itinerary',
+      component: Itinerary,
+      meta: {
+        requiresAuth: true
+      }
+    },
+>>>>>>> 7b09ca2e7309fb74b8f510167611011fb05b3891
     {
       path: "/login",
       name: "login",
