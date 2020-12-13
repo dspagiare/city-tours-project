@@ -65,8 +65,7 @@ public class ItineraryController {
 
 	  @RequestMapping(value = "/itineraries", method = RequestMethod.GET)
 	 public List<Itinerary> allItineraries(Principal principal) {
-			return itineraryDAO.getAllItineraries(principal.getName()
-					);
+			return itineraryDAO.getAllItineraries(principal.getName());
 
 		}
 	  
@@ -82,7 +81,24 @@ public class ItineraryController {
 	    	itineraryDAO.updateItinerary(myItinerary, principal.getName()); 
 	  }
 	  @RequestMapping(value = "/itineraries", method = RequestMethod.POST)
-	  public Itinerary addItinerary(@RequestBody Itinerary myItinerary,Principal principal ) {
+	  public Itinerary addItinerary(@RequestBody Itinerary myItinerary, Principal principal) {
 		return  itineraryDAO.createItinerary(myItinerary, principal.getName());
 	  }
+	  
+	  
+	  @RequestMapping(value = "/itineraries/id", method = RequestMethod.DELETE)
+	  public void deleteItinerary(@PathVariable Integer id, Principal principal ) {
+		 itineraryDAO.deleteItinerary(id, principal.getName());
+	  }
+	  
+	  @RequestMapping(value = "/itineraries/id/landmarks/landId", method = RequestMethod.DELETE)
+	  public void deleteLandmrk(@PathVariable Integer id,@PathVariable Integer landId, Principal principal ) {
+		 itineraryDAO.deleteLandmarkFromItinerary(id,landId, principal.getName());
+	  }
+	  
+	  @RequestMapping(value = "/itineraries/id/landmarks/landId", method = RequestMethod.POST)
+	  public void addLandmark(@PathVariable Integer id, @PathVariable Integer landId,  Principal principal ) {
+		 itineraryDAO.addLandmarkToItinerary(id, landId, principal.getName());
+	  }
+	  
 }
