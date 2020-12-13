@@ -21,7 +21,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     landmarks: [],
-    itineraries: [],
+    itineraryLandmark: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
