@@ -9,16 +9,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import * as VueGoogleMaps from "vue2-google-maps"
 
-<<<<<<< HEAD
 Vue.use(VueGoogleMaps, {
   load: {
     key: `${process.env.GOOGLE_API_KEY}`,
     libraries: "places"
   }
 });
-=======
 
->>>>>>> 901b2d3af932a9947e9c1e34b008773fc4b1b0cf
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(draggable)
