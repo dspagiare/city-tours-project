@@ -105,20 +105,7 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 
 	}
 
-	@Override
-<<<<<<< HEAD
-	public Itinerary createItinerary(Itinerary newItinerary, String userName) {
-		
-//		String sqlGetID ="Select "
-//		
-//		String sql = "INSERT INTO itineraries (user_id, itinerary_id, itinerary_name, itinerary_date) VALUES(?, ?, ?, ?)";
-		
-		String sql = "INSERT INTO itineraries (user_id, itinerary_id, itinerary_name, itinerary_date) VALUES((SELECT user_id FROM users WHERE username= ?),?, ?, ?)";
 
-		newItinerary.setItinerary_id(getNextItineraryId());
-		 
-		jdbcTemplate.update(sql, userName, newItinerary.getItinerary_id(), newItinerary.getName(), newItinerary.getItinerary_date());
-=======
 	public void deleteLandmarkFromItinerary(Integer id, Integer landId, String userName) {
 
 		List<Itinerary> itineraryList = getAllItineraries(userName);
@@ -148,7 +135,7 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 				jdbcTemplate.update(sql, id, landId);
 			}
 		}
->>>>>>> 2f5d59e34db940407a54141d8a125e9e03663c5c
+
 
 	}
 	

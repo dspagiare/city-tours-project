@@ -119,7 +119,12 @@ export default {
 .thumbs {
     height: 20px;
     width: 20px;
-    ;
+    padding-block-start: 2px;
+    border: .5px solid #ddd;
+    background: lightgray;
+    display: inline-block;
+   margin: 0 10px 0 10px;
+  
 }
 .thumbs:hover {
   background: green;
