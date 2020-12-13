@@ -1,18 +1,15 @@
 <template>
-  
-
-  <navigation-bar />
+  <itinerary-details />
 </template>
 
 <script>
-import NavigationBar from '../components/NavigationBar.vue'
+import ItineraryDetails from "../components/ItineraryDetails.vue";
 export default {
-
-}
-
-
+  components: {
+    ItineraryDetails,
+  },
+};
 </script>
 
 <style>
-
 </style>
