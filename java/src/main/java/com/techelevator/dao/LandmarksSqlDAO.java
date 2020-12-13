@@ -35,6 +35,20 @@ public class LandmarksSqlDAO implements LandmarksDAO {
 
 	}
 	
+	@Override
+	public List<Landmark> getLandmarksForItinerary(Integer itinerary_id){
+		List<Landmark> landmarks = new ArrayList<>();
+		String sql = "SELECT l.* FROM itineraries_landmarks il INNER JOIN landmarks l ON l.landmark_id = il.landmark_id WHERE il.itinerary_id = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		
+		while(results.next()) {
+			Landmark landmark = mapRowToLandmark(results);
+			landmarks.add(landmark);
+		}
+		return landmarks;
+	}
+	
 	private Landmark mapRowToLandmark(SqlRowSet rs) {
         Landmark landmark = new Landmark();
         landmark.setId(rs.getLong("landmark_id"));
