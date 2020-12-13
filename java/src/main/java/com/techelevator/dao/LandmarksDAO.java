@@ -8,4 +8,5 @@ public interface LandmarksDAO {
 	
 	List<Landmark> findAll();
 
+	List<Landmark> getLandmarksForItinerary(Integer itinerary_id);
 }

@@ -9,7 +9,7 @@
             <button v-on:click="showForm = !showForm" class="btn-cancel">Cancel</button>
         </form>
         <div v-for="itinerary in itineraries" v-bind:key="itinerary.itinerary_id">
-               <router-link :to="`/${itinerary.itinerary_id}`" tag="button" class="btn-itinName">{{ itinerary.name }}</router-link>
+               <router-link :to="`/itinerary/${itinerary.itinerary_id}`" tag="button" class="btn-itinName">{{ itinerary.name }}</router-link>
         </div>
     </div>
 </template>
