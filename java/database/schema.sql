@@ -3,6 +3,7 @@ BEGIN TRANSACTION;
 DROP TABLE IF EXISTS itineraries_landmarks;
 DROP TABLE IF EXISTS users_itineraries;
 DROP TABLE IF EXISTS itineraries;
+
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS landmarks;
 
