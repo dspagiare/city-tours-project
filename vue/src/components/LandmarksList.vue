@@ -47,16 +47,17 @@ export default {
     },        
  name: "landmarks",
  data: () => ({
-        landmarks: [],
+    landmarks: [],
 		selected: [],
-		selectAll: false
+    selectAll: false,
+    isLoading: true,
 	}),
 	methods: {
 		select() {
 			this.selected = [];
 			if (!this.selectAll) {
 				for (let i in this.landmarks) {
-					this.selected.push(this.$store.state.landmarks[i].id);
+					this.selected.push(this.landmarks[i].id);
 				}
 			}
         },
@@ -86,7 +87,7 @@ export default {
  .pane {
     display: inline-block;
     overflow-y: scroll;
-    max-height:450px;
+    max-height:400px;
   }
  p{
    padding-bottom: 10px;
@@ -97,9 +98,7 @@ export default {
   margin: 0 auto;
   padding-left: 50px;
   padding-right: 50px;
-  color: antiquewhite;  
-  font-family: Avenir, Helvetica, san-serif;
-  
+  color: antiquewhite; 
   overflow: visible;
   z-index: 100;
 }

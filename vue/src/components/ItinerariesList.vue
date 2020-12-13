@@ -1,113 +1,127 @@
 <template>
-
-<div class="itinerary">
-   <div class="text-uppercase text-bold">id selected: {{selected}}</div>
-   <div class="pane">
-   <table class="table table-striped table-hover" >
-     <thead>
-        <tr>
-			<th>
-                <label class="form-checkbox">
-                    <input type="checkbox" v-model="selectAll" @click="select">
-                    <i class="form-icon"></i>
-                    </label>
-			</th>
-          <th>Index</th>
-          <th>Location Name</th>
-          <th>Location Type</th>
-          <th>Address</th>
-      </tr>
-    </thead>
-    <tbody >
-      <tr v-for="landmark in landmarks" v-bind:key="landmark.id">
-        <td>
-            <label class="form-checkbox">
-                <input type="checkbox" :value="landmark.id" v-model="selected">
-					<i class="form-icon"></i>
-            </label>
-		</td>
-        <td>{{landmark.id}}</td>
-        <td>{{landmark.name}}</td>
-        <td>{{landmark.type}}</td>
-        <td>{{landmark.address}}</td>
-      </tr>
-    </tbody>
-  </table>
-   </div>
-  </div>
+    <div class="itinerary-list">
+        <h1>Itinerary 1</h1>
+        <div id="app" class="container">
+</div>
+        
+        <table class="table" >
+            <thead>
+                <tr>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Address</th>
+                <th>Index</th>
+                <th>How Was It?</th>
+                <th>Delete Location</th>
+                
+                </tr>
+            </thead>
+            <draggable :list="myArray.id" @end="onEnd" tag="tbody">
+                <tr :id="element.id" v-for="(element, index) in myArray" :key="element.id">    
+                <td>{{element.name}}</td>
+                <td>{{element.type}}</td>
+                <td>{{element.address}}</td>
+                <td>{{element.id}}</td>
+                <td><img class="thumbs" src="../assets/thumbs-up.png" v-on:click="element.thumbsUp + 1" @mouseover="mouseOver">
+                    <img class="thumbs" src="../assets/thumbs-down-icon.png" v-on:click="element.thumbsUp + -1" @mouseover="mouseOver">
+                </td>
+                <td><button @click='deleteTableRow(index)' >Delete</button></td>
+                </tr>
+            </draggable>  
+        </table>
+         
+        <p><strong>Previous Index: </strong>{{oldIndex}}</p>
+        <p><strong>New Index: </strong>{{newIndex}}</p>
+    </div>
 </template>
 
 <script>
-import itineraryService from '../services/ItineraryService.js'
+
+ import draggable from 'vuedraggable'
+
 
 export default {
-  components: { 
-    },        
- name: "landmarks",
- data: () => ({
-        landmarks: [],
-		selected: [],
-		selectAll: false
-	}),
-	methods: {
-		select() {
-			this.selected = [];
-			if (!this.selectAll) {
-				for (let i in this.$store.state.landmarks) {
-					this.selected.push(this.$store.state.landmarks[i].id);
-				}
-			}
-        },
-    },  
-   created() {
-            itineraryService.list().then( (response) => {
-                this.landmarks = response.data;
-            });
+   
+    components: {
+         draggable
+        
+    },
+    data() {
+        return {
+            myArray: [
+                { 
+                    name: "Location One", 
+                    id: 0,
+                    address: "123 thing street",
+                    type: 'park',
+                    thumbsUp: 5
+                },
+               { 
+                    name: "Location Two", 
+                    id: 1,
+                    address: "456 thing street",
+                    type: 'landmark',
+                    thumbsUp: 10
+                },
+                { 
+                    name: "Location Three", 
+                    id: 2,
+                    address: "789 thing street",
+                    type: 'city feature',
+                    thumbsUp: 12
+                },
+            ],
+            oldIndex: '',
+            newIndex: '',
+            counter: 2,
+            thumbsCounter: 0,
+            active: false
         }
-};
+    },
+    methods: {
+        onEnd(evt) {
+            console.log(evt)
+            this.newIndex = evt.newIndex;
+            this.oldIndex = evt.oldIndex;
+        },
+        deleteTableRow(idx) { 
+            this.counter--;
+            this.myArray.splice(idx, 1);      
+        },
+       
+        mouseOver(){
+            this.active = !this.active;
+            this.class="thumbs:hover";   
+        }
+    }
+    
+}
 </script>
 
 <style scoped>
- 
 
- h1 {
-   padding-top: 20px;
-   padding-bottom: 20px;
- }
- h2 {
-   padding-bottom: 20px;
- }
- .table {
-   background-color: lightgray;
-   
- }
- .pane {
-    display: inline-block;
-    overflow-y: scroll;
-    max-height:450px;
-  }
- p{
-   padding-bottom: 10px;
- }
-.landmarks {
-  
-  max-width: 1100px;
-  margin: 0 auto;
-  padding-left: 50px;
-  padding-right: 50px;
-  color: antiquewhite;  
-  font-family: Avenir, Helvetica, san-serif;
-  
-  overflow: visible;
-  z-index: 100;
+
+.itinerary-list {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    padding: 4em;
+    cursor: move;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    background-color: rgba(17, 171, 243, 0.87) !important;
+    height: 100vh;
+    padding-left: 50px;
+    padding-right: 50px;
 }
-.main {
-  width: 79%;
-  position: absolute;
-  right: 0;
-  background-color: rgba(17, 171, 243, 0.87) !important;
-  height: 100vh;
-  padding-left: 50px;
-  padding-right: 50px;
+.thumbs {
+    height: 20px;
+    width: 20px;
+    ;
+}
+.thumbs:hover {
+  background: green;
 }
 </style>

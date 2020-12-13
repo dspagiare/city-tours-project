@@ -21,7 +21,7 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {},
     landmarks: [],
-    itineraries: [],
+    itineraryLandmark: [],
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -39,6 +39,7 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
-    }
+    },
+    ADD_ITINERARY_TO_ITINERARIES(state, itinerary) {state.itineraries.push(itinerary);   }
   }
 })
