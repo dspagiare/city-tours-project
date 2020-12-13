@@ -5,8 +5,11 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
-import Itinerary from '../views/Itinerary.vue'
+import MapSearch from '../components/MapSearch'
+import SuiVue from 'semantic-ui-vue'
+// import Itinerary from '../views/Itinerary.vue'
 
+Vue.use(SuiVue)
 Vue.use(Router)
 
 /**
@@ -22,6 +25,7 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+ 
     {
       path: '/',
       name: 'home',
@@ -30,14 +34,14 @@ const router = new Router({
         requiresAuth: true
       }
     },
-    {
-      path: '/itinerary/:id',
-      name: 'itinerary',
-      component: Itinerary,
-      meta: {
-        requiresAuth: true
-      }
-    },
+    // {
+    //   path: '/itinerary/:id',
+    //   name: 'itinerary',
+    //   component: Itinerary,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
     {
       path: "/login",
       name: "login",
@@ -61,6 +65,11 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+    },
+    {
+      path: "/MapSearch",
+      name: "mapSearch",
+      component: MapSearch
     },
     {
       path: "/landmarks",
