@@ -1,9 +1,6 @@
 <template>
 
   <div class="home">
-<<<<<<< HEAD
-    <navigation-bar />
-=======
   <div class="main">
     <h1>Yinzer Tours</h1>
     <h2>Welcome to Yinzer Tours!  Designed to help you plan a day of sight seeing throughout the beautiful city of Pittsburgh, PA</h2>
@@ -12,18 +9,11 @@
   </div> 
     <navigation-bar />
     
->>>>>>> f047dfe7841fa86ff85c54ef041ede9f062d6799
   </div>
   
 </template>
 
 <script>
-<<<<<<< HEAD
-import NavigationBar from '../components/NavigationBar.vue';
-export default {
-  components: { NavigationBar },
-  name: "home"
-=======
 import LandmarksList from '../components/LandmarksList.vue';
 import NavigationBar from '../components/NavigationBar.vue';
 
@@ -34,7 +24,6 @@ export default {
     },        
   name: "home",
  
->>>>>>> f047dfe7841fa86ff85c54ef041ede9f062d6799
 };
 </script>
 

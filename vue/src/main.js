@@ -6,7 +6,14 @@ import axios from 'axios'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import * as VueGoogleMaps from "vue2-google-maps"
 
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: `${process.env.GOOGLE_API_KEY}`,
+    libraries: "places"
+  }
+});
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
