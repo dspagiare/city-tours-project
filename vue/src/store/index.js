@@ -40,6 +40,11 @@ export default new Vuex.Store({
       state.user = {};
       axios.defaults.headers.common = {};
     },
-    ADD_ITINERARY_TO_ITINERARIES(state, itinerary) {state.itineraries.push(itinerary);   }
+    ADD_LANDMARK_TO_ITINERARY(state, itineraryName, landmark) {
+      state.itineraries.itineraryName.push(landmark);
+    },
+    ADD_ITINERARY_TO_ITINERARIES(state, itinerary) {
+      state.itineraries.push(itinerary);
+    }
   }
 })

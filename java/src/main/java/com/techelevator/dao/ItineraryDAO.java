@@ -17,9 +17,8 @@ public interface ItineraryDAO {
 
 	void updateItinerary(Itinerary itineraryBody, String userName);
 
-
 	Itinerary createItinerary(Itinerary newItinerary, String userName);
-
+	
 	List<Itinerary> getAllItineraries(String userName);
 
 	

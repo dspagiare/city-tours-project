@@ -65,8 +65,7 @@ public class ItineraryController {
 
 	  @RequestMapping(value = "/itineraries", method = RequestMethod.GET)
 	 public List<Itinerary> allItineraries(Principal principal) {
-			return itineraryDAO.getAllItineraries(principal.getName()
-					);
+			return itineraryDAO.getAllItineraries(principal.getName());
 
 		}
 	  
@@ -82,7 +81,8 @@ public class ItineraryController {
 	    	itineraryDAO.updateItinerary(myItinerary, principal.getName()); 
 	  }
 	  @RequestMapping(value = "/itineraries", method = RequestMethod.POST)
-	  public Itinerary addItinerary(@RequestBody Itinerary myItinerary,Principal principal ) {
+	  public Itinerary addItinerary(@RequestBody Itinerary myItinerary, Principal principal) {
 		return  itineraryDAO.createItinerary(myItinerary, principal.getName());
 	  }
+	 
 }
