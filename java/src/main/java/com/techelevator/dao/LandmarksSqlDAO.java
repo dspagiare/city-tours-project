@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.techelevator.model.Landmark;
 import com.techelevator.model.User;
 
+@Component
 @Service
 public class LandmarksSqlDAO implements LandmarksDAO {
 	
@@ -40,7 +42,7 @@ public class LandmarksSqlDAO implements LandmarksDAO {
 		List<Landmark> landmarks = new ArrayList<>();
 		String sql = "SELECT l.* FROM itineraries_landmarks il INNER JOIN landmarks l ON l.landmark_id = il.landmark_id WHERE il.itinerary_id = ?";
 		
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, itinerary_id);
 		
 		while(results.next()) {
 			Landmark landmark = mapRowToLandmark(results);

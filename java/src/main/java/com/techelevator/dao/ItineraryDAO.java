@@ -4,7 +4,7 @@ import java.util.List;
 import com.techelevator.model.Itineraries_Landmarks;
 import org.springframework.context.annotation.Configuration;
 import com.techelevator.model.Itinerary;
-import com.techelevator.model.Itineraries_Landmarks;
+
 
 @Configuration
 public interface ItineraryDAO {

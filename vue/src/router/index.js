@@ -7,6 +7,7 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import MapSearch from '../components/MapSearch'
 import SuiVue from 'semantic-ui-vue'
+import Itinerary from '../views/Itinerary.vue'
 // import Itinerary from '../views/Itinerary.vue'
 
 Vue.use(SuiVue)
@@ -30,6 +31,17 @@ const router = new Router({
       path: '/',
       name: 'home',
       component: Home,
+
+      children: [{
+        path: '/itinerary/:id',
+        name: 'itinerary',
+        component: Itinerary,
+            // children: [{
+            //   path: "/itinerary/:id/MapSearch",
+            //   name: "mapSearch",
+            //   component: MapSearch
+            // }]
+      }],
       meta: {
         requiresAuth: true
       }

@@ -1,9 +1,6 @@
 <template>
     <div class="itinerary-list">
-        <h1>Itinerary 1</h1>
-        <div id="app" class="container">
-</div>
-        
+  
         <table class="table" >
             <thead>
                 <tr>
@@ -16,14 +13,14 @@
                 
                 </tr>
             </thead>
-            <draggable :list="myArray.id" @end="onEnd" tag="tbody">
-                <tr :id="element.id" v-for="(element, index) in myArray" :key="element.id">    
-                <td>{{element.name}}</td>
-                <td>{{element.type}}</td>
-                <td>{{element.address}}</td>
-                <td>{{element.id}}</td>
-                <td><img class="thumbs" src="../assets/thumbs-up.png" v-on:click="element.thumbsUp + 1" @mouseover="mouseOver">
-                    <img class="thumbs" src="../assets/thumbs-down-icon.png" v-on:click="element.thumbsUp + -1" @mouseover="mouseOver">
+            <draggable :list="landmarks.id" @end="onEnd" tag="tbody">
+                <tr :id="landmark.id" v-for="(landmark, index) in landmarks" :key="landmark.id">    
+                <td>{{landmark.name}}</td>
+                <td>{{landmark.type}}</td>
+                <td>{{landmark.address}}</td>
+                <td>{{landmark.id}}</td>
+                <td><img class="thumbs" src="../assets/thumbs-up.png" v-on:click="landmark.thumbsUp + 1" @mouseover="mouseOver">
+                    <img class="thumbs" src="../assets/thumbs-down-icon.png" v-on:click="landmark.thumbsUp + -1" @mouseover="mouseOver">
                 </td>
                 <td><button @click='deleteTableRow(index)' >Delete</button></td>
                 </tr>
@@ -32,50 +29,60 @@
          
         <p><strong>Previous Index: </strong>{{oldIndex}}</p>
         <p><strong>New Index: </strong>{{newIndex}}</p>
+        <div class='itin-button'>
+            <button>Generate Directions</button>
+            
+
+        </div>
+        <map-search />
     </div>
 </template>
 
 <script>
-
+ import MapSearch from "../components/MapSearch"
+ 
+ import LandmarksService from "../services/LandmarksService"
  import draggable from 'vuedraggable'
 
 
 export default {
    
     components: {
-         draggable
+         draggable,
+         MapSearch
         
     },
     data() {
         return {
-            myArray: [
-                { 
-                    name: "Location One", 
-                    id: 0,
-                    address: "123 thing street",
-                    type: 'park',
-                    thumbsUp: 5
-                },
-               { 
-                    name: "Location Two", 
-                    id: 1,
-                    address: "456 thing street",
-                    type: 'landmark',
-                    thumbsUp: 10
-                },
-                { 
-                    name: "Location Three", 
-                    id: 2,
-                    address: "789 thing street",
-                    type: 'city feature',
-                    thumbsUp: 12
-                },
-            ],
+            // myArray: [
+            //     { 
+            //         name: "Location One", 
+            //         id: 0,
+            //         address: "123 thing street",
+            //         type: 'park',
+            //         thumbsUp: 5
+            //     },
+            //    { 
+            //         name: "Location Two", 
+            //         id: 1,
+            //         address: "456 thing street",
+            //         type: 'landmark',
+            //         thumbsUp: 10
+            //     },
+            //     { 
+            //         name: "Location Three", 
+            //         id: 2,
+            //         address: "789 thing street",
+            //         type: 'city feature',
+            //         thumbsUp: 12
+            //     },
+            // ],
             oldIndex: '',
             newIndex: '',
             counter: 2,
             thumbsCounter: 0,
-            active: false
+            active: false,
+            landmarks: [],
         }
     },
     methods: {
@@ -92,8 +99,17 @@ export default {
         mouseOver(){
             this.active = !this.active;
             this.class="thumbs:hover";   
-        }
-    }
+        },
+
+    },
+    created(){
+        //  ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
+        //     this.itineraries.id = response.data;
+        // });
+    LandmarksService.getLandmarksForItinerary(this.$route.params.id).then( (response) => {
+      this.landmarks = response.data;
+    })
+  }
     
 }
 </script>
@@ -111,7 +127,7 @@ export default {
     width: 100%;
     position: absolute;
     right: 0;
-    background-color: rgba(17, 171, 243, 0.87) !important;
+    
     height: 100vh;
     padding-left: 50px;
     padding-right: 50px;
@@ -119,7 +135,12 @@ export default {
 .thumbs {
     height: 20px;
     width: 20px;
-    ;
+    padding-block-start: 2px;
+    border: .5px solid #ddd;
+    background: lightgray;
+    display: inline-block;
+   margin: 0 10px 0 10px;
+  
 }
 .thumbs:hover {
   background: green;
