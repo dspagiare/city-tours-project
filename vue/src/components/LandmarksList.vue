@@ -36,10 +36,19 @@
     </tbody>
   </table>
    </div>
+   <div class="buttons">
+    <button class="add-landmark">Add Landmark</button>
+     <label for="cars">Select an Itinerary:</label>
+      <select name="itineraries" id="itineraries" >
+        <option value="itinerary" v-for="itinerary in itineraries" :key="itinerary.id">{{itinerary.name}}</option>
+
+      </select>
+  </div>
   </div>
 </template>
 
 <script>
+import ItineraryService from "../services/ItineraryService.js";
 import landmarksService from '../services/LandmarksService.js'
 
 export default {
@@ -63,6 +72,9 @@ export default {
         },
     },  
    created() {
+     ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
+            this.itineraries = response.data;
+        });
             landmarksService.list().then( (response) => {
                 this.landmarks = response.data;
             });
@@ -110,5 +122,9 @@ export default {
   height: 100vh;
   padding-left: 50px;
   padding-right: 50px;
+}
+.buttons {
+  border: 5px black;
+  margin: 10px;
 }
 </style>

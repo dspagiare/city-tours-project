@@ -90,10 +90,6 @@ export default {
 };
 </script>
 
-<<<<<<< HEAD
-<style>
-
-=======
 <style scoped>
 #register {
   display: block;
@@ -114,5 +110,4 @@ button {
 button:hover {
   opacity: 0.8;
 }
->>>>>>> 6c8846288b9e065d6459d18d439feee69c82ec24
 </style>

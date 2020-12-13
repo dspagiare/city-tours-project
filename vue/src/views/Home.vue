@@ -7,7 +7,8 @@
     <p>Below is a list of landmarks based on popularity, Click "Create Itinerary" in the Navigation bar to start building your route! </p>
     <landmarks-list />
     <router-view />
-    <itinerary-details />
+    <router-view name="b"/>
+    
   </div> 
     
     <navigation-bar />
@@ -17,19 +18,16 @@
 </template>
 
 <script>
-import ItinerariesList from '../components/ItinerariesList.vue'
+
 import LandmarksList from '../components/LandmarksList.vue';
 import NavigationBar from '../components/NavigationBar.vue';
-import Itinerary from '../views/Itinerary.vue';
-import ItineraryDetails from '../components/ItineraryDetails.vue';
+
 
 export default {
   components: { 
     NavigationBar,
     LandmarksList,
-    ItinerariesList,
-    Itinerary,
-    ItineraryDetails
+   
     },        
   name: "home",
  

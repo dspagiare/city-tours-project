@@ -25,9 +25,9 @@ import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
 
 
-@RequestMapping("/landmarks")
+
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 
 public class LandmarksController {
 //	private UserDAO userDAO;
@@ -42,9 +42,13 @@ public class LandmarksController {
 		this.landmarksDAO = landmarksDAO;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/landmarks", method = RequestMethod.GET)
 	public List<Landmark> getLandmarks() {
 		return landmarksDAO.findAll();
+	}
+	@RequestMapping(value="/landmarks/id", method = RequestMethod.GET)
+	public List<Landmark> getLandmarksById(@PathVariable int id) {
+		return landmarksDAO.getLandmarksForItinerary(id);
 	}
 	 /**
      * Finds the user by username and returns the id

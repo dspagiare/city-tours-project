@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!--<div>
     <table class="table table-striped table-hover" >
       <thead>
         <tr>
@@ -27,7 +27,7 @@
     </tbody>
   </table>
 
-  </div>
+  </div> 
   
 </template>
 
@@ -46,7 +46,7 @@ export default {
     })
   }
 }
-</script>
+</script> -->
 
 <style>
  
