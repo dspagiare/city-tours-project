@@ -47,9 +47,10 @@ export default {
     },        
  name: "landmarks",
  data: () => ({
-        landmarks: [],
+    landmarks: [],
 		selected: [],
-		selectAll: false
+    selectAll: false,
+    isLoading: true,
 	}),
 	methods: {
 		select() {
@@ -86,7 +87,7 @@ export default {
  .pane {
     display: inline-block;
     overflow-y: scroll;
-    max-height:450px;
+    max-height:400px;
   }
  p{
    padding-bottom: 10px;
@@ -97,9 +98,7 @@ export default {
   margin: 0 auto;
   padding-left: 50px;
   padding-right: 50px;
-  color: antiquewhite;  
-  font-family: Avenir, Helvetica, san-serif;
-  
+  color: antiquewhite; 
   overflow: visible;
   z-index: 100;
 }
