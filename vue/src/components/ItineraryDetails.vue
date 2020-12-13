@@ -1,81 +1,91 @@
 <template>
-  <div>
-    <!-- <button class = "btn-block" v-on:click="showForm= !showForm">Edit Itinerary</button>
-        <form  v-if ="showForm" v-on:submit.prevent="saveItinerary">
-            <input class = "form-control" type ="text" placeholder="Enter New Itinerary Name" v-model='newItinerary.name'/>
-            <input class = "form-control" type ="text" placeholder="Enter Date Of Yinzer Tour" v-model='newItinerary.itineraryDate'/>
-            <input type="submit" v-on:submit.prevent="saveItinerary" class="btn-submit">
-            <button v-on:click="showForm = !showForm" class="btn-cancel">Cancel</button>
-        </form>
-        <div v-for="itinerary in itineraries" v-bind:key="itinerary.id">
-               <router-link :to="`/${itinerary.id}`" tag="button" class="btn-itinName">{{ itinerary.name }}</router-link>
-     -->
+  <!--<div>
+    <table class="table table-striped table-hover" >
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th>Location Name</th>
+          <th>Location Type</th>
+          <th>Address</th>
+          <th>Up Votes</th>
+        </tr>
+      </thead>
+    <tbody >
+      <tr v-for="landmark in landmarks" v-bind:key="landmark.id">
+        <td>
+            <label class="form-checkbox">
+                <input type="checkbox" :value="landmark.id" v-model="selected">
+					<i class="form-icon"></i>
+            </label>
+		</td>
+        <td>{{landmark.id}}</td>
+        <td>{{landmark.name}}</td>
+        <td>{{landmark.type}}</td>
+        <td>{{landmark.address}}</td>
+        <td>{{landmark.thumbsUp}}</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <button class="btn-block" v-on:click="showForm = !showForm">
-      Edit Itinerary
-    </button>
-    <form v-if="showForm" v-on:submit.prevent="update()">
-      <div class="field">
-        <label for="itinerary_name">Title</label>
-        <input
-          type="text"
-          v-model="itinerary_name"
-          placeholder="Enter New Itinerary Name"
-        />
-        <label for="itinerary_date">Date</label>
-        <input
-          type="text"
-          v-model="itinerary_date"
-          placeholder="Enter New Date Of Yinzer Tour"
-        />
-      </div>
-      <div class="actions">
-        <button type="submit" class="btn-submit">Save Changes</button>
-      </div>
-      <button v-on:click="showForm = !showForm" class="btn-cancel">
-        Cancel
-      </button>
-    </form>
-  </div>
+  </div> 
+  
 </template>
 
 <script>
-import ItineraryService from "../services/ItineraryService";
+import LandmarksService from '../services/LandmarksService'
 export default {
-  name: "itinerary-details",
-  props: ["itinerary_id"],
-  data() {
-    return {
-      itinerary: {
-        itinerary_name: "",
-        itinerary_date: "",
-      },
+  
+  data: () => ({
 
-      showForm: false,
-    };
-  },
-  created() {
-    ItineraryService.getItineraryDetails().then((response) => {
-      this.itinerary = response.data;
-    });
-  },
-  methods: {
-    update() {
-      const itinerary = {
-        id: this.itinerary_id,
-        title: this.itinerary_name,
-        date: this.itinerary_date,
-      };
-      // call topic service update method
-      ItineraryService.editItinerary(itinerary).then((response) => {
-        if (response.status === 200) {
-          this.$router.push("/");
-        }
-      });
-    },
-  },
-};
-</script>
+    landmarks: [],
+  }),
+
+  created(){
+    LandmarksService.getLandmarksForItinerary.then( (response) => {
+      this.landmarks = response.data;
+    })
+  }
+}
+</script> -->
 
 <style>
+ 
+ h1 {
+   padding-top: 20px;
+   padding-bottom: 20px;
+ }
+ h2 {
+   padding-bottom: 20px;
+ }
+ .table {
+   background-color: lightgray;
+   
+ }
+ .pane {
+    display: inline-block;
+    overflow-y: scroll;
+    max-height:400px;
+  }
+ p{
+   padding-bottom: 10px;
+ }
+.landmarks {
+  
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 50px;
+  padding-right: 50px;
+  color: antiquewhite; 
+  overflow: visible;
+  z-index: 100;
+}
+.main {
+  width: 100%;
+  position: absolute;
+  right: 0;
+  background-color: rgba(17, 171, 243, 0.87) !important;
+  height: 100vh;
+  padding-left: 50px;
+  padding-right: 50px;
+}
 </style>

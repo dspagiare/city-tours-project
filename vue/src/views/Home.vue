@@ -6,8 +6,11 @@
     <h2>Welcome to Yinzer Tours!  Designed to help you plan a day of sight seeing throughout the beautiful city of Pittsburgh, PA</h2>
     <p>Below is a list of landmarks based on popularity, Click "Create Itinerary" in the Navigation bar to start building your route! </p>
     <landmarks-list />
-    <itineraries-list />
+    <router-view />
+    <router-view name="b"/>
+    
   </div> 
+    
     <navigation-bar />
     
   </div>
@@ -15,15 +18,16 @@
 </template>
 
 <script>
-import ItinerariesList from '../components/ItinerariesList.vue'
+
 import LandmarksList from '../components/LandmarksList.vue';
 import NavigationBar from '../components/NavigationBar.vue';
+
 
 export default {
   components: { 
     NavigationBar,
     LandmarksList,
-    ItinerariesList
+   
     },        
   name: "home",
  

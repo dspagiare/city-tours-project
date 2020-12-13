@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +52,8 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 	@Override
 	public List<Itinerary> getAllItineraries(String userName) {
 		List<Itinerary> itineraryList = new ArrayList<>();
-		String sql = "SELECT  name, itinerary_id FROM itineraries "
-				+ "INNER JOIN users ON users.user_id = itineraries.user_id WHERE users.username = ? ";
+		String sql = "SELECT * FROM itineraries "+
+				"INNER JOIN users ON users.user_id = itineraries.user_id WHERE users.username = ? ";
 
 		SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userName);
 		while (result.next()) {
@@ -104,7 +105,19 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 
 	}
 
-	@Override
+//	@Override
+//	public Itinerary createItinerary(Itinerary newItinerary, String userName) {
+//		
+////		String sqlGetID ="Select "
+////		
+////		String sql = "INSERT INTO itineraries (user_id, itinerary_id, itinerary_name, itinerary_date) VALUES(?, ?, ?, ?)";
+//		
+//		String sql = "INSERT INTO itineraries (user_id, itinerary_id, itinerary_name, itinerary_date) VALUES((SELECT user_id FROM users WHERE username= ?),?, ?, ?)";
+//
+//		newItinerary.setItinerary_id(getNextItineraryId());
+//		 
+//		jdbcTemplate.update(sql, userName, newItinerary.getItinerary_id(), newItinerary.getName(), newItinerary.getItinerary_date());
+		
 	public void deleteLandmarkFromItinerary(Integer id, Integer landId, String userName) {
 
 		List<Itinerary> itineraryList = getAllItineraries(userName);
@@ -135,7 +148,16 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 			}
 		}
 
+
 	}
+	
+//	@Override
+//	public Itinerary createItinerary(Itinerary newItinerary, Integer userId) {
+//		String sql = "INSERT INTO itineraries (user_id, itinerarys_id, itinerary_name, itinerary_date) VALUES(?,?, ?, ?)";
+//		newItinerary.setItinerary_id(getNextItineraryId());
+//		jdbcTemplate.update(sql, userId, newItinerary.getItinerary_id(), newItinerary.getName(), newItinerary.getItinerary_date() );
+//		return newItinerary;
+//	}
 
 	private Itinerary mapRowToItinerary(SqlRowSet results) {
 		Itinerary myItinerary = new Itinerary();
