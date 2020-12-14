@@ -75,10 +75,10 @@ public class ItineraryController {
 	  }
 	  
 	    
-	  @RequestMapping(value = "/itineraries", method = RequestMethod.PUT)
-	    public void updateItinerary(@RequestBody Itinerary myItinerary, Principal principal)  {
+	  @RequestMapping(value = "/itineraries/{id}", method = RequestMethod.PUT)
+	    public void updateItinerary( @PathVariable Integer id,@RequestBody Itinerary myItinerary, Principal principal)  {
 	    	
-	    	itineraryDAO.updateItinerary(myItinerary, principal.getName()); 
+	    	itineraryDAO.updateItinerary(id, myItinerary, principal.getName()); 
 	  }
 	  @RequestMapping(value = "/itineraries", method = RequestMethod.POST)
 	  public Itinerary addItinerary(@RequestBody Itinerary myItinerary, Principal principal) {
