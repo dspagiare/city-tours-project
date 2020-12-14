@@ -35,15 +35,15 @@
                 </tr>
             </draggable>  
         </table>
-         
-       
-        <div class='itin-button'>
-            <button class="btn btn-outline-info">Generate Directions</button>
-            <button class="btn btn-outline-info" @click='deleteItinerary()' >Delete Itinerary</button>
 
-        </div>
+                <div class='itin-button'>
+                    <button class="btn btn-outline-info">Generate Directions</button>
+                    <button class="btn btn-outline-info" @click='deleteItinerary()' >Delete Itinerary</button>
+                </div>
             </div>
+        <div class="map-search">
         <map-search /> 
+        </div>
     </div>
 </template>
 
@@ -127,37 +127,35 @@ export default {
 
 <style scoped>
 h1 {
-   padding-top: 20px;
    padding-bottom: 40px;
  }
  p{
    padding-bottom: 40px;
  }
 .itinerary-list {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    padding: 4em;
-    cursor: move;
     width: 100%;
-    position: absolute;
     right: 0;
-    border-width: 2px;
     border-color: black;
-    height: 100vh;
     padding-left: 50px;
     padding-right: 50px;
+    margin-top: 100px;
+}
+.map-search{
+    height: 100vh;
+    overflow: hidden;
+}
+.isNotLoading {
+    cursor: move;
 }
 .thumbs {
     height: 20px;
     width: 20px;
     padding-block-start: 2px;
     border: .5px solid black;
-  
+    border-radius: 3px;
     display: inline-block;
-   margin: 0 10px 0 10px;
-  
+    margin: 0 10px 0 10px;
 }
 .thumbs:hover {
   background: blue;

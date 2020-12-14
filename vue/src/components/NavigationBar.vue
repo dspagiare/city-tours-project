@@ -3,7 +3,7 @@
     <div id = "sideBar">
        
        
-        <button class = "btn btn-primary" v-on:click="showForm= !showForm">Add New Itinerary</button>
+        <button class = "btn btn-primary" v-on:click="showForm= !showForm">ADD NEW ITINERARY</button>
         <form  v-if ="showForm" v-on:submit.prevent="saveItinerary">
             <input class = "form-control" type ="text" placeholder="Enter New Itinerary Name" v-model='newItinerary.name'/>
             <input type = "date" name ="Tour Date" v-model="newItinerary.itinerary_date"/>
@@ -70,21 +70,21 @@ export default {
     background: green;
     flex-direction: column;
     align-items: center;
-    height: 100px;
-    width: 200px;
-    line-height: 85px;
-    border-color: black;
+    height: 80px;
+    width: 250px;
+    line-height: 65px;
+    border-color:white;
     font-weight: bold;
     font-size: 20px;
 }
 .btn.btn-primary.btn-lg {
     margin-top: 20px;
-    height: 100px;
+    height: 80px;
     width: 200px;
-    line-height: 80px;
-    background: gold;
-    color: black;
-    border-color: black;
+    line-height: 65px;
+    background: #E14A2A;
+    color: white;
+    border-color: white;
     align-content: center;
 }
 .btn-cancel {
@@ -99,7 +99,7 @@ export default {
 }
 div#sideBar {  
     height: 100%;
-    width: 20%;  
+    width: 15%;  
     position: fixed;  
     z-index: 1;
     left: 0;
@@ -107,13 +107,13 @@ div#sideBar {
     padding-bottom: 10px;  
     overflow-x: hidden;  
     border-right: solid lightgrey 1px;
-    background-color: white;
+    background-image: url("../assets/incline.jpg");
+    
     border-block-color: black;
     border-bottom-color: black;
     border-right-color: black;
     display: flex;
     flex-direction: column;
-    
     align-items: center;
     }
     .form-control {
