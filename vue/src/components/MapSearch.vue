@@ -1,5 +1,5 @@
 <template>
-  <div class="ui grid">
+  <div class="ui_grid">
     <div class="six wide column">
       <form class="ui segment large form">
         <div class="ui segment">
@@ -179,6 +179,8 @@ export default {
 </script>
 
 <style scoped>
-
+.ui_grid {
+  margin-top: 20px;
+}
 
 </style>
