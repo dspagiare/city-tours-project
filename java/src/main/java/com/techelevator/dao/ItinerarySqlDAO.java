@@ -38,7 +38,7 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 			Integer thisID = value.getItinerary_id();
 
 			if (id == thisID) {
-				String sql = "SELECT name, itinerary_date FROM itineraries WHERE itinerary_id = ?";
+				String sql = "SELECT * FROM itineraries WHERE itinerary_id = ?";
 
 				SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 				while (results.next()) {
@@ -64,17 +64,17 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 	}
 
 	@Override
-	public void updateItinerary(Itinerary itineraryBody, String userName) {
+	public void updateItinerary(Integer id, Itinerary itineraryBody, String userName) {
 		List<Itinerary> itineraryList = getAllItineraries(userName);
 
 		for (Itinerary value : itineraryList) {
 			Integer thisID = value.getItinerary_id();
 
 			if (itineraryBody.getItinerary_id() == thisID) {
-				String sql = "UPDATE itineraries SET name=?, itinerary_date = ? WHERE itinerary_id=?";
+				String sql = "UPDATE itineraries SET itinerary_name=?, itinerary_date = ? WHERE itinerary_id=?";
 
 				jdbcTemplate.update(sql, itineraryBody.getName(), itineraryBody.getItinerary_date(),
-						itineraryBody.getItinerary_id());
+						id);
 			}
 		}
 	}
@@ -105,59 +105,46 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 
 	}
 
-//	@Override
-//	public Itinerary createItinerary(Itinerary newItinerary, String userName) {
-//		
-////		String sqlGetID ="Select "
-////		
-////		String sql = "INSERT INTO itineraries (user_id, itinerary_id, itinerary_name, itinerary_date) VALUES(?, ?, ?, ?)";
-//		
-//		String sql = "INSERT INTO itineraries (user_id, itinerary_id, itinerary_name, itinerary_date) VALUES((SELECT user_id FROM users WHERE username= ?),?, ?, ?)";
-//
-//		newItinerary.setItinerary_id(getNextItineraryId());
-//		 
-//		jdbcTemplate.update(sql, userName, newItinerary.getItinerary_id(), newItinerary.getName(), newItinerary.getItinerary_date());
-		
+
 	public void deleteLandmarkFromItinerary(Integer id, Integer landId, String userName) {
 
-		List<Itinerary> itineraryList = getAllItineraries(userName);
-
-		for (Itinerary value : itineraryList) {
-			Integer thisID = value.getItinerary_id();
-			if (id == thisID) {
+//		List<Itinerary> itineraryList = getAllItineraries(userName);
+//
+//		for (Itinerary value : itineraryList) {
+//			Integer thisID = value.getItinerary_id();
+//			if (id == thisID) {
 				String sql = "DELETE FROM itineraries_landmarks WHERE itinerary_id=? AND landmark_id=?";
 
 				jdbcTemplate.update(sql, id, landId);
-			}
-		}
+//			}
+//		}
 
 	}
 	
 	@Override
-	public void addLandmarkToItinerary(Integer id, Integer landId, String userName) {
+	public void addLandmarkToItinerary(Integer id, List<Integer> landId, String userName) {
 
-		List<Itinerary> itineraryList = getAllItineraries(userName);
-
-		for (Itinerary value : itineraryList) {
-			Integer thisID = value.getItinerary_id();
-			if (id == thisID) {
+//		List<Itinerary> itineraryList = getAllItineraries(userName);
+//
+//		for (Itinerary value : itineraryList) {
+//			Integer thisID = value.getItinerary_id();
+//			if (id == thisID) {
 				
-				String sql = "INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES (?,?)";
+		for(Integer valueInteger : landId) {
+			
+			String sql = "INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES ( ?,?)";
+			
+			jdbcTemplate.update(sql, valueInteger, id);
 
-				jdbcTemplate.update(sql, id, landId);
-			}
 		}
+				
+				
+
 
 
 	}
 	
-//	@Override
-//	public Itinerary createItinerary(Itinerary newItinerary, Integer userId) {
-//		String sql = "INSERT INTO itineraries (user_id, itinerarys_id, itinerary_name, itinerary_date) VALUES(?,?, ?, ?)";
-//		newItinerary.setItinerary_id(getNextItineraryId());
-//		jdbcTemplate.update(sql, userId, newItinerary.getItinerary_id(), newItinerary.getName(), newItinerary.getItinerary_date() );
-//		return newItinerary;
-//	}
+
 
 	private Itinerary mapRowToItinerary(SqlRowSet results) {
 		Itinerary myItinerary = new Itinerary();

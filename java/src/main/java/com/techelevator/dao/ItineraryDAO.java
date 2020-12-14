@@ -24,7 +24,7 @@ public interface ItineraryDAO {
 
 	void deleteItinerary(Integer id, String userName);
 
-	void updateItinerary(Itinerary itineraryBody, String userName);
+	void updateItinerary(Integer id,Itinerary itineraryBody, String userName);
 
 	Itinerary createItinerary(Itinerary newItinerary, String userName);
 	
@@ -32,7 +32,7 @@ public interface ItineraryDAO {
 
 	void deleteLandmarkFromItinerary(Integer id,Integer landId, String userName);
 
-	void addLandmarkToItinerary(Integer id, Integer landId, String userName);
+	void addLandmarkToItinerary(Integer id, List<Integer> landId, String userName);
 
 	
 	

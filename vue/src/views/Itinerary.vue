@@ -1,10 +1,8 @@
 <template>
-  <div class="main">
-    <h1>Details for Itinerary *ITINERARY NAME*:</h1>
-    <p>
-      Add or Remove landmarks, or change your itinerary's starting location here
-    </p>
-    <!-- <itinerary-details /> -->
+  
+    <div class ="main">
+
+
     <itineraries-list />
   </div>
 </template>
@@ -37,7 +35,8 @@ p {
   width: 100%;
   margin-top: 100px;
   right: 0;
-
+  border-color: black;
+  border-width: 10px;
   height: 100vh;
   padding-left: 50px;
   padding-right: 50px;

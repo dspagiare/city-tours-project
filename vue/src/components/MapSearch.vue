@@ -20,7 +20,7 @@
             <div class="two fields">
               <div class="field">
                 <select v-model="type">
-                  <option value="restaurant">Landmark</option>
+                  <option value="museum">Landmark</option>
                 </select>
               </div>
               <div class="field">
@@ -33,7 +33,7 @@
               </div>
             </div>
           </div>
-          <button class="ui button" v-on:click="findNearByLocations">
+          <button class="ui button" v-on:click.prevent="findNearByLocations">
             Find nearby locations
           </button>
         </div>
@@ -106,8 +106,8 @@ export default {
       const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${
         this.lat
       },${this.lng}&type=${this.type}&radius=${this.radius *
-        1000}&key=AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw
-      }`;
+        1000}&key=AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw`;
+      console.log(URL);
       axios
         .get(URL)
         .then((response) => {
@@ -120,33 +120,33 @@ export default {
           console.log(error.message);
         });
     },
-    // async getStreetAddressFrom(lat, long) {
-    //   try {
-    //     let { data } = await axios.get(
-    //       "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-    //         lat +
-    //         "," +
-    //         long +
-    //         "&key=AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw"
-    //     );
-    //     if (data.error_message) {
-    //       console.log(data.error_message);
-    //     } else {
-    //       this.address = data.results[0].formatted_address;
-    //     }
-    //   } catch (error) {
-    //     console.log(error.message);
-    //   }
-    // },
+    async getStreetAddressFrom(lat, long) {
+      try {
+        let { data } = await axios.get(
+          "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+            lat +
+            "," +
+            long +
+            "&key=AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw"
+        );
+        if (data.error_message) {
+          console.log(data.error_message);
+        } else {
+          this.address = data.results[0].formatted_address;
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
     locatorButtonPressed() {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
         this.displayGoogleMap();
-        // this.getStreetAddressFrom(
-        //   position.coords.latitude,
-        //   position.coords.longitude
-        // );
+        this.getStreetAddressFrom(
+          position.coords.latitude,
+          position.coords.longitude
+        );
       });
       (error) => {
         console.log(error.message);
@@ -179,6 +179,8 @@ export default {
 </script>
 
 <style scoped>
-
+.ui.grid {
+  margin-top: 20px;
+}
 
 </style>

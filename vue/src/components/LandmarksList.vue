@@ -1,9 +1,12 @@
 <template>
 
   <div class="landmarks">
-   <div class="text-uppercase text-bold">id selected: {{selected}}</div>
-   <div class="pane">
-   <table class="table table-striped table-hover" >
+    <div class="isloading" >
+        <img src="../assets/giphy.gif" v-if="isLoading" />
+    </div>
+    <div class="isNotLoading" v-if="!isLoading">
+   <div  class="pane">
+   <table class="table table-hover" >
      <thead>
         <tr>
 			<th>
@@ -37,13 +40,15 @@
   </table>
    </div>
    <div class="buttons">
-    <button class="add-landmark">Add Landmark</button>
-     <label for="cars">Select an Itinerary:</label>
-      <select name="itineraries" id="itineraries" >
-        <option value="itinerary" v-for="itinerary in itineraries" :key="itinerary.id">{{itinerary.name}}</option>
+    <button class="btn btn-outline-primary" v-on:click="addLandmarkToItin">Add Landmark</button>
+     <label for="itineraries">Select an Itinerary:</label>
+      <select name="itineraries" id="itineraries" v-model="selectedItinerary" >
+        <option></option> 
+        <option v-for="itinerary in itineraries" :key="itinerary.id" >{{itinerary.itinerary_id}}</option>
 
       </select>
   </div>
+    </div>
   </div>
 </template>
 
@@ -60,6 +65,10 @@ export default {
 		selected: [],
     selectAll: false,
     isLoading: true,
+    itineraries: [],
+    selectedItinerary: 0
+
+
 	}),
 	methods: {
 		select() {
@@ -70,20 +79,26 @@ export default {
 				}
 			}
         },
+        
+    addLandmarkToItin() {
+      ItineraryService.addLandmarkToItinerary(this.selected, this.selectedItinerary, this.$store.state.currentUser)
+      }
     },  
    created() {
-     ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
-            this.itineraries = response.data;
-        });
+            
+            ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
+                this.itineraries = response.data;
+            });
             landmarksService.list().then( (response) => {
                 this.landmarks = response.data;
+                this.isLoading = false;
             });
         }
 };
 </script>
 
 <style scoped>
- 
+
 
  h1 {
    padding-top: 20px;
@@ -92,25 +107,17 @@ export default {
  h2 {
    padding-bottom: 20px;
  }
- .table {
-   background-color: lightgray;
-   
- }
+
  .pane {
     display: inline-block;
     overflow-y: scroll;
     max-height:400px;
   }
- p{
-   padding-bottom: 10px;
- }
+
 .landmarks {
-  
   max-width: 1100px;
   margin: 0 auto;
-  padding-left: 50px;
-  padding-right: 50px;
-  color: antiquewhite; 
+  color:black; 
   overflow: visible;
   z-index: 100;
 }
@@ -118,13 +125,16 @@ export default {
   width: 79%;
   position: absolute;
   right: 0;
-  background-color: rgba(17, 171, 243, 0.87) !important;
   height: 100vh;
-  padding-left: 50px;
-  padding-right: 50px;
+
 }
 .buttons {
   border: 5px black;
   margin: 10px;
+  padding-left: 20px;
+  display: flex;
+}
+.btn.btn-outline-primary {
+  margin-right: 20px;
 }
 </style>

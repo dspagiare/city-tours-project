@@ -7,7 +7,7 @@
     <p>Below is a list of landmarks based on popularity, Click "Create Itinerary" in the Navigation bar to start building your route! </p>
     <landmarks-list />
     <router-view />
-    <router-view name="b"/>
+   
     
   </div> 
     
@@ -69,10 +69,11 @@ export default {
   z-index: 100;
 }
 .main {
+  color: black;
   width: 79%;
   position: absolute;
   right: 0;
-  background-color: rgba(17, 171, 243, 0.87) !important;
+  background-color:white !important;
   height: 100vh;
   padding-left: 50px;
   padding-right: 50px;
