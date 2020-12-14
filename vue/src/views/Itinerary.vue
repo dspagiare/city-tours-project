@@ -1,9 +1,8 @@
 <template>
   
     <div class ="main">
-
-
     <itineraries-list />
+   
     </div>
 </template>
 
@@ -12,7 +11,7 @@
 import ItinerariesList from '../components/ItinerariesList.vue'
 
 export default {
-  components: {ItinerariesList,  },
+  components: {ItinerariesList },
 
 }
 
@@ -32,8 +31,9 @@ export default {
    padding-bottom: 10px;
  }
 .main {
+  
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  overflow: visible;
+  
 }
 </style>

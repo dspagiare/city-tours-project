@@ -36,12 +36,14 @@
             </draggable>  
         </table>
 
-        <div class='itin-button'>
-            <button class="btn btn-outline-info">Generate Directions</button>
-            <button class="btn btn-outline-info" @click='deleteItinerary()' >Delete Itinerary</button>
-        </div>
+                <div class='itin-button'>
+                    <button class="btn btn-outline-info">Generate Directions</button>
+                    <button class="btn btn-outline-info" @click='deleteItinerary()' >Delete Itinerary</button>
+                </div>
             </div>
+        <div class="map-search">
         <map-search /> 
+        </div>
     </div>
 </template>
 
@@ -128,7 +130,11 @@ h1 {
     border-color: black;
     padding-left: 50px;
     padding-right: 50px;
-    
+    margin-top: 100px;
+}
+.map-search{
+    height: 100vh;
+    overflow: hidden;
 }
 .isNotLoading {
     cursor: move;
@@ -138,6 +144,7 @@ h1 {
     width: 20px;
     padding-block-start: 2px;
     border: .5px solid black;
+    border-radius: 3px;
     display: inline-block;
     margin: 0 10px 0 10px;
 }

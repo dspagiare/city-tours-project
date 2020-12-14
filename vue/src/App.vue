@@ -19,17 +19,16 @@ export default {
 </script >
 <style > 
 body{
-  margin-top: 100px;
   
-        overflow-x:hidden;
-        overflow-y:hidden;
-
+  overflow-x:hidden;
+  overflow-y:hidden;
 }
 #app{
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin-top: 100px;
+    
     
   
 }

@@ -53,7 +53,8 @@ export default {
   font-family: Avenir, Helvetica, san-serif;
 }
 .main {
-  overflow-y: scroll;
+  height: 100vh;
+  overflow:scroll;
   color: black;
   width: 85%;
   position:absolute;

@@ -116,7 +116,7 @@ export default {
 .landmarks {
   padding-left: 50px;
   color:black; 
-  height: 80vh;
+  
 }
 .buttons {
   border: 5px black;
