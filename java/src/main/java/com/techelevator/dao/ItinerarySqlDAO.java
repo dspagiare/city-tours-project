@@ -128,8 +128,7 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 				String sql = "DELETE FROM itineraries_landmarks WHERE itinerary_id=? AND landmark_id=?";
 
 				jdbcTemplate.update(sql, id, landId);
-//			}
-//		}
+//	w	
 
 	}
 	

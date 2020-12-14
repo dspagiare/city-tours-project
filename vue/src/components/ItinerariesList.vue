@@ -100,7 +100,9 @@ export default {
         deleteTableRow(landId) { 
             this.counter--;
             //this.landmarks.splice(id, 1);
-            ItineraryService.deleteLandmarkFromItinerary(this.$route.params.id, landId, this.$store.state.user)      
+            ItineraryService.deleteLandmarkFromItinerary(this.$route.params.id, landId, this.$store.state.user).then(
+                this.$router.push("/")
+            )      
         },
        
         mouseOver(){
@@ -109,7 +111,6 @@ export default {
         },
         deleteItinerary() {
             ItineraryService.deleteItinerary(this.$route.params.id, this.$store.state.user).then(
-                this.$router.push("/")
             )
         }
 
