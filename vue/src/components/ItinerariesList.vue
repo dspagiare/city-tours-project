@@ -140,7 +140,8 @@ export default {
     width: 100%;
     position: absolute;
     right: 0;
-    
+    border-width: 2px;
+    border-color: black;
     height: 100vh;
     padding-left: 50px;
     padding-right: 50px;

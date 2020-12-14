@@ -99,7 +99,9 @@ export default {
 </script>
 
 <style scoped>
- 
+ .add-landmark{
+   margin-right: 20px
+ }
 
  h1 {
    padding-top: 20px;
@@ -126,7 +128,7 @@ export default {
   margin: 0 auto;
   padding-left: 50px;
   padding-right: 50px;
-  color: antiquewhite; 
+  color:black; 
   overflow: visible;
   z-index: 100;
 }
