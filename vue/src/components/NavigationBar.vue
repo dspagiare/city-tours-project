@@ -61,9 +61,10 @@ export default {
 <style>
 .btn-itinName {
     margin-top: 10px;
-    width: 150px;
-    background-color:yellow;
+    width: 100%;
+    background-color: gold;
     border-radius: 4px;
+    border-color: black;
 }
 .btn-cancel {
     color: #fff;
@@ -86,7 +87,10 @@ div#sideBar {
     padding-bottom: 20px;  
     overflow-x: hidden;  
     border-right: solid lightgrey 1px;
-    background-color: salmon;
+    background-color: white;
+    border-block-color: black;
+    border-bottom-color: black;
+    border-right-color: black;
     }
     .form-control {
         display: block;

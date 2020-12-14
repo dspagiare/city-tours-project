@@ -42,7 +42,8 @@ export default {
   width: 100%;
   margin-top: 100px;
   right: 0;
-  
+  border-color: black;
+  border-width: 10px;
   height: 100vh;
   padding-left: 50px;
   padding-right: 50px;

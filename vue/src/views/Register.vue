@@ -33,9 +33,11 @@
         required
       />
       <router-link :to="{ name: 'login' }">Have an account?</router-link>
+      <div class ="butt-space">
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
+      </div>
     </form>
   </div>
 </template>
@@ -91,6 +93,11 @@ export default {
 </script>
 
 <style scoped>
+.butt-space {
+  padding-top: 20px;
+  padding-left: 114px;
+  padding-bottom: 20px;
+}
 #register {
   display: block;
   width: 100%;
