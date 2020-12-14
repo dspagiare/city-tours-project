@@ -49,8 +49,8 @@ import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
 
 
-@Configuration
-@CrossOrigin
+
+@CrossOrigin(origins="http://localhost:8081")
 @PreAuthorize("isAuthenticated()")
 @RestController
 public class ItineraryController {
@@ -69,7 +69,7 @@ public class ItineraryController {
 
 		}
 	  
-	  @RequestMapping(value = "/itineraries/id", method = RequestMethod.GET)
+	  @RequestMapping(value = "/itineraries/{id}", method = RequestMethod.GET)
 	  public Itinerary itineraryById(@PathVariable Integer  id, Principal principal) {
 		  return itineraryDAO.getItineraryById(id,principal.getName() );
 	  }
@@ -86,17 +86,17 @@ public class ItineraryController {
 	  }
 	  
 	  
-	  @RequestMapping(value = "/itineraries/id", method = RequestMethod.DELETE)
+	  @RequestMapping(value = "/itineraries/{id}", method = RequestMethod.DELETE)
 	  public void deleteItinerary(@PathVariable Integer id, Principal principal ) {
 		 itineraryDAO.deleteItinerary(id, principal.getName());
 	  }
 	  
-	  @RequestMapping(value = "/itineraries/id/landmarks/landId", method = RequestMethod.DELETE)
+	  @RequestMapping(value = "/itineraries/{id}/landmarks/landId", method = RequestMethod.DELETE)
 	  public void deleteLandmrk(@PathVariable Integer id,@PathVariable Integer landId, Principal principal ) {
 		 itineraryDAO.deleteLandmarkFromItinerary(id,landId, principal.getName());
 	  }
 	  
-	  @RequestMapping(value = "/itineraries/id/landmarks/landId", method = RequestMethod.POST)
+	  @RequestMapping(value = "/itineraries/{id}/landmarks/landId", method = RequestMethod.POST)
 	  public void addLandmark(@PathVariable Integer id, @PathVariable Integer landId,  Principal principal ) {
 		 itineraryDAO.addLandmarkToItinerary(id, landId, principal.getName());
 	  }

@@ -1,8 +1,12 @@
 <template>
 
   <div class="landmarks">
-   <div class="text-uppercase text-bold">id selected: {{selected}}</div>
-   <div class="pane">
+    <div class="isloading" >
+        <img src="../assets/giphy.gif" v-if="isLoading" />
+    </div>
+    <div class="isNotLoading" v-if="!isLoading">
+   <div  class="text-uppercase text-bold">id selected: {{selected}}</div>
+   <div  class="pane">
    <table class="table table-striped table-hover" >
      <thead>
         <tr>
@@ -44,6 +48,7 @@
 
       </select>
   </div>
+    </div>
   </div>
 </template>
 
@@ -60,6 +65,7 @@ export default {
 		selected: [],
     selectAll: false,
     isLoading: true,
+    itineraries: [],
 	}),
 	methods: {
 		select() {
@@ -72,11 +78,12 @@ export default {
         },
     },  
    created() {
-     ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
+        ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
             this.itineraries = response.data;
         });
             landmarksService.list().then( (response) => {
                 this.landmarks = response.data;
+                this.isLoading = false;
             });
         }
 };
