@@ -2,8 +2,8 @@
 
     <div class="itinerary-list">
         <div class="header">
-            
-         <h1 >Details for Itinerary :</h1>
+            <h1 >Details for Itinerary : {{this.itinerary_name}}</h1>
+
             <p>Add or Remove landmarks, or change your itinerary's starting location here</p>
         </div>
             <div class="isloading" >
@@ -55,12 +55,13 @@
 
 
 export default {
-   
+    name: "itinName",
+    props: ["itineraries"],
     components: {
          draggable,
          MapSearch
-        
     },
+    
     data() {
         return {
            
@@ -71,6 +72,7 @@ export default {
             active: false,
             landmarks: [],
             isLoading: true,
+            itinerary_name: ''
         }
     },
     methods: {
@@ -94,8 +96,8 @@ export default {
         deleteItinerary() {
             ItineraryService.deleteItinerary(this.$route.params.id, this.$store.state.user).then(
             )
-        }
-
+        },
+      
     },
     created(){
         //  ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
@@ -104,7 +106,11 @@ export default {
     LandmarksService.getLandmarksForItinerary(this.$route.params.id).then( (response) => {
       this.landmarks = response.data;
       this.isLoading = false;
-    })
+    });
+    ItineraryService.getItineraryDetails(this.$route.params.id).then((response) => {
+        this.itinerary_name = response.data.name;
+         }
+    );
   }
     
 }
