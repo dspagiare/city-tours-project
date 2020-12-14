@@ -181,6 +181,8 @@ export default {
 <style scoped>
 .ui.grid {
   margin-top: 20px;
+  height: 100hv;
+  
 }
 
 </style>
