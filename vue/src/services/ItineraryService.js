@@ -19,5 +19,11 @@ export default {
     },
     deleteItinerary(id, user) {
         return axios.delete(`/itineraries/${id}`, user);
+    },
+    addLandmarkToItinerary(id, landId, user ) {
+        return axios.post(`/itineraries/${id}/landmarks/${landId}`, user);
+    },
+    deleteLandmarkFromItinerary(id, landId, user){
+        return axios.delete(`/itineraries/${id}/landmarks/${landId}`, user);
     }
 }

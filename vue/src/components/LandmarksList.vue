@@ -41,10 +41,11 @@
   </table>
    </div>
    <div class="buttons">
-    <button class="add-landmark">Add Landmark</button>
+    <button class="add-landmark" v-on:click="addLandmarkToItin">Add Landmark</button>
      <label for="cars">Select an Itinerary:</label>
-      <select name="itineraries" id="itineraries" >
-        <option value="itinerary" v-for="itinerary in itineraries" :key="itinerary.id">{{itinerary.name}}</option>
+      <select name="itineraries" id="itineraries" v-model="selectedItinerary" >
+        <option></option> 
+        <option v-for="itinerary in itineraries" :key="itinerary.id" >{{itinerary.itinerary_id}}</option>
 
       </select>
   </div>
@@ -66,6 +67,9 @@ export default {
     selectAll: false,
     isLoading: true,
     itineraries: [],
+    selectedItinerary: 0
+
+
 	}),
 	methods: {
 		select() {
@@ -76,11 +80,16 @@ export default {
 				}
 			}
         },
+        
+    addLandmarkToItin() {
+      ItineraryService.addLandmarkToItinerary(this.selected, this.selectedItinerary, this.$store.state.currentUser)
+      }
     },  
    created() {
-        ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
-            this.itineraries = response.data;
-        });
+            
+            ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
+                this.itineraries = response.data;
+            });
             landmarksService.list().then( (response) => {
                 this.landmarks = response.data;
                 this.isLoading = false;

@@ -120,33 +120,39 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 		
 	public void deleteLandmarkFromItinerary(Integer id, Integer landId, String userName) {
 
-		List<Itinerary> itineraryList = getAllItineraries(userName);
-
-		for (Itinerary value : itineraryList) {
-			Integer thisID = value.getItinerary_id();
-			if (id == thisID) {
+//		List<Itinerary> itineraryList = getAllItineraries(userName);
+//
+//		for (Itinerary value : itineraryList) {
+//			Integer thisID = value.getItinerary_id();
+//			if (id == thisID) {
 				String sql = "DELETE FROM itineraries_landmarks WHERE itinerary_id=? AND landmark_id=?";
 
 				jdbcTemplate.update(sql, id, landId);
-			}
-		}
+//			}
+//		}
 
 	}
 	
 	@Override
-	public void addLandmarkToItinerary(Integer id, Integer landId, String userName) {
+	public void addLandmarkToItinerary(Integer id, List<Integer> landId, String userName) {
 
-		List<Itinerary> itineraryList = getAllItineraries(userName);
-
-		for (Itinerary value : itineraryList) {
-			Integer thisID = value.getItinerary_id();
-			if (id == thisID) {
+//		List<Itinerary> itineraryList = getAllItineraries(userName);
+//
+//		for (Itinerary value : itineraryList) {
+//			Integer thisID = value.getItinerary_id();
+//			if (id == thisID) {
 				
-				String sql = "INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES (?,?)";
+		for(Integer valueInteger : landId) {
+			
+			String sql = "INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES ( ?,?)";
+			
+			jdbcTemplate.update(sql, valueInteger, id);
 
-				jdbcTemplate.update(sql, id, landId);
-			}
 		}
+				
+				
+//			}
+//		}
 
 
 	}
