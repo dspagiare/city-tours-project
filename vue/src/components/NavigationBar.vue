@@ -46,17 +46,19 @@ export default {
         // // saveItinerary saves new Itinerary to DB and routes user to newItinerary's
         // details page
          saveItinerary(){
+    
              if (this.newItinerary.name === '' || this.newItinerary.itinerary_date === '') {
                 return alert("Put in the stuff before you submit");
                 
              }
              ItineraryService.saveItinerary(this.newItinerary, this.$store.state.currentUser).then((response) => {
-                 this.showForm = false;
-                 if (response.status === 201) {
-                     this.$router.push(`/itineraries/${this.newItinerary.id}`)
-                     
-                 }
+                this.showForm = false;
+                ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
+                    this.itineraries = response.data;
+            });
              })
+
+            
         },
     },
     

@@ -111,8 +111,17 @@ export default {
         this.itinerary_name = response.data.name;
          }
     );
-  }
+  },
+    // beforeUpdated() {
+    //         LandmarksService.getLandmarksForItinerary(this.$route.params.id).then( (response) => {
+    //             this.landmarks = response.data;
+    //             this.isLoading = false;
+    //         });
+    //         ItineraryService.getItineraryDetails(this.$route.params.id).then((response) => {
+    //             this.itinerary_name = response.data.name;
+    //         });
     
+    // }
 }
 </script>
 

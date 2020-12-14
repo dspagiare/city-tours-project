@@ -12,7 +12,7 @@
 import ItinerariesList from '../components/ItinerariesList.vue'
 
 export default {
-  components: {ItinerariesList,  },
+  components: {ItinerariesList},
 
 }
 
