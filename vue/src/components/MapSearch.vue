@@ -49,18 +49,28 @@
         </div>
       </div>
     </div>
-    <div class="ten wide column segemnt ui" ref="map"></div>
+    <div
+      class="ten wide column segemnt ui"
+      style="width:100%;height:400px;"
+      id="map"
+      ref="map"
+    ></div>
+    <map-loader />
   </div>
 </template>
-<script
-  defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw&libraries=places"
-></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw&libraries=places"></script>
+<script></script>
+
 <script>
+import MapLoader from "@/components/MapLoader";
 import axios from "axios";
 export default {
+  components: {
+    MapLoader,
+  },
   data() {
     return {
+      map: null,
       lat: 0,
       lng: 0,
       type: "",
@@ -69,39 +79,35 @@ export default {
       address: "",
     };
   },
+
   computed: {
     coordinates() {
       return `${this.lat}, ${this.lng}`;
     },
   },
   methods: {
-    // findNearByLocations() {
-    //   let map;
-    //   let service;
-    //   let infowindow;
-    //   function initialize() {
-    //     let loc = new google.maps.LatLng(40.440624, -79.995888);
-    //     map = new google.maps.Map(this.$ref["map"], {
-    //       center: loc,
-    //       zoom: 15,
-    //       mapTypeId: google.maps.MapTypeId.ROADMAP,
-    //     });
-    //     let request = {
-    //       location: loc,
-    //       radius: 5000,
-    //       type: ["resturant"],
-    //     };
-    //     service = new google.maps.places.PlacesService(map);
-    //     service.nearbySearch(request, callback);
-    //   }
-    //   function callback(results, status) {
-    //     if (status == google.maps.places.PlacesService.OK) {
-    //       for (let i = 0; i < results.length; i++) {
-    //         results[i].push(this.places);
-    //       }
-    //     }
-    //   }
-    // },
+    displayGoogleMap() {
+      let mapProp = {
+        center: new google.maps.LatLng(51.508742, -0.12059),
+        zoom: 15,
+      };
+      let map = new google.maps.Map(document.getElementById("map"), mapProp);
+      let infoWindow = new google.maps.InfoWindow();
+      this.places.forEach((place) => {
+        const lat = place.geometry.location.lat;
+        const lng = place.gemoetry.location.lng;
+        let marker = new google.maps.Marker({
+          position: new google.maps.LatLng(lat, lng),
+          map: map,
+        });
+        google.maps.even.addListener(marker, "click", () => {
+          infoWindow.setContent(
+            `<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`
+          );
+          infoWindow.open(map, marker);
+        });
+      });
+    },
     findNearByLocations() {
       const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${
         this.lat
@@ -142,7 +148,7 @@ export default {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
-        this.displayGoogleMap();
+
         this.getStreetAddressFrom(
           position.coords.latitude,
           position.coords.longitude
@@ -153,26 +159,21 @@ export default {
       };
     },
     displayGoogleMap() {
-      let map = new google.maps.Map(this.$ref["map"], {
-        zoom: 15,
-        center: new google.maps.address(this.address),
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-      });
-      let infoWindow = new google.maps.InfoWindow();
-      this.places.forEach((place) => {
-        const lat = place.geometry.location.lat;
-        const lng = place.gemoetry.location.lng;
-        let marker = new google.maps.Marker({
-          position: new google.maps.LatLng(lat, lng),
-          map: map,
-        });
-        google.maps.even.addListener(marker, "click", () => {
-          infoWindow.setContent(
-            `<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`
-          );
-          infoWindow.open(map, marker);
-        });
-      });
+      // let infoWindow = new google.maps.InfoWindow();
+      // this.places.forEach((place) => {
+      //   const lat = place.geometry.location.lat;
+      //   const lng = place.gemoetry.location.lng;
+      //   let marker = new google.maps.Marker({
+      //     position: new google.maps.LatLng(lat, lng),
+      //     map: map,
+      //   });
+      //   google.maps.even.addListener(marker, "click", () => {
+      //     infoWindow.setContent(
+      //       `<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`
+      //     );
+      //     infoWindow.open(map, marker);
+      //   });
+      // });
     },
   },
 };
@@ -182,5 +183,4 @@ export default {
 .ui.grid {
   margin-top: 20px;
 }
-
 </style>
