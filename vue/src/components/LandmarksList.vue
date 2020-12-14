@@ -107,26 +107,16 @@ export default {
  h2 {
    padding-bottom: 20px;
  }
-
  .pane {
     display: inline-block;
     overflow-y: scroll;
-    max-height:400px;
+    max-height:500px;
+    width: 100%;
   }
-
 .landmarks {
-  max-width: 1100px;
-  margin: 0 auto;
+  padding-left: 50px;
   color:black; 
-  overflow: visible;
-  z-index: 100;
-}
-.main {
-  width: 79%;
-  position: absolute;
-  right: 0;
-  height: 100vh;
-
+  height: 80vh;
 }
 .buttons {
   border: 5px black;
