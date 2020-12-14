@@ -1,9 +1,8 @@
 <template>
   
     <div class ="main">
-      <h1>Details for Itinerary *ITINERARY NAME*:</h1>
-      <p>Add or Remove landmarks, or change your itinerary's starting location here</p>
-    <!-- <itinerary-details /> -->
+
+
     <itineraries-list />
     </div>
 </template>
