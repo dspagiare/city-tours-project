@@ -3,68 +3,48 @@
     <div class="header">
       <h1>Details for Itinerary : {{ this.itinerary_name }}</h1>
 
-      <p>
-        Add or Remove landmarks, or change your itinerary's starting location
-        here
-      </p>
-    </div>
-    <div class="isloading">
-      <img src="../assets/giphy.gif" v-if="isLoading" />
-    </div>
-    <div class="isNotLoading" v-if="!isLoading">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Location</th>
-            <th>Type</th>
-            <th>Address</th>
-            <th>Index</th>
-            <th>How Was It?</th>
-            <th>Delete Location</th>
-          </tr>
-        </thead>
-        <draggable :list="landmarks.id" @end="onEnd" tag="tbody">
-          <tr
-            :id="landmark.id"
-            v-for="landmark in landmarks"
-            :key="landmark.id"
-          >
-            <td>{{ landmark.name }}</td>
-            <td>{{ landmark.type }}</td>
-            <td>{{ landmark.address }}</td>
-            <td>{{ landmark.id }}</td>
-            <td>
-              <img
-                class="thumbs"
-                src="../assets/thumbs-up.png"
-                v-on:click="landmark.thumbsUp + 1"
-                @mouseover="mouseOver"
-              />
-              <img
-                class="thumbs"
-                src="../assets/thumbs-down-icon.png"
-                v-on:click="landmark.thumbsUp + -1"
-                @mouseover="mouseOver"
-              />
-            </td>
-            <td>
-              <button
-                class="btn btn-outline-danger"
-                @click="deleteTableRow(landmark.id)"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-        </draggable>
-      </table>
+    <div class="itinerary-list">
+        <div class="header">
+            <h1 >Details for Itinerary : {{this.itinerary_name}}</h1>
 
-      <div class="itin-button">
-        <button class="btn btn-outline-info">Generate Directions</button>
-        <button class="btn btn-outline-info" @click="deleteItinerary()">
-          Delete Itinerary
-        </button>
-        <button class="btn btn-outline-info" v-on:click="showForm = !showForm">
+            <p>Add or Remove landmarks, or change your itinerary's starting location here</p>
+        </div>
+            <div class="isloading" >
+                <img src="../assets/giphy.gif" v-if="isLoading" />
+            </div >
+            <div class="isNotLoading" v-if="!isLoading">
+        <table class="table" >
+            <thead>
+                <tr>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Address</th>
+                <th>Index</th>
+                <th>How Was It?</th>
+                <th>Delete Location</th>
+                
+                </tr>
+            </thead>
+            <draggable :list="landmarks.id" @end="onEnd" tag="tbody">
+                <tr :id="landmark.id" v-for="(landmark) in landmarks" :key="landmark.id">    
+                <td>{{landmark.name}}</td>
+                <td>{{landmark.type}}</td>
+                <td>{{landmark.address}}</td>
+                <td>{{landmark.id}}</td>
+                <td><img class="thumbs" src="../assets/thumbs-up.png" v-on:click="landmark.thumbsUp + 1" @mouseover="mouseOver">
+                    <img class="thumbs" src="../assets/thumbs-down-icon.png" v-on:click="landmark.thumbsUp + -1" @mouseover="mouseOver">
+                </td>
+                <td><button class="btn btn-outline-danger" @click='deleteTableRow(landmark.id)' >Delete</button></td>
+                </tr>
+            </draggable>  
+        </table>
+
+                <div class='itin-button'>
+                    <button class="btn btn-outline-info">Generate Directions</button>
+                    <button class="btn btn-outline-info" @click='deleteItinerary()' >Delete Itinerary</button>
+                </div>
+            </div>
+              <button class="btn btn-outline-info" v-on:click="showForm = !showForm">
           Edit Itinerary
         </button>
         <form v-if="showForm" v-on:submit="update()">
@@ -93,6 +73,9 @@
           </button>
         </form>
       </div>
+        <div class="map-search">
+        <map-search /> 
+        </div>
     </div>
     <map-search />
   </div>
@@ -187,36 +170,35 @@ export default {
 
 <style scoped>
 h1 {
-  padding-top: 20px;
-  padding-bottom: 40px;
-}
-p {
-  padding-bottom: 40px;
-}
+   padding-bottom: 40px;
+ }
+ p{
+   padding-bottom: 40px;
+ }
 .itinerary-list {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  padding: 4em;
-  cursor: move;
-  width: 100%;
-  position: absolute;
-  right: 0;
-  border-width: 2px;
-  border-color: black;
-  height: 100vh;
-  padding-left: 50px;
-  padding-right: 50px;
+    color: #2c3e50;
+    width: 100%;
+    right: 0;
+    border-color: black;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 100px;
+}
+.map-search{
+    height: 100vh;
+    overflow: hidden;
+}
+.isNotLoading {
+    cursor: move;
 }
 .thumbs {
-  height: 20px;
-  width: 20px;
-  padding-block-start: 2px;
-  border: 0.5px solid black;
-
-  display: inline-block;
-  margin: 0 10px 0 10px;
+    height: 20px;
+    width: 20px;
+    padding-block-start: 2px;
+    border: .5px solid black;
+    border-radius: 3px;
+    display: inline-block;
+    margin: 0 10px 0 10px;
 }
 .thumbs:hover {
   background: blue;
