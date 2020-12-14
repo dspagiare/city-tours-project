@@ -104,6 +104,7 @@ button {
   border: none;
   cursor: pointer;
   width: 50%;
+  border-radius: 4px;
 }
 button:hover {
   opacity: 0.8;

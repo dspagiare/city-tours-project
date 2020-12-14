@@ -1,7 +1,9 @@
 
 <template>
     <div id = "sideBar">
-        <button class = "btn-block" v-on:click="showForm= !showForm">Add New Itinerary</button>
+       
+       
+        <button class = "btn btn-primary" v-on:click="showForm= !showForm">Add New Itinerary</button>
         <form  v-if ="showForm" v-on:submit.prevent="saveItinerary">
             <input class = "form-control" type ="text" placeholder="Enter New Itinerary Name" v-model='newItinerary.name'/>
             <input type = "date" name ="Tour Date" v-model="newItinerary.itinerary_date"/>
@@ -9,8 +11,9 @@
             <button v-on:click="showForm = !showForm" class="btn-cancel">Cancel</button>
         </form>
         <div v-for="itinerary in itineraries" v-bind:key="itinerary.itinerary_id">
-               <router-link :to="`/itinerary/${itinerary.itinerary_id}`" tag="button" class="btn-itinName">{{ itinerary.name }}</router-link>
+               <router-link :to="`/itinerary/${itinerary.itinerary_id}`" tag="button" class="btn btn-primary btn-lg">{{ itinerary.name }}</router-link>
         </div>
+        
     </div>
 </template>
 
@@ -37,6 +40,7 @@ export default {
                 itinerary_date: '',
             },
             showForm: false,
+            isLoading: true,
         }),
     methods: {
         // // saveItinerary saves new Itinerary to DB and routes user to newItinerary's
@@ -50,6 +54,7 @@ export default {
                  this.showForm = false;
                  if (response.status === 201) {
                      this.$router.push(`/itineraries/${this.newItinerary.id}`)
+                     
                  }
              })
         },
@@ -59,12 +64,26 @@ export default {
 </script>
 
 <style>
-.btn-itinName {
-    margin-top: 10px;
-    width: 100%;
-    background-color: gold;
-    border-radius: 4px;
+.btn.btn-primary {
+    background: green;
+    flex-direction: column;
+    align-items: center;
+    height: 100px;
+    width: 200px;
+    line-height: 85px;
     border-color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+.btn.btn-primary.btn-lg {
+    margin-top: 20px;
+    height: 100px;
+    width: 200px;
+    line-height: 80px;
+    background: gold;
+    color: black;
+    border-color: black;
+    align-content: center;
 }
 .btn-cancel {
     color: #fff;
@@ -82,15 +101,18 @@ div#sideBar {
     position: fixed;  
     z-index: 1;
     left: 0;
-    
-    padding-top: 20px;
-    padding-bottom: 20px;  
+    padding-top: 10px;
+    padding-bottom: 10px;  
     overflow-x: hidden;  
     border-right: solid lightgrey 1px;
     background-color: white;
     border-block-color: black;
     border-bottom-color: black;
     border-right-color: black;
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
     }
     .form-control {
         display: block;

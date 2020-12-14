@@ -1,6 +1,11 @@
 <template>
 
     <div class="itinerary-list">
+        <div class="header">
+            
+         <h1 >Details for Itinerary :</h1>
+            <p>Add or Remove landmarks, or change your itinerary's starting location here</p>
+        </div>
             <div class="isloading" >
                 <img src="../assets/giphy.gif" v-if="isLoading" />
             </div >
@@ -26,16 +31,15 @@
                 <td><img class="thumbs" src="../assets/thumbs-up.png" v-on:click="landmark.thumbsUp + 1" @mouseover="mouseOver">
                     <img class="thumbs" src="../assets/thumbs-down-icon.png" v-on:click="landmark.thumbsUp + -1" @mouseover="mouseOver">
                 </td>
-                <td><button @click='deleteTableRow(landmark.id)' >Delete</button></td>
+                <td><button class="btn btn-outline-danger" @click='deleteTableRow(landmark.id)' >Delete</button></td>
                 </tr>
             </draggable>  
         </table>
          
-        <p><strong>Previous Index: </strong>{{oldIndex}}</p>
-        <p><strong>New Index: </strong>{{newIndex}}</p>
+       
         <div class='itin-button'>
-            <button>Generate Directions</button>
-            <button @click='deleteItinerary()' >Delete Itinerary</button>
+            <button class="btn btn-outline-info">Generate Directions</button>
+            <button class="btn btn-outline-info" @click='deleteItinerary()' >Delete Itinerary</button>
 
         </div>
             </div>
@@ -59,29 +63,7 @@ export default {
     },
     data() {
         return {
-            // myArray: [
-            //     { 
-            //         name: "Location One", 
-            //         id: 0,
-            //         address: "123 thing street",
-            //         type: 'park',
-            //         thumbsUp: 5
-            //     },
-            //    { 
-            //         name: "Location Two", 
-            //         id: 1,
-            //         address: "456 thing street",
-            //         type: 'landmark',
-            //         thumbsUp: 10
-            //     },
-            //     { 
-            //         name: "Location Three", 
-            //         id: 2,
-            //         address: "789 thing street",
-            //         type: 'city feature',
-            //         thumbsUp: 12
-            //     },
-            // ],
+           
             oldIndex: '',
             newIndex: '',
             counter: 2,
@@ -100,7 +82,9 @@ export default {
         deleteTableRow(landId) { 
             this.counter--;
             //this.landmarks.splice(id, 1);
-            ItineraryService.deleteLandmarkFromItinerary(this.$route.params.id, landId, this.$store.state.user)      
+            ItineraryService.deleteLandmarkFromItinerary(this.$route.params.id, landId, this.$store.state.user).then(
+                this.$router.push("/")
+            )      
         },
        
         mouseOver(){
@@ -109,7 +93,6 @@ export default {
         },
         deleteItinerary() {
             ItineraryService.deleteItinerary(this.$route.params.id, this.$store.state.user).then(
-                this.$router.push("/")
             )
         }
 
@@ -128,8 +111,13 @@ export default {
 </script>
 
 <style scoped>
-
-
+h1 {
+   padding-top: 20px;
+   padding-bottom: 40px;
+ }
+ p{
+   padding-bottom: 40px;
+ }
 .itinerary-list {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -150,13 +138,16 @@ export default {
     height: 20px;
     width: 20px;
     padding-block-start: 2px;
-    border: .5px solid #ddd;
-    background: lightgray;
+    border: .5px solid black;
+  
     display: inline-block;
    margin: 0 10px 0 10px;
   
 }
 .thumbs:hover {
-  background: green;
+  background: blue;
+}
+.btn.btn-outline-danger {
+    margin-left: 20px;
 }
 </style>

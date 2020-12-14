@@ -116,7 +116,12 @@ VALUES ('1', '1');
         
 COMMIT TRANSACTION;
 
+INSERT INTO itineraries_landmarks(itinerary_id, landmark_id) VALUES (8, 1), (8, 4), (8, 10);
 
 INSERT INTO itineraries(itinerary_name, itinerary_date) VALUES('test itinerary', '12-20-2020');
 
 DELETE FROM itineraries WHERE itinerary_name = 'test itinerary';
+
+INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES ( 8,5);
+
+DELETE FROM itineraries_landmarks WHERE landmark_id = 8;
