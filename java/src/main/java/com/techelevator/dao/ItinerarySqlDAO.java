@@ -38,7 +38,7 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 			Integer thisID = value.getItinerary_id();
 
 			if (id == thisID) {
-				String sql = "SELECT name, itinerary_date FROM itineraries WHERE itinerary_id = ?";
+				String sql = "SELECT * FROM itineraries WHERE itinerary_id = ?";
 
 				SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
 				while (results.next()) {
@@ -71,7 +71,7 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 			Integer thisID = value.getItinerary_id();
 
 			if (itineraryBody.getItinerary_id() == thisID) {
-				String sql = "UPDATE itineraries SET name=?, itinerary_date = ? WHERE itinerary_id=?";
+				String sql = "UPDATE itineraries SET itinerary_name=?, itinerary_date = ? WHERE itinerary_id=?";
 
 				jdbcTemplate.update(sql, itineraryBody.getName(), itineraryBody.getItinerary_date(),
 						itineraryBody.getItinerary_id());
@@ -127,7 +127,7 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 //			if (id == thisID) {
 				String sql = "DELETE FROM itineraries_landmarks WHERE itinerary_id=? AND landmark_id=?";
 
-				jdbcTemplate.update(sql, landId, id);
+				jdbcTemplate.update(sql, id, landId);
 //			}
 //		}
 
