@@ -7,7 +7,7 @@
     <p>Below is a list of landmarks based on popularity, Click "Create Itinerary" in the Navigation bar to start building your route! </p>
     <landmarks-list />
     <router-view />
-    <router-view name="b"/>
+   
     
   </div> 
     

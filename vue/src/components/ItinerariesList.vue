@@ -34,12 +34,12 @@
             
 
         </div>
-        <map-search />
+        <!-- <map-search /> -->
     </div>
 </template>
 
 <script>
- import MapSearch from "../components/MapSearch"
+//  import MapSearch from "../components/MapSearch"
  
  import LandmarksService from "../services/LandmarksService"
  import draggable from 'vuedraggable'
@@ -49,7 +49,7 @@ export default {
    
     components: {
          draggable,
-         MapSearch
+        //  MapSearch
         
     },
     data() {
