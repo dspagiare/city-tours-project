@@ -101,8 +101,8 @@ export default {
     },
     addLandmarkToItin() {
       ItineraryService.addLandmarkToItinerary(
-        this.selected,
         this.selectedItinerary,
+        this.selected,
         this.$store.state.currentUser
       );
       window.location.reload();

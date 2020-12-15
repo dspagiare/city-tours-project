@@ -141,6 +141,10 @@ export default {
         this.$store.state.currentUser
       ).then();
     },
+    onEnd(evt) {console.log(evt) 
+      this.newIndex = evt.newIndex;
+      this.oldIndex = evt.oldIndex;
+      },
     deleteTableRow(landId) {
       this.counter--;
       ItineraryService.deleteLandmarkFromItinerary(
