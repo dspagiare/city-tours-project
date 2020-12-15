@@ -27,11 +27,7 @@ export default {
             this.itineraries = response.data;
         });
     },
-    // beforeUpdate(){
-    //     ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
-    //         this.itineraries = response.data;
-    //     });
-    // },
+
     data: () => ({ 
             itineraries: [],
             newItinerary: {

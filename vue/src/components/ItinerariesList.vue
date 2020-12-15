@@ -83,10 +83,13 @@ export default {
         },
         deleteTableRow(landId) { 
             this.counter--;
-            //this.landmarks.splice(id, 1);
             ItineraryService.deleteLandmarkFromItinerary(this.$route.params.id, landId, this.$store.state.user).then(
-                this.$router.push("/")
-            )      
+                LandmarksService.getLandmarksForItinerary(this.$route.params.id).then( (response) => {
+                this.landmarks = response.data;
+                this.isLoading = false;
+                })  
+            )
+                
         },
        
         mouseOver(){
@@ -95,14 +98,13 @@ export default {
         },
         deleteItinerary() {
             ItineraryService.deleteItinerary(this.$route.params.id, this.$store.state.user).then(
-            )
+             this.$router.push("/"));
+             window.location.reload();
         },
       
     },
     created(){
-        //  ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
-        //     this.itineraries.id = response.data;
-        // });
+    
     LandmarksService.getLandmarksForItinerary(this.$route.params.id).then( (response) => {
       this.landmarks = response.data;
       this.isLoading = false;
@@ -112,16 +114,6 @@ export default {
          }
     );
   },
-    // beforeUpdated() {
-    //         LandmarksService.getLandmarksForItinerary(this.$route.params.id).then( (response) => {
-    //             this.landmarks = response.data;
-    //             this.isLoading = false;
-    //         });
-    //         ItineraryService.getItineraryDetails(this.$route.params.id).then((response) => {
-    //             this.itinerary_name = response.data.name;
-    //         });
-    
-    // }
 }
 </script>
 

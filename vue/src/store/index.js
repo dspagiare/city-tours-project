@@ -47,13 +47,6 @@ export default new Vuex.Store({
     ADD_ITINERARY_TO_ITINERARIES(state, itinerary) {
       state.itineraries.push(itinerary);
     },
-    CHANGE_STATUS(state) {
-      // state.somethingChanged = !state.somethingChanged;
-      if (state.somethingChanged == false) {
-          state.somethingChanged = true;
-      } else if (state.somethingChanged == true) {
-          state.somethingChanged = false;
-      }
     },
-  }
+  
 })

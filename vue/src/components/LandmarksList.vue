@@ -55,7 +55,7 @@
 <script>
 import ItineraryService from "../services/ItineraryService.js";
 import LandmarksService from '../services/LandmarksService.js'
-import ItinerariesList from '../components/ItinerariesList.vue'
+
 export default {
   components: { 
     },        
@@ -82,11 +82,7 @@ export default {
         
     addLandmarkToItin() {
       ItineraryService.addLandmarkToItinerary(this.selected, this.selectedItinerary, this.$store.state.currentUser);
-      this.$store.commit('CHANGE_STATUS');
-      LandmarksService.getLandmarksForItinerary(this.$route.params.id).then( (response) => {
-        ItinerariesList.landmarks = response.data;
-        this.isLoading = false;
-      })
+      window.location.reload();
     }
   }, 
   created() {
