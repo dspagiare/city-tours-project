@@ -124,44 +124,48 @@ export default {
       this.newIndex = evt.newIndex;
       this.oldIndex = evt.oldIndex;
     },
-    deleteTableRow(landId) {
-      this.counter--;
-      ItineraryService.deleteLandmarkFromItinerary(
-        this.$route.params.id,
-        landId,
-        this.$store.state.user
-      ).then();
+    methods: {
+        onEnd(evt) {
+            console.log(evt)
+            this.newIndex = evt.newIndex;
+            this.oldIndex = evt.oldIndex;
+        },
+        deleteTableRow(landId) { 
+            this.counter--;
+            ItineraryService.deleteLandmarkFromItinerary(this.$route.params.id, landId, this.$store.state.user).then(
+                LandmarksService.getLandmarksForItinerary(this.$route.params.id).then( (response) => {
+                this.landmarks = response.data;
+                this.isLoading = false;
+                })  
+            )
+                
+        },
+       
+        mouseOver(){
+            this.active = !this.active;
+            this.class="thumbs:hover";   
+        },
+        deleteItinerary() {
+            ItineraryService.deleteItinerary(this.$route.params.id, this.$store.state.user).then(
+             this.$router.push("/"));
+             window.location.reload();
+        },
+      
     },
-
-    mouseOver() {
-      this.active = !this.active;
-      this.class = "thumbs:hover";
-    },
-    deleteItinerary() {
-      ItineraryService.deleteItinerary(
-        this.$route.params.id,
-        this.$store.state.user
-      ).then(this.$router.push("/"));
-    },
-  },
-  created() {
-    //  ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
-    //     this.itineraries.id = response.data;
-    // });
-    LandmarksService.getLandmarksForItinerary(this.$route.params.id).then(
-      (response) => {
-        this.landmarks = response.data;
-        this.isLoading = false;
-      }
-    );
-    ItineraryService.getItineraryDetails(this.$route.params.id).then(
-      (response) => {
+    created(){
+    
+    LandmarksService.getLandmarksForItinerary(this.$route.params.id).then( (response) => {
+      this.landmarks = response.data;
+      this.isLoading = false;
+    });
+    ItineraryService.getItineraryDetails(this.$route.params.id).then((response) => {
         this.itinerary_name = response.data.name;
         this.itinerary_date = response.data.date;
       }
     );
   },
-};
+}
+}
 </script>
 
 <style scoped>

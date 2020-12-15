@@ -58,7 +58,7 @@
 <script>
 import LandmarkDetails from "../components/LandmarkDetails.vue"
 import ItineraryService from "../services/ItineraryService.js";
-import landmarksService from '../services/LandmarksService.js'
+import LandmarksService from '../services/LandmarksService.js'
 
 export default {
   components: { 
@@ -94,16 +94,15 @@ export default {
       });
     },   
     addLandmarkToItin() {
-     
-      ItineraryService.addLandmarkToItinerary(this.selectedItinerary, this.selected, this.$store.state.currentUser)
-      }
-    },  
-   created() {
-            
+      ItineraryService.addLandmarkToItinerary(this.selected, this.selectedItinerary, this.$store.state.currentUser);
+      window.location.reload();
+    }
+  }, 
+  created() {
             ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
                 this.itineraries = response.data;
             });
-            landmarksService.list().then( (response) => {
+            LandmarksService.list().then( (response) => {
                 this.landmarks = response.data;
                 this.isLoading = false;
             });
