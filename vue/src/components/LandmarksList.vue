@@ -20,10 +20,12 @@
           <th>Location Type</th>
           <th>Address</th>
           <th>Up Votes</th>
+          <th>Landmark Details</th>
       </tr>
     </thead>
     <tbody >
-      <tr v-for="landmark in landmarks" v-bind:key="landmark.id">
+      <tr v-for="landmark in landmarks" v-bind:key="landmark.id" >    
+        
         <td>
             <label class="form-checkbox">
                 <input type="checkbox" :value="landmark.id" v-model="selected">
@@ -35,6 +37,7 @@
         <td>{{landmark.type}}</td>
         <td>{{landmark.address}}</td>
         <td>{{landmark.thumbsUp}}</td>
+        <td><button v-on:click.prevent="showPanel(landmark)">Show Details</button><slideout-panel></slideout-panel></td>
       </tr>
     </tbody>
   </table>
@@ -53,11 +56,13 @@
 </template>
 
 <script>
+import LandmarkDetails from "../components/LandmarkDetails.vue"
 import ItineraryService from "../services/ItineraryService.js";
 import landmarksService from '../services/LandmarksService.js'
 
 export default {
   components: { 
+    
     },        
  name: "landmarks",
  data: () => ({
@@ -66,9 +71,10 @@ export default {
     selectAll: false,
     isLoading: true,
     itineraries: [],
-    selectedItinerary: 0
-
-
+    selectedItinerary: 0,
+    landmarkDetailsForm: {
+        openOn: "right"
+      }
 	}),
 	methods: {
 		select() {
@@ -79,9 +85,17 @@ export default {
 				}
 			}
         },
+        showPanel(landmark) {
+        this.$showPanel({
+          component: LandmarkDetails,
+          cssClass: "LandmarkDetails",
+          props: {landmark}
         
+      });
+    },   
     addLandmarkToItin() {
-      ItineraryService.addLandmarkToItinerary(this.selected, this.selectedItinerary, this.$store.state.currentUser)
+     
+      ItineraryService.addLandmarkToItinerary(this.selectedItinerary, this.selected, this.$store.state.currentUser)
       }
     },  
    created() {
