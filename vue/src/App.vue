@@ -38,11 +38,11 @@ body{
   overflow: hidden;
   background-image: url('assets/option9.png');
   background-repeat: no-repeat;
-  background-size: 150vh 100px;
+  background-size: 1300px 100px;
   height: 100px;
   width: 100%;
   background-color: rgba(64, 64, 64, 100);
- 
+  margin-bottom: 100px;
   
 }
 .img{
