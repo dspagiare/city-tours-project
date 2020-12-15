@@ -5,7 +5,7 @@
 
       <p>
         Add or Remove landmarks, or change your itinerary's starting location
-        here
+        here.  <strong>Click + drag locations to re-order your route. </strong>
       </p>
     </div>
     <div class="isloading">

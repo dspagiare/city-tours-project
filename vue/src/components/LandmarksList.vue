@@ -40,7 +40,7 @@
               <td>{{ landmark.address }}</td>
               <td>{{ landmark.thumbsUp }}</td>
               <td>
-                <button v-on:click.prevent="showPanel(landmark)">
+                <button class="btn btn-secondary" v-on:click.prevent="showPanel(landmark)">
                   Show Details</button
                 ><slideout-panel></slideout-panel>
               </td>
