@@ -49,6 +49,11 @@ public class LandmarksController {
 	public List<Landmark> getLandmarksById(@PathVariable int id) {
 		return landmarksDAO.getLandmarksForItinerary(id);
 	}
+	
+//	@RequestMapping(value="/landmarks", method = RequestMethod.GET)
+//	public Landmark getLandmarksDetails(@RequestParam Integer id) {
+//		return landmarksDAO.getLandmarkDetailsById(id);
+//	}
 	 /**
      * Finds the user by username and returns the id
      * @param principal the current authenticated user

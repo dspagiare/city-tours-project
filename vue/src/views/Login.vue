@@ -93,7 +93,7 @@ export default {
   display: block;
   width: 100%;
   max-width: 350px;
-  margin: 0 auto;
+  margin: 0px auto;
   height: 100%;
 }
 button {

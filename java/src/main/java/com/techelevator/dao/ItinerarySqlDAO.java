@@ -130,13 +130,15 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 //			Integer thisID = value.getItinerary_id();
 //			if (id == thisID) {
 				
-		for(Integer valueInteger : landId) {
+		//for(Integer valueInteger : landId) {
+		
+		for(int i=0; i<landId.size(); i++) {
 			
-			String sql = "INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES ( ?,?)";
+			String sql = "INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES ( ?,? )";
 			
-			jdbcTemplate.update(sql, valueInteger, id);
-
-		}
+			jdbcTemplate.update(sql, id, landId.get(i));
+		};
+	
 				
 				
 

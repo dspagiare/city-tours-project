@@ -98,7 +98,7 @@ public class ItineraryController {
 	  
 	  @RequestMapping(value = "/itineraries/{id}/landmarks/{landId}", method = RequestMethod.POST)
 	  public void addLandmark(@PathVariable Integer id, @PathVariable List<Integer> landId,  Principal principal ) {
-		 itineraryDAO.addLandmarkToItinerary(id, landId, principal.getName());
+		 itineraryDAO.addLandmarkToItinerary(id,landId, principal.getName());
 	  }
 	  
 }
