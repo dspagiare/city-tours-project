@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.techelevator.dao.LandmarksDAO;
 import com.techelevator.dao.UserDAO;
+import com.techelevator.model.Itinerary;
 import com.techelevator.model.Landmark;
 import com.techelevator.model.LoginDTO;
 import com.techelevator.model.RegisterUserDTO;
@@ -49,6 +50,13 @@ public class LandmarksController {
 	public List<Landmark> getLandmarksById(@PathVariable int id) {
 		return landmarksDAO.getLandmarksForItinerary(id);
 	}
+	
+	@RequestMapping(value = "/landmarks/{id}", method = RequestMethod.PUT)
+	  public void updateLandmarkRating(@PathVariable("id") Long id, @RequestBody Landmark landmark) {
+		landmarksDAO.updateLandmarkRating(id, landmark);
+		
+	  }
+	
 	 /**
      * Finds the user by username and returns the id
      * @param principal the current authenticated user
