@@ -37,13 +37,13 @@
               <img
                 class="thumbs"
                 src="../assets/thumbs-up.png"
-                v-on:click="landmark.thumbsUp + 1"
+                v-on:click="updateLandmarkRating(landmark)"
                 @mouseover="mouseOver"
               />
               <img
                 class="thumbs"
                 src="../assets/thumbs-down-icon.png"
-                v-on:click="landmark.thumbsUp + -1"
+                v-on:click="updateLandmarkRating(landmark)"
                 @mouseover="mouseOver"
               />
             </td>
@@ -129,6 +129,10 @@ export default {
     };
   },
   methods: {
+    updateLandmarkRating(landmark){
+      LandmarksService.updateLandmarkRating(landmark);
+    },
+    
     update() {
       const itinerary = {
         id: this.$route.params.id,
