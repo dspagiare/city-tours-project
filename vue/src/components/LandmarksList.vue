@@ -36,9 +36,9 @@
               </td>
               <td>{{ landmark.id }}</td>
               <td>{{ landmark.name }}</td>
-              <td>{{ landmark.type }}</td>
+              <td>{{ landmark.venueType }}</td>
               <td>{{ landmark.address }}</td>
-              <td>{{ landmark.thumbsUp }}</td>
+              <td>{{ landmark.numThumbsUp }}</td>
               <td>
                 <button v-on:click.prevent="showPanel(landmark)">
                   Show Details</button
@@ -100,12 +100,16 @@ export default {
       });
     },
     addLandmarkToItin() {
-      ItineraryService.addLandmarkToItinerary(
-        this.selectedItinerary,
-        this.selected,
-        this.$store.state.currentUser
-      );
-      window.location.reload();
+      if(this.selectedItinerary != 0){
+        ItineraryService.addLandmarkToItinerary(
+          this.selectedItinerary,
+          this.selected,
+          this.$store.state.currentUser
+        );
+        window.location.reload();
+      } else {
+        return alert("Please select an itenary to add landmark.")
+      }
     },
   },
   created() {
