@@ -14,16 +14,16 @@ export default {
     saveItinerary(itinerary, user) {
         return axios.post('/itineraries', itinerary, user);
     },
-    changeItineraryName( itinerary, user) {
-        return axios.put(`/itineraries`, itinerary, user);
+    editItinerary(itinerary, user) {
+        return axios.put(`/itineraries/${itinerary.id}`, itinerary, user);
     },
     deleteItinerary(id, user) {
         return axios.delete(`/itineraries/${id}`, user);
     },
-    addLandmarkToItinerary(id, landId, user ) {
+    addLandmarkToItinerary(id, landId, user) {
         return axios.post(`/itineraries/${id}/landmarks/${landId}`, user);
     },
-    deleteLandmarkFromItinerary(id, landId, user){
+    deleteLandmarkFromItinerary(id, landId, user) {
         return axios.delete(`/itineraries/${id}/landmarks/${landId}`, user);
     }
 }

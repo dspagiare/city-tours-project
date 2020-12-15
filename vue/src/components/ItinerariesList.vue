@@ -1,4 +1,5 @@
 <template>
+  
 
     <div class="itinerary-list">
         <div class="header">
@@ -41,39 +42,87 @@
                     <button class="btn btn-outline-info" @click='deleteItinerary()' >Delete Itinerary</button>
                 </div>
             </div>
+              <button class="btn btn-outline-info" v-on:click="showForm = !showForm">
+          Edit Itinerary
+        </button>
+        <form v-if="showForm" v-on:submit="update()">
+          <div class="field">
+            <label for="itinerary_name">Title</label>
+            <input
+              name="itinerary_name"
+              class="form-control"
+              type="text"
+              v-model="itinerary_name"
+              placeholder="Enter New Itinerary Name"
+            />
+            <label for="itinerary_date">Date</label>
+            <input
+              name="itinerary_date"
+              type="date"
+              v-model="itinerary_date"
+              placeholder="Enter New Date Of Yinzer Tour"
+            />
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn-submit">Save Changes</button>
+          </div>
+          <button v-on:click="showForm = !showForm" class="btn-cancel">
+            Cancel
+          </button>
+        </form>
         <div class="map-search">
-        <map-search /> 
+            <map-search />
         </div>
-    </div>
+      </div>
+
 </template>
 
 <script>
- import MapSearch from "../components/MapSearch"
- import LandmarksService from "../services/LandmarksService"
- import draggable from 'vuedraggable'
- import ItineraryService from '../services/ItineraryService'
+import MapSearch from "../components/MapSearch";
+import LandmarksService from "../services/LandmarksService";
+import draggable from "vuedraggable";
+import ItineraryService from "../services/ItineraryService";
 
 
 export default {
-    name: "itinName",
-    props: ["itineraries"],
-    components: {
-         draggable,
-         MapSearch
+  name: "itinName",
+  props: ["itineraries"],
+  components: {
+    draggable,
+    MapSearch
+  },
+
+  data() {
+    return {
+      oldIndex: "",
+      newIndex: "",
+      counter: 2,
+      thumbsCounter: 0,
+      active: false,
+      landmarks: [],
+      isLoading: true,
+      itinerary_name: "",
+      itinerary_date: "",
+      showForm: false,
+    };
+  },
+  methods: {
+    update() {
+      const itinerary = {
+        id: this.$route.params.id,
+        title: this.itinerary_name,
+        date: this.itinerary_date,
+      };
+
+      ItineraryService.editItinerary(
+        itinerary,
+        this.$store.state.currentUser
+      ).then();
     },
-    
-    data() {
-        return {
-           
-            oldIndex: '',
-            newIndex: '',
-            counter: 2,
-            thumbsCounter: 0,
-            active: false,
-            landmarks: [],
-            isLoading: true,
-            itinerary_name: ''
-        }
+    onEnd(evt) {
+      console.log(evt);
+      this.newIndex = evt.newIndex;
+      this.oldIndex = evt.oldIndex;
     },
     methods: {
         onEnd(evt) {
@@ -111,9 +160,11 @@ export default {
     });
     ItineraryService.getItineraryDetails(this.$route.params.id).then((response) => {
         this.itinerary_name = response.data.name;
-         }
+        this.itinerary_date = response.data.date;
+      }
     );
   },
+}
 }
 </script>
 
@@ -153,6 +204,18 @@ h1 {
   background: blue;
 }
 .btn.btn-outline-danger {
-    margin-left: 20px;
+  margin-left: 20px;
+}
+.form-control {
+  display: block;
+  width: 80%;
+  height: 30px;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
 }
 </style>
