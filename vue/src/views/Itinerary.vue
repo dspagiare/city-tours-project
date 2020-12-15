@@ -7,8 +7,7 @@
 </template>
 
 <script>
-
-import ItinerariesList from '../components/ItinerariesList.vue'
+import ItinerariesList from "../components/ItinerariesList.vue";
 
 export default {
   components: {ItinerariesList },
@@ -19,6 +18,16 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+h2 {
+  padding-bottom: 20px;
+}
+.table {
+  background-color: lightgray;
+}
 
  h1 {
    padding-top: 20px;
