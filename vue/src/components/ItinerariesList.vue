@@ -126,7 +126,6 @@ export default {
     },
     deleteTableRow(landId) {
       this.counter--;
-      //this.landmarks.splice(id, 1);
       ItineraryService.deleteLandmarkFromItinerary(
         this.$route.params.id,
         landId,
