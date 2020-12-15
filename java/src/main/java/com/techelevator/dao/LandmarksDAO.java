@@ -11,4 +11,7 @@ public interface LandmarksDAO {
 	List<Landmark> getLandmarksForItinerary(Integer itinerary_id);
 
 	Landmark getLandmarkDetailsById(Integer landmark_id);
+	
+	void updateLandmarkRating(Long id, Landmark landmark);
+	
 }

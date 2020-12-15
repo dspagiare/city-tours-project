@@ -38,7 +38,7 @@ CREATE SEQUENCE seq_itinerary_id
 
 CREATE TABLE itineraries (
         itinerary_id int DEFAULT nextval('seq_itinerary_id'::regclass) NOT NULL,
-        user_id int,
+        user_id int NOT NULL,
         itinerary_name varchar(200) NOT NULL,
         itinerary_date DATE,
         staring_point varchar(200),
@@ -70,8 +70,6 @@ CREATE TABLE landmarks (
         
         CONSTRAINT pk_landmark_id PRIMARY KEY (landmark_id),
         
-        -- CONSTRAINT ck_venue_type CHECK (venue_type IN ('Park', 'Restaurant', 'Historical')),
-        
         CONSTRAINT ck_available_from_day CHECK (available_from_day IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')),
         CONSTRAINT ck_available_to_day CHECK (available_to_day IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'))
 
@@ -83,17 +81,17 @@ CREATE TABLE itineraries_landmarks (
         landmark_id int,
         
         CONSTRAINT pk_itinerary_id_landmark_id_ PRIMARY KEY (itinerary_id, landmark_id),
-        CONSTRAINT fk_itinerary_id FOREIGN KEY (itinerary_id) REFERENCES itineraries(itinerary_id),
+        --CONSTRAINT fk_itinerary_id FOREIGN KEY (itinerary_id) REFERENCES itineraries(itinerary_id),
         CONSTRAINT fk_landmark_id FOREIGN KEY (landmark_id) REFERENCES landmarks(landmark_id)
 );
 
 --Dummy data
-INSERT INTO itineraries (itinerary_name, itinerary_date, staring_point)
-VALUES ('First Itenarary Test', '2020-12-15', 'TBD');
+INSERT INTO itineraries (user_id, itinerary_name, itinerary_date, staring_point)
+VALUES ('1', 'First Itenarary Test', '2020-12-15', 'TBD');
 
 INSERT INTO landmarks (landmark_name, description, venue_type, address, available_from_day, available_to_day, 
 available_from_hour, available_to_hour, landmark_img_url, num_thumbs_up, num_thumbs_down)
-VALUES ('Cathedral of Learning', 'The Cathedral of Learning is a building that serves as the centerpiece of the University of Pittsburghs main campus in the Oakland neighborhood ', 'National Historic Landmark', '4200 Fifth Ave, Pittsburgh, PA 15260', 'Monday', 'Friday', '9:00', '5:00', 'TBD', '5', '0'),
+VALUES ('Cathedral of Learning', 'The Cathedral of Learning is a building that serves as the centerpiece of the University of Pittsburghs main campus in the Oakland neighborhood ', 'National Historic Landmark', '4200 Fifth Ave, Pittsburgh, PA 15260', 'Monday', 'Friday', '9:00', '5:00', 'TBD', '5', '10'),
        ('Canton Avenue', 'Canton Avenue, in Pittsburgh, Pennsylvanias Beechview neighborhood, is the steepest officially recorded public street in the United States. Canton Avenue is 630 ft long and is claimed to include a 37 percent grade 21 ft feet long', 'City Feature', 'Canton Ave, Pittsburgh, PA 15216', 'Monday', 'Friday', '9:00', '5:00', 'TBD', '10', '0'),
        ('Frick Park', 'Frick Park is the largest municipal park in Pittsburgh, Pennsylvania, covering 644 acres. It is one of Pittsburghs four historic large parks. The park began when Henry Clay Frick, upon his death in 1919, bequeathed 151 acres south of Clayton, his Point Breeze mansion.', 'Park', '1981 Beechwood Blvd, Pittsburgh, PA 15217', 'Monday', 'Friday', '9:00', '5:00', 'TBD', '5', '0'),
        ('Carnegie Museum of Natural History', 'Carnegie Museums of Pittsburgh are four museums that are operated by the Carnegie Institute headquartered in the Carnegie Institute complex in the Oakland neighborhood of Pittsburgh', 'Museum', '4400 Forbes Ave, Pittsburgh, PA 15213', 'Monday', 'Friday', '9:00', '5:00', 'TBD', '5', '0'),
@@ -109,19 +107,7 @@ VALUES ('Cathedral of Learning', 'The Cathedral of Learning is a building that s
        ('Strip District', 'What was once a primarily industrial neighborhood is now packed with restaurants, international markets, museums and shops. The Strip District, which runs alongside the Allegheny River in Pittsburgh, measures only half a square mile, but it has plenty of attractions and eateries to fill up your day (and your stomach).', 'Historic Neighborhood', '2101 Smallman St, Pittsburgh, PA 15222', 'Monday', 'Friday', '9:00', '5:00', 'TBD', '5', '0'),
        ('Three Rivers Heritage Trail', 'An asphalt link between some of Pittsburghs most notable spots, the Three Rivers Heritage Trail lines the banks of the Allegheny, Monongahela and Ohio waterways. The 24-mile-long path connects the downtown area to the surrounding neighborhoods and makes it easy for people to travel across the city without getting in a car or on a bus.', 'Park', 'Three Rivers Heritage Trail, Pittsburgh, PA 15203', 'Monday', 'Friday', '9:00', '5:00', 'TBD', '5', '0');
 
-
-
 INSERT INTO itineraries_landmarks (itinerary_id, landmark_id)
 VALUES ('1', '1');
         
 COMMIT TRANSACTION;
-
-INSERT INTO itineraries_landmarks(itinerary_id, landmark_id) VALUES (8, 1), (8, 4), (8, 10);
-
-INSERT INTO itineraries(itinerary_name, itinerary_date) VALUES('test itinerary', '12-20-2020');
-
-DELETE FROM itineraries WHERE itinerary_name = 'test itinerary';
-
-INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES ( 8,5);
-
-DELETE FROM itineraries_landmarks WHERE landmark_id = 8;

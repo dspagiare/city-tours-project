@@ -6,8 +6,12 @@
 <script>
 import ItinerariesList from "../components/ItinerariesList.vue";
 export default {
-  components: { ItinerariesList },
-};
+  components: {ItinerariesList},
+
+
+}
+
+
 </script>
 <style scoped>
 h1 {

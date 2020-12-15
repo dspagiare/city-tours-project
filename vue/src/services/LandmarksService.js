@@ -7,6 +7,9 @@ export default {
   },
   getLandmarksForItinerary(itinerary_id) {
     return axios.get(`/landmarks/${itinerary_id}`)
+  },
+  updateLandmarkRating(landmark){
+    return axios.put(`/landmarks/${landmark.id}`, landmark)
   }
 
 }

@@ -19,6 +19,7 @@
               <th>Location Type</th>
               <th>Address</th>
               <th>Up Votes</th>
+              <th>Landmark Details</th>
             </tr>
           </thead>
           <tbody>
@@ -35,9 +36,14 @@
               </td>
               <td>{{ landmark.id }}</td>
               <td>{{ landmark.name }}</td>
-              <td>{{ landmark.type }}</td>
+              <td>{{ landmark.venueType }}</td>
               <td>{{ landmark.address }}</td>
-              <td>{{ landmark.thumbsUp }}</td>
+              <td>{{ landmark.numThumbsUp }}</td>
+              <td>
+                <button v-on:click.prevent="showPanel(landmark)">
+                  Show Details</button
+                ><slideout-panel></slideout-panel>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -59,8 +65,9 @@
 </template>
 
 <script>
+import LandmarkDetails from "../components/LandmarkDetails.vue";
 import ItineraryService from "../services/ItineraryService.js";
-import landmarksService from "../services/LandmarksService.js";
+import LandmarksService from "../services/LandmarksService.js";
 
 export default {
   components: {},
@@ -72,6 +79,9 @@ export default {
     isLoading: true,
     itineraries: [],
     selectedItinerary: 0,
+    landmarkDetailsForm: {
+      openOn: "right",
+    },
   }),
   methods: {
     select() {
@@ -82,16 +92,24 @@ export default {
         }
       }
     },
-
+    showPanel(landmark) {
+      this.$showPanel({
+        component: LandmarkDetails,
+        cssClass: "LandmarkDetails",
+        props: { landmark },
+      });
+    },
     addLandmarkToItin() {
-      ItineraryService.addLandmarkToItinerary(
-        this.selectedItinerary,
-        this.selected,
-        this.$store.state.currentUser
-      )
-        .then
-        //this.$store.commit("ADD_LANDMARK", this.landmarks.id )
-        ();
+      if(this.selectedItinerary != 0){
+        ItineraryService.addLandmarkToItinerary(
+          this.selectedItinerary,
+          this.selected,
+          this.$store.state.currentUser
+        );
+        window.location.reload();
+      } else {
+        return alert("Please select an itenary to add landmark.")
+      }
     },
   },
   created() {
@@ -100,7 +118,7 @@ export default {
         this.itineraries = response.data;
       }
     );
-    landmarksService.list().then((response) => {
+    LandmarksService.list().then((response) => {
       this.landmarks = response.data;
       this.isLoading = false;
     });

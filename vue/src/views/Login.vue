@@ -89,12 +89,19 @@ export default {
 };
 </script>
 <style scoped>
+
 .form-signin {
   display: block;
   width: 100%;
   max-width: 350px;
-  margin: 0px auto;
-  height: 100%;
+  margin: 0 auto;
+ 
+ 
+}
+.text-center{
+ overflow-y:scroll; 
+ position:relative;
+ height: 90vh;
 }
 button {
   background-color: #316786;

@@ -125,4 +125,8 @@
 export default {};
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  overflow: visible;
+}
+</style>
