@@ -15,52 +15,58 @@
         </div>
         
     </div>
+ 
 </template>
 
 <script>
 import ItineraryService from "../services/ItineraryService.js";
 
 export default {
-    name: "navigation-bar",
-    created() {
-        ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
-            this.itineraries = response.data;
-        });
+  name: "navigation-bar",
+  created() {
+    ItineraryService.getUserItineraries(this.$store.state.currentUser).then(
+      (response) => {
+        this.itineraries = response.data;
+      }
+    );
+  },
+  // beforeUpdate(){
+  //     ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
+  //         this.itineraries = response.data;
+  //     });
+  // },
+  data: () => ({
+    itineraries: [],
+    newItinerary: {
+      name: "",
+      id: "",
+      itinerary_date: "",
     },
-    // beforeUpdate(){
-    //     ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
-    //         this.itineraries = response.data;
-    //     });
-    // },
-    data: () => ({ 
-            itineraries: [],
-            newItinerary: {
-                name: '',
-                id: '',
-                itinerary_date: '',
-            },
-            showForm: false,
-            isLoading: true,
-        }),
-    methods: {
-        // // saveItinerary saves new Itinerary to DB and routes user to newItinerary's
-        // details page
-         saveItinerary(){
-             if (this.newItinerary.name === '' || this.newItinerary.itinerary_date === '') {
-                return alert("Put in the stuff before you submit");
-                
-             }
-             ItineraryService.saveItinerary(this.newItinerary, this.$store.state.currentUser).then((response) => {
-                 this.showForm = false;
-                 if (response.status === 201) {
-                     this.$router.push(`/itineraries/${this.newItinerary.id}`)
-                     
-                 }
-             })
-        },
+    showForm: false,
+    isLoading: true,
+  }),
+  methods: {
+    // // saveItinerary saves new Itinerary to DB and routes user to newItinerary's
+    // details page
+    saveItinerary() {
+      if (
+        this.newItinerary.name === "" ||
+        this.newItinerary.itinerary_date === ""
+      ) {
+        return alert("Put in the stuff before you submit");
+      }
+      ItineraryService.saveItinerary(
+        this.newItinerary,
+        this.$store.state.currentUser
+      ).then((response) => {
+        this.showForm = false;
+        if (response.status === 201) {
+          this.$router.push(`/itineraries/${this.newItinerary.id}`);
+        }
+      });
     },
-    
-}
+  },
+};
 </script>
 
 <style>
@@ -68,6 +74,7 @@ export default {
     background: green;
     flex-direction: column;
     align-items: center;
+    vertical-align: middle;
     height: 80px;
     width: 250px;
     line-height: 65px;
@@ -79,25 +86,57 @@ export default {
     margin-top: 20px;
     height: 80px;
     width: 200px;
-    line-height: 65px;
     background: #E14A2A;
     color: white;
     border-color: white;
     align-content: center;
+    vertical-align: middle;
 }
 .btn-cancel {
-    color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 .btn-submit {
-    color: #fff;
-    background-color: #0062cc;
-    border-color: #005cbf;
+  color: #fff;
+  background-color: #0062cc;
+  border-color: #005cbf;
+}
+div#sideBar {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  overflow-x: hidden;
+  border-right: solid lightgrey 1px;
+  background-color: white;
+  border-block-color: black;
+  border-bottom-color: black;
+  border-right-color: black;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+.form-control {
+  display: block;
+  width: 80%;
+  height: 30px;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
 }
 div#sideBar {  
     height: 100%;
     width: 15%;  
+    
     position: fixed;  
     z-index: 1;
     left: 0;
