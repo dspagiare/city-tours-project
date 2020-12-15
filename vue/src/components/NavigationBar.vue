@@ -1,21 +1,34 @@
-
 <template>
-    <div id = "sideBar">
-       
-       
-        <button class = "btn btn-primary" v-on:click="showForm= !showForm">ADD NEW ITINERARY</button>
-        <form  v-if ="showForm" v-on:submit.prevent="saveItinerary">
-            <input class = "form-control" type ="text" placeholder="Enter New Itinerary Name" v-model='newItinerary.name'/>
-            <input type = "date" name ="Tour Date" v-model="newItinerary.itinerary_date"/>
-            <input type="submit" v-on:submit="saveItinerary" class="btn-submit">
-            <button v-on:click="showForm = !showForm" class="btn-cancel">Cancel</button>
-        </form>
-        <div v-for="itinerary in itineraries" v-bind:key="itinerary.itinerary_id">
-               <router-link :to="`/itinerary/${itinerary.itinerary_id}`" tag="button" class="btn btn-primary btn-lg">{{ itinerary.name }}</router-link>
-        </div>
-        
+  <div id="sideBar">
+    <button class="btn btn-primary" v-on:click="showForm = !showForm">
+      ADD NEW ITINERARY
+    </button>
+    <form v-if="showForm" v-on:submit.prevent="saveItinerary">
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Enter New Itinerary Name"
+        v-model="newItinerary.name"
+      />
+      <input
+        type="date"
+        name="Tour Date"
+        v-model="newItinerary.itinerary_date"
+      />
+      <input type="submit" v-on:submit="saveItinerary" class="btn-submit" />
+      <button v-on:click="showForm = !showForm" class="btn-cancel">
+        Cancel
+      </button>
+    </form>
+    <div v-for="itinerary in itineraries" v-bind:key="itinerary.itinerary_id">
+      <router-link
+        :to="`/itinerary/${itinerary.itinerary_id}`"
+        tag="button"
+        class="btn btn-primary btn-lg"
+        >{{ itinerary.name }}</router-link
+      >
     </div>
- 
+  </div>
 </template>
 
 <script>
@@ -30,11 +43,7 @@ export default {
       }
     );
   },
-  // beforeUpdate(){
-  //     ItineraryService.getUserItineraries(this.$store.state.currentUser).then( (response) => {
-  //         this.itineraries = response.data;
-  //     });
-  // },
+
   data: () => ({
     itineraries: [],
     newItinerary: {
@@ -58,11 +67,14 @@ export default {
       ItineraryService.saveItinerary(
         this.newItinerary,
         this.$store.state.currentUser
-      ).then((response) => {
+      ).then(() => {
         this.showForm = false;
-        if (response.status === 201) {
-          this.$router.push(`/itineraries/${this.newItinerary.id}`);
-        }
+
+        ItineraryService.getUserItineraries(this.$store.state.currentUser).then(
+          (response) => {
+            this.itineraries = response.data;
+          }
+        );
       });
     },
   },
@@ -71,26 +83,26 @@ export default {
 
 <style>
 .btn.btn-primary {
-    background: green;
-    flex-direction: column;
-    align-items: center;
-    vertical-align: middle;
-    height: 80px;
-    width: 250px;
-    line-height: 65px;
-    border-color:white;
-    font-weight: bold;
-    font-size: 20px;
+  background: green;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  height: 80px;
+  width: 250px;
+  line-height: 65px;
+  border-color: white;
+  font-weight: bold;
+  font-size: 20px;
 }
 .btn.btn-primary.btn-lg {
-    margin-top: 20px;
-    height: 80px;
-    width: 200px;
-    background: #E14A2A;
-    color: white;
-    border-color: white;
-    align-content: center;
-    vertical-align: middle;
+  margin-top: 20px;
+  height: 80px;
+  width: 200px;
+  background: #e14a2a;
+  color: white;
+  border-color: white;
+  align-content: center;
+  vertical-align: middle;
 }
 .btn-cancel {
   color: #fff;
@@ -133,44 +145,39 @@ div#sideBar {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
-div#sideBar {  
-    height: 100%;
-    width: 15%;  
-    
-    position: fixed;  
-    z-index: 1;
-    left: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;  
-    overflow-x: hidden;  
-    border-right: solid lightgrey 1px;
-    background-image: url("../assets/incline.jpg");
-    
-    border-block-color: black;
-    border-bottom-color: black;
-    border-right-color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    }
-    .form-control {
-        display: block;
-        width: 80%;
-        height: 30px;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #495057;
-        border: 1px solid #ced4da;
-        border-radius: 0.25rem;
-        }
+div#sideBar {
+  height: 100%;
+  width: 15%;
+
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  overflow-x: hidden;
+  border-right: solid lightgrey 1px;
+  background-image: url("../assets/incline.jpg");
+
+  border-block-color: black;
+  border-bottom-color: black;
+  border-right-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-control {
+  display: block;
+  width: 80%;
+  height: 30px;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
 </style>
 
-
-
-//  needs to display a list of all itineraries for user
-
-//  functions need to
-//     -add a new itinerary
-//         user needs to name that itinerary
+// needs to display a list of all itineraries for user // functions need to //
+-add a new itinerary // user needs to name that itinerary

@@ -23,6 +23,7 @@ public interface ItineraryDAO {
 
 	void deleteLandmarkFromItinerary(Integer id,Integer landId, String userName);
 
+
 	void addLandmarkToItinerary(Integer id, List<Integer> landId, String userName);
 
 	

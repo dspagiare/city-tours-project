@@ -8,6 +8,7 @@ import draggable from 'vuedraggable'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import * as VueGoogleMaps from "vue2-google-maps"
+import VueSlideoutPanel from 'vue2-slideout-panel';
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -19,7 +20,7 @@ Vue.use(VueGoogleMaps, {
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(draggable)
-
+Vue.use(VueSlideoutPanel);
 
 Vue.config.productionTip = false
 

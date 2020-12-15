@@ -134,7 +134,7 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 			
 			String sql = "INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES ( ?,?)";
 			
-			jdbcTemplate.update(sql, valueInteger, id);
+			jdbcTemplate.update(sql, id, valueInteger );
 
 		}
 				
