@@ -1,7 +1,5 @@
 <template>
-  <div class="itinerary-list">
-    <div class="header">
-      <h1>Details for Itinerary : {{ this.itinerary_name }}</h1>
+  
 
     <div class="itinerary-list">
         <div class="header">
@@ -72,13 +70,11 @@
             Cancel
           </button>
         </form>
-      </div>
         <div class="map-search">
-        <map-search /> 
+            <map-search />
         </div>
-    </div>
-    <map-search />
-  </div>
+      </div>
+
 </template>
 
 <script>
@@ -87,12 +83,13 @@ import LandmarksService from "../services/LandmarksService";
 import draggable from "vuedraggable";
 import ItineraryService from "../services/ItineraryService";
 
+
 export default {
   name: "itinName",
   props: ["itineraries"],
   components: {
     draggable,
-    MapSearch,
+    MapSearch
   },
 
   data() {

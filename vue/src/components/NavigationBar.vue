@@ -15,7 +15,7 @@
         </div>
         
     </div>
-  </div>
+ 
 </template>
 
 <script>
@@ -74,6 +74,7 @@ export default {
     background: green;
     flex-direction: column;
     align-items: center;
+    vertical-align: middle;
     height: 80px;
     width: 250px;
     line-height: 65px;
@@ -85,11 +86,11 @@ export default {
     margin-top: 20px;
     height: 80px;
     width: 200px;
-    line-height: 65px;
     background: #E14A2A;
     color: white;
     border-color: white;
     align-content: center;
+    vertical-align: middle;
 }
 .btn-cancel {
   color: #fff;
@@ -135,6 +136,7 @@ div#sideBar {
 div#sideBar {  
     height: 100%;
     width: 15%;  
+    
     position: fixed;  
     z-index: 1;
     left: 0;
