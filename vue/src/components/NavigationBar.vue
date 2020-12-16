@@ -93,7 +93,7 @@ export default {
 
 <style>
 .btn.btn-primary {
-  background: green;
+  background: #0b6623;
   flex-direction: column;
   align-items: center;
   vertical-align: middle;

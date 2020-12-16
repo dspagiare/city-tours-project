@@ -5,7 +5,7 @@
 
       <p>
         Add or Remove landmarks, or change your itinerary's starting location
-        here
+        here.  <strong>Click + drag locations to re-order your route. </strong>
       </p>
     </div>
     <div class="isloading">
@@ -30,7 +30,7 @@
             :key="landmark.id"
           >
             <td>{{ landmark.name }}</td>
-            <td>{{ landmark.type }}</td>
+            <td>{{ landmark.venueType }}</td>
             <td>{{ landmark.address }}</td>
             <td>{{ landmark.id }}</td>
             <td>
@@ -66,7 +66,7 @@
         </button>
       </div>
     </div>
-    <button class="btn btn-outline-info" v-on:click="showForm = !showForm">
+    <!-- <button class="btn btn-outline-info" v-on:click="showForm = !showForm">
       Edit Itinerary
     </button>
     <form v-if="showForm" v-on:submit="update()">
@@ -93,7 +93,7 @@
       <button v-on:click="showForm = !showForm" class="btn-cancel">
         Cancel
       </button>
-    </form>
+    </form> -->
     <div class="map-search">
       <map-search />
     </div>

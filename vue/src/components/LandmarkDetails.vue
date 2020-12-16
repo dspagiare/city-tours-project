@@ -3,6 +3,7 @@
     <button class="btn btn-primary" v-on:click.prevent="closePanel">
       Close Panel
     </button>
+    
     <h1>{{ landmark.name }}</h1>
     <h3>{{ landmark.venueType }}</h3>
     <p>{{ landmark.address }}</p>
@@ -26,6 +27,8 @@
         </tr>
       </tbody>
     </table>
+  <img v-bind:src="landmark.imgUrl" height=300 />
+
   </div>
 </template>
 <script>
@@ -46,4 +49,5 @@ export default {
 .LandmarkDetails {
   padding: 20px;
 }
+
 </style>
