@@ -13,7 +13,7 @@ public class Landmark {
 	private String availableToHour;
 	private String imgUrl;
 	private Long numThumbsUp;
-	private Long numThumbsdown;
+	private Long numThumbsDown;
 	
 	
 	public Long getId() {
@@ -82,11 +82,11 @@ public class Landmark {
 	public void setNumThumbsUp(Long numThumbsUp) {
 		this.numThumbsUp = numThumbsUp;
 	}
-	public Long getNumThumbsdown() {
-		return numThumbsdown;
+	public Long getNumThumbsDown() {
+		return numThumbsDown;
 	}
-	public void setNumThumbsdown(Long numThumbsdown) {
-		this.numThumbsdown = numThumbsdown;
+	public void setNumThumbsDown(Long numThumbsdown) {
+		this.numThumbsDown = numThumbsdown;
 	}
 	
 	
