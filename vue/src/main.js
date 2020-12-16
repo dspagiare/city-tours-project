@@ -12,8 +12,8 @@ import VueSlideoutPanel from 'vue2-slideout-panel';
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: `${process.env.GOOGLE_API_KEY}`,
-    libraries: "places"
+    key: "AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw",
+    libraries: ["places", "geometry"]
   }
 });
 
