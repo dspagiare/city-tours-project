@@ -18,7 +18,7 @@
             <th>Location</th>
             <th>Type</th>
             <th>Address</th>
-            <th>Index</th>
+            <th>Thumbs Up</th>
             <th>How Was It?</th>
             <th>Delete Location</th>
           </tr>
@@ -32,7 +32,7 @@
             <td>{{ landmark.name }}</td>
             <td>{{ landmark.venueType }}</td>
             <td>{{ landmark.address }}</td>
-            <td>{{ landmark.id }}</td>
+            <td>{{ landmark.numThumbsUp }}</td>
             <td>
               <img
                 class="thumbs"
