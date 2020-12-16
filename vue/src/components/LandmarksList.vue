@@ -55,9 +55,9 @@
         <label for="itineraries">Select an Itinerary:</label>
         <select name="itineraries" id="itineraries" v-model="selectedItinerary">
           <option></option>
-          <option v-for="itinerary in itineraries" :key="itinerary.id">{{
-            itinerary.itinerary_id
-          }}</option>
+          <option v-for="itinerary in itineraries" :key="itinerary.id">
+            {{ itinerary.name }}
+          </option>
         </select>
       </div>
     </div>
@@ -101,15 +101,16 @@ export default {
       });
     },
     addLandmarkToItin() {
-      if(this.selectedItinerary != 0){
+      if (this.selectedItinerary != 0) {
         ItineraryService.addLandmarkToItinerary(
           this.selectedItinerary,
+          //this.$route.params.id,
           this.selected,
           this.$store.state.currentUser
         );
         window.location.reload();
       } else {
-        return alert("Please select an itenary to add landmark.")
+        return alert("Please select an itenary to add landmark.");
       }
     },
   },

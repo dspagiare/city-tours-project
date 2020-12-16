@@ -1,14 +1,10 @@
 <template>
-  
-    <div class ="main">
+  <div class="main">
     <itineraries-list />
-   
-    </div>
+  </div>
 </template>
-
 <script>
 import ItinerariesList from "../components/ItinerariesList.vue";
-
 export default {
   components: {ItinerariesList},
 
@@ -17,7 +13,6 @@ export default {
 
 
 </script>
-
 <style scoped>
 h1 {
   padding-top: 20px;
@@ -26,24 +21,11 @@ h1 {
 h2 {
   padding-bottom: 20px;
 }
-.table {
-  background-color: lightgray;
+p {
+  padding-bottom: 10px;
 }
-
- h1 {
-   padding-top: 20px;
-   padding-bottom: 20px;
- }
- h2 {
-   padding-bottom: 20px;
- }
- p{
-   padding-bottom: 10px;
- }
 .main {
-  
   width: 100%;
   overflow: visible;
-  
 }
 </style>

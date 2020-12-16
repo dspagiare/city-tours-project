@@ -30,10 +30,8 @@
     </div>
   </div>
 </template>
-
 <script>
 import ItineraryService from "../services/ItineraryService.js";
-
 export default {
   name: "navigation-bar",
   created() {
@@ -90,7 +88,6 @@ export default {
   },
 };
 </script>
-
 <style>
 .btn.btn-primary {
   background: #0b6623;
@@ -126,7 +123,7 @@ export default {
 }
 div#sideBar {
   height: 100%;
-  width: 20%;
+  width: 15%;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -134,13 +131,12 @@ div#sideBar {
   padding-bottom: 10px;
   overflow-x: hidden;
   border-right: solid lightgrey 1px;
-  background-color: white;
+  background-image: url("../assets/incline.jpg");
   border-block-color: black;
   border-bottom-color: black;
   border-right-color: black;
   display: flex;
   flex-direction: column;
-
   align-items: center;
 }
 .form-control {

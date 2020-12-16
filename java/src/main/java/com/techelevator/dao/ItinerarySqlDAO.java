@@ -125,8 +125,7 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 	}
 	
 	@Override
-	public void addLandmarkToItinerary(Integer id, List<Integer> landId, String userName) {
-
+	public void addLandmarkToItinerary(String name, List<Integer> landId, String userName) {
 //		List<Itinerary> itineraryList = getAllItineraries(userName);
 //
 //		for (Itinerary value : itineraryList) {
@@ -135,18 +134,9 @@ public class ItinerarySqlDAO implements ItineraryDAO {
 				
 		for(Integer valueInteger : landId) {
 			
-			String sql = "INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES ( ?,?)";
-			
-			jdbcTemplate.update(sql, id, valueInteger );
-
-		}
-				
-				
-
-
-
-	}
-	
+			String sql = "INSERT INTO itineraries_landmarks (itinerary_id, landmark_id) VALUES ( (SELECT itinerary_id FROM itineraries WHERE itinerary_name= ?),?)";
+			jdbcTemplate.update(sql, name, valueInteger );
+		}}
 
 
 	private Itinerary mapRowToItinerary(SqlRowSet results) {

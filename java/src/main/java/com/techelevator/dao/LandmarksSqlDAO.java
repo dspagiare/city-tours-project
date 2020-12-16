@@ -52,6 +52,19 @@ public class LandmarksSqlDAO implements LandmarksDAO {
 	}
 	
 	@Override
+	public Landmark getLandmarkDetailsById(Integer landmark_id){
+		Landmark myLandmark = null;
+		String sql = "SELECT landmark_name,description,available_from_day, available_to_day,available_from_hour, available_to_hour "+
+		"FROM landmarks  WHERE landmark_id = ?";
+		
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, landmark_id);
+		
+		while(results.next()) {
+			myLandmark = mapRowToLandmark(results);
+			
+		}
+		return myLandmark;
+	}
 	public void updateLandmarkRating(Long id, Landmark landmark) {
 		
 		String sql = "UPDATE landmarks SET num_thumbs_up = ? WHERE landmark_id = ?";

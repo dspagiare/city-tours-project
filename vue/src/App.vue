@@ -30,10 +30,10 @@ body{
     margin-top: 100px;
 }
 .nav {
-  position: fixed; 
-  top: 0; 
+  position: fixed;
+  top: 0;
   overflow: hidden;
-  background-image: url('assets/option9.png');
+  background-image: url("assets/option9.png");
   background-repeat: no-repeat;
   background-size: 1300px 100px;
   height: 100px;
@@ -41,11 +41,11 @@ body{
   background-color: rgba(64, 64, 64, 100);
   margin-bottom: 100px;
 }
-.img{
+.img {
   height: 100%;
   width: 100%;
 }
-.btn.btn-light{
+.btn.btn-light {
   height: 75%;
   width: 80px;
   margin-left: 40px;

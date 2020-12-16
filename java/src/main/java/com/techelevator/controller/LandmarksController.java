@@ -51,6 +51,10 @@ public class LandmarksController {
 		return landmarksDAO.getLandmarksForItinerary(id);
 	}
 	
+//	@RequestMapping(value="/landmarks", method = RequestMethod.GET)
+//	public Landmark getLandmarksDetails(@RequestParam Integer id) {
+//		return landmarksDAO.getLandmarkDetailsById(id);
+//	}
 	@RequestMapping(value = "/landmarks/{id}", method = RequestMethod.PUT)
 	  public void updateLandmarkRating(@PathVariable("id") Long id, @RequestBody Landmark landmark) {
 		landmarksDAO.updateLandmarkRating(id, landmark);

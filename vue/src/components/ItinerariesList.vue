@@ -2,7 +2,6 @@
   <div class="itinerary-list">
     <div class="header">
       <h1>Details for Itinerary : {{ this.itinerary_name }}</h1>
-
       <p>
         Add or Remove landmarks, or change your itinerary's starting location
         here.  <strong>Click + drag locations to re-order your route. </strong>
@@ -58,7 +57,6 @@
           </tr>
         </draggable>
       </table>
-
       <div class="itin-button">
         <button class="btn btn-outline-info">Generate Directions</button>
         <button class="btn btn-outline-info" @click="deleteItinerary()">
@@ -99,13 +97,11 @@
     </div>
   </div>
 </template>
-
 <script>
 import MapSearch from "../components/MapSearch";
 import LandmarksService from "../services/LandmarksService";
 import draggable from "vuedraggable";
 import ItineraryService from "../services/ItineraryService";
-
 export default {
   name: "itinName",
   props: ["itineraries"],
@@ -113,7 +109,6 @@ export default {
     draggable,
     MapSearch,
   },
-
   data() {
     return {
       oldIndex: "",
@@ -123,8 +118,6 @@ export default {
       landmarks: [],
       isLoading: true,
       itinerary_name: "",
-      itinerary_date: "",
-      showForm: false,
     };
   },
   methods: {
@@ -193,13 +186,11 @@ export default {
     ItineraryService.getItineraryDetails(this.$route.params.id).then(
       (response) => {
         this.itinerary_name = response.data.name;
-        this.itinerary_date = response.data.date;
       }
     );
   },
 };
 </script>
-
 <style scoped>
 h1 {
   padding-bottom: 40px;
