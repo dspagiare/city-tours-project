@@ -3,6 +3,7 @@
     <button class="btn btn-primary" v-on:click.prevent="closePanel">
       Close Panel
     </button>
+    <img v-bind:src="landmark.imgUrl" />
     <h1>{{ landmark.name }}</h1>
     <h3>{{ landmark.venueType }}</h3>
     <p>{{ landmark.address }}</p>
