@@ -3,9 +3,6 @@
     <button class="btn btn-primary" v-on:click.prevent="closePanel">
       Close Panel
     </button>
-    <!-- const pic = {{ landmark.landmark_img_url}}; -->
-    <!-- <div :style="cssProps"> -->
-    <!-- </div> -->
 
     <h1>{{ landmark.name }}</h1>
     <h3>{{ landmark.venueType }}</h3>
@@ -30,19 +27,16 @@
         </tr>
       </tbody>
     </table>
-    
-    <!-- <img v-bind:src="landmark.imgUrl" /> -->
-    <!-- <div v-bind:style="{ backgroundImage: ` url (${landmark.imgUrl})` }"></div> -->
-  <img v-bind:src="landmark.imgUrl" height=300 />
-
+    <img v-bind:src="landmark.imgUrl" height="300" />
   </div>
 </template>
 <script>
 export default {
   name: "LandmarkDetails",
   props: ["landmark"],
-  data() {},
-
+  data() {
+    return {};
+  },
   methods: {
     closePanel() {
       this.$emit("closePanel", {});
@@ -54,5 +48,4 @@ export default {
 .LandmarkDetails {
   padding: 20px;
 }
-
 </style>
