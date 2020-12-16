@@ -37,13 +37,13 @@
               <img
                 class="thumbs"
                 src="../assets/thumbs-up.png"
-                v-on:click="updateLandmarkRating(landmark)"
+                @click="updateLandmarkRatingUp(landmark)"
                 @mouseover="mouseOver"
               />
               <img
                 class="thumbs"
                 src="../assets/thumbs-down-icon.png"
-                v-on:click="updateLandmarkRating(landmark)"
+                v-on:click="updateLandmarkRatingDown(landmark)"
                 @mouseover="mouseOver"
               />
             </td>
@@ -119,7 +119,6 @@ export default {
       oldIndex: "",
       newIndex: "",
       counter: 2,
-      thumbsCounter: 0,
       active: false,
       landmarks: [],
       isLoading: true,
@@ -129,8 +128,16 @@ export default {
     };
   },
   methods: {
-    updateLandmarkRating(landmark){
+    updateLandmarkRatingUp(landmark){
+      landmark.numThumbsUp++;
       LandmarksService.updateLandmarkRating(landmark);
+    },
+
+    updateLandmarkRatingDown(landmark){
+      if(landmark.numThumbsUp != 0) {
+        landmark.numThumbsUp--;
+        LandmarksService.updateLandmarkRating(landmark);
+      }
     },
     
     update() {
