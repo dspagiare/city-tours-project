@@ -1,6 +1,6 @@
 <template>
   <div class="ui grid">
-    <div class="six wide column">
+    <!-- <div class="six wide column">
       <form class="ui segment large form">
         <div class="ui segment">
           <div class="field">
@@ -33,8 +33,12 @@
               </div>
             </div>
           </div>
-          <button class="ui button" v-on:click.prevent="findNearByLocations">
-            Find nearby locations
+          <button
+            class="ui button"
+            :bind="places"
+            v-on:click.prevent="getRoute"
+          >
+            Generate Route
           </button>
         </div>
       </form>
@@ -48,36 +52,74 @@
           </div>
         </div>
       </div>
+    </div> -->
+    <div class="twelve wide column segemnt ui" id="map">
+      <div>
+        <div>
+          <h2>Search and add a pin</h2>
+          <label>
+            <gmap-autocomplete @place_changed="setPlace"> </gmap-autocomplete>
+            <button @click="addMarker">Add</button>
+          </label>
+          <br />
+          <button class="ui button" :bind="places" @:click.prevent="getRoute">
+            Generate Route
+          </button>
+        </div>
+        <br />
+        <gmap-map
+          :center="center"
+          :zoom="12"
+          style="width:100%;  height: 400px;"
+        >
+          <gmap-marker
+            :key="index"
+            v-for="(m, index) in markers"
+            :position="m.position"
+            @click="center = m.position"
+          ></gmap-marker>
+        </gmap-map>
+      </div>
     </div>
-    <div
-      class="ten wide column segemnt ui"
-      style="width:100%;height:400px;"
-      id="map"
-      ref="map"
-    ></div>
-    <map-loader />
   </div>
 </template>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw&libraries=places"></script>
-<script></script>
-
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw&libraries=places,geometry"
+  type="text/javascript"
+></script>
 <script>
-import MapLoader from "@/components/MapLoader";
+import LandmarksService from "@/services/LandmarksService";
 import axios from "axios";
 export default {
-  components: {
-    MapLoader,
-  },
   data() {
     return {
       map: null,
+      center: { lat: 40.4406, lng: 70.9959 },
+      markers: [],
+      currentPlace: null,
       lat: 0,
       lng: 0,
       type: "",
       radius: "",
       places: [],
       address: "",
+      dist: 0,
+      filteredPlace: [],
     };
+  },
+  created() {
+    LandmarksService.getLandmarksForItinerary(this.$route.params.id).then(
+      (response) => {
+        this.places = response.data;
+
+        this.isLoading = false;
+      }
+    );
+  },
+  mounted() {
+    this.geolocate();
+    // this.getRoute();
+    // this.displayGoogleMap();
   },
 
   computed: {
@@ -86,28 +128,77 @@ export default {
     },
   },
   methods: {
-    displayGoogleMap() {
-      let mapProp = {
-        center: new google.maps.LatLng(51.508742, -0.12059),
-        zoom: 15,
-      };
-      let map = new google.maps.Map(document.getElementById("map"), mapProp);
-      let infoWindow = new google.maps.InfoWindow();
-      this.places.forEach((place) => {
-        const lat = place.geometry.location.lat;
-        const lng = place.gemoetry.location.lng;
-        let marker = new google.maps.Marker({
-          position: new google.maps.LatLng(lat, lng),
-          map: map,
-        });
-        google.maps.even.addListener(marker, "click", () => {
-          infoWindow.setContent(
-            `<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`
-          );
-          infoWindow.open(map, marker);
-        });
+    getRoute: function() {
+      this.directionsService = new google.maps.DirectionsService();
+      this.directionsDisplay = new google.maps.DirectionsRenderer();
+      // this.directionsDisplay.setMap(this.$refs.map.$mapObject);
+      let vm = this;
+      vm.directionsService.route(
+        {
+          origin: new window.google.maps.LatLng(37.66992908, -122.4469157), // Can be coord or also a search query
+          destination: new window.google.map.LatLng(
+            37.7683909618184,
+            122.51089453697205
+          ),
+          travelMode: "DRIVING",
+        },
+        function(response, status) {
+          if (status === "OK") {
+            vm.directionsDisplay.setDirections(response); // draws the polygon to the map
+          } else {
+            console.log("Directions request failed due to " + status);
+          }
+        }
+      );
+    },
+
+    setPlace(place) {
+      this.currentPlace = place;
+    },
+    addMarker() {
+      if (this.currentPlace) {
+        const marker = {
+          lat: this.currentPlace.geometry.location.lat(),
+          lng: this.currentPlace.geometry.location.lng(),
+        };
+        this.markers.push({ position: marker });
+        this.places.push(this.currentPlace);
+        this.center = marker;
+        this.currentPlace = null;
+      }
+    },
+    geolocate: function() {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
       });
     },
+    created() {
+      function displayGoogleMap() {
+        let map = new window.google.maps.Map(document.getElementById("map"), {
+          zoom: 15,
+          center: new window.google.maps.LatLng(this.lat, this.lng),
+        });
+        let infoWindow = new window.google.maps.InfoWindow();
+        this.places.forEach((place) => {
+          const lat = place.geometry.location.lat;
+          const lng = place.gemoetry.location.lng;
+          let marker = new window.google.maps.Marker({
+            position: new window.google.maps.LatLng(lat, lng),
+            map: map,
+          });
+          google.map.event.addListener(marker, "click", () => {
+            infoWindow.setContent(
+              `<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`
+            );
+            infoWindow.open(map, marker);
+          });
+        });
+      }
+    },
+
     findNearByLocations() {
       const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${
         this.lat
@@ -118,11 +209,10 @@ export default {
         .get(URL)
         .then((response) => {
           this.places = response.data.results;
-          this.displayGoogleMap();
         })
 
         .catch((error) => {
-          console.log(err.response.data.error);
+          console.log(error.response.data.error);
           console.log(error.message);
         });
     },
@@ -158,23 +248,6 @@ export default {
         console.log(error.message);
       };
     },
-    displayGoogleMap() {
-      // let infoWindow = new google.maps.InfoWindow();
-      // this.places.forEach((place) => {
-      //   const lat = place.geometry.location.lat;
-      //   const lng = place.gemoetry.location.lng;
-      //   let marker = new google.maps.Marker({
-      //     position: new google.maps.LatLng(lat, lng),
-      //     map: map,
-      //   });
-      //   google.maps.even.addListener(marker, "click", () => {
-      //     infoWindow.setContent(
-      //       `<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`
-      //     );
-      //     infoWindow.open(map, marker);
-      //   });
-      // });
-    },
   },
 };
 </script>
@@ -183,6 +256,5 @@ export default {
 .ui.grid {
   margin-top: 20px;
   height: 100hv;
-  
 }
 </style>
