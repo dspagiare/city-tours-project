@@ -20,7 +20,7 @@
         Cancel
       </button>
     </form>
-    <div v-for="itinerary in itineraries" v-bind:key="itinerary.itinerary_id">
+    <div v-for="itinerary in itineraries" v-bind:key="itinerary.itinerary_id" v-on:click="forceRefresh()">
       <router-link
         :to="`/itinerary/${itinerary.itinerary_id}`"
         tag="button"
@@ -55,27 +55,37 @@ export default {
     isLoading: true,
   }),
   methods: {
-    // // saveItinerary saves new Itinerary to DB and routes user to newItinerary's
-    // details page
+    forceRefresh(){
+        window.location.reload();
+    },
     saveItinerary() {
-      if (
-        this.newItinerary.name === "" ||
-        this.newItinerary.itinerary_date === ""
-      ) {
-        return alert("Put in the stuff before you submit");
-      }
-      ItineraryService.saveItinerary(
-        this.newItinerary,
-        this.$store.state.currentUser
-      ).then(() => {
-        this.showForm = false;
+        let arr = [];
+    
+        this.itineraries.forEach(itinerary => {
+          arr.push(itinerary.name);
+        });
 
-        ItineraryService.getUserItineraries(this.$store.state.currentUser).then(
-          (response) => {
-            this.itineraries = response.data;
-          }
-        );
-      });
+        
+        if (this.newItinerary.name === "" || this.newItinerary.itinerary_date === "") {
+            return alert("Put in the stuff before you submit");
+        }
+        if (arr.includes(this.newItinerary.name)) {
+            return alert("New itinerary name must not be a duplicate");
+        } 
+        else {
+            ItineraryService.saveItinerary(
+                this.newItinerary,
+                this.$store.state.currentUser
+            ).then(() => {
+            this.showForm = false;
+
+            ItineraryService.getUserItineraries(this.$store.state.currentUser).then(
+                (response) => {
+                    this.itineraries = response.data;
+                    }   
+                );
+            });
+        }
     },
   },
 };
