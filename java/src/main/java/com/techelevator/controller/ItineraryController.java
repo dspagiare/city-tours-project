@@ -96,9 +96,9 @@ public class ItineraryController {
 		 itineraryDAO.deleteLandmarkFromItinerary(id,landId, principal.getName());
 	  }
 	  
-	  @RequestMapping(value = "/itineraries/{id}/landmarks/{landId}", method = RequestMethod.POST)
-	  public void addLandmark(@PathVariable Integer id, @PathVariable List<Integer> landId,  Principal principal ) {
-		 itineraryDAO.addLandmarkToItinerary(id,landId, principal.getName());
+	  @RequestMapping(value = "/itineraries/{name}/landmarks/{landId}", method = RequestMethod.POST)
+	  public void addLandmark(@PathVariable String name, @PathVariable List<Integer> landId,  Principal principal ) {
+		 itineraryDAO.addLandmarkToItinerary(name,landId, principal.getName());
 	  }
 	  
 }

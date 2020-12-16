@@ -100,15 +100,16 @@ export default {
       });
     },
     addLandmarkToItin() {
-      if(this.selectedItinerary != 0){
+      if (this.selectedItinerary != 0) {
         ItineraryService.addLandmarkToItinerary(
           this.selectedItinerary,
+          //this.$route.params.id,
           this.selected,
           this.$store.state.currentUser
         );
         window.location.reload();
       } else {
-        return alert("Please select an itenary to add landmark.")
+        return alert("Please select an itenary to add landmark.");
       }
     },
   },

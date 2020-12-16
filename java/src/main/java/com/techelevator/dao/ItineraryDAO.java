@@ -2,6 +2,8 @@ package com.techelevator.dao;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Configuration;
+
 import com.techelevator.model.Itineraries_Landmarks;
 import com.techelevator.model.Itinerary;
 import com.techelevator.model.Itineraries_Landmarks;
@@ -13,7 +15,7 @@ public interface ItineraryDAO {
 
 	void deleteItinerary(Integer id, String userName);
 
-	void updateItinerary(Itinerary itineraryBody, String userName);
+	
 
 
 	Itinerary createItinerary(Itinerary newItinerary, String userName);
@@ -22,7 +24,11 @@ public interface ItineraryDAO {
 
 	void deleteLandmarkFromItinerary(Integer id,Integer landId, String userName);
 
-	void addLandmarkToItinerary(Integer id, Integer landId, String userName);
+	
+
+	void addLandmarkToItinerary(String name,  List<Integer> landId, String userName);
+
+	void updateItinerary(Integer id, Itinerary itineraryBody, String userName);
 
 	
 	
