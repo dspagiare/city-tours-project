@@ -41,8 +41,8 @@
               <td>{{ landmark.numThumbsUp }}</td>
               <td>
                 <button class="btn btn-secondary" v-on:click.prevent="showPanel(landmark)">
-                  Show Details</button
-                ><slideout-panel></slideout-panel>
+                  Show Details</button>
+                  <slideout-panel class="slp"></slideout-panel>
               </td>
             </tr>
           </tbody>
@@ -96,6 +96,7 @@ export default {
       this.$showPanel({
         component: LandmarkDetails,
         cssClass: "LandmarkDetails",
+        openOn: 'right',
         props: { landmark },
       });
     },
@@ -153,4 +154,9 @@ h2 {
 .btn.btn-outline-primary {
   margin-right: 20px;
 }
+.LandmarkDetails {
+  padding: 20px;
+  background: red;
+}
+
 </style>
