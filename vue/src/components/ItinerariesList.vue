@@ -5,7 +5,7 @@
 
       <p>
         Add or Remove landmarks, or change your itinerary's starting location
-        here
+        here.  <strong>Click + drag locations to re-order your route. </strong>
       </p>
     </div>
     <div class="isloading">
@@ -18,7 +18,7 @@
             <th>Location</th>
             <th>Type</th>
             <th>Address</th>
-            <th>Index</th>
+            <th>Thumbs Up</th>
             <th>How Was It?</th>
             <th>Delete Location</th>
           </tr>
@@ -30,20 +30,20 @@
             :key="landmark.id"
           >
             <td>{{ landmark.name }}</td>
-            <td>{{ landmark.type }}</td>
+            <td>{{ landmark.venueType }}</td>
             <td>{{ landmark.address }}</td>
-            <td>{{ landmark.id }}</td>
+            <td>{{ landmark.numThumbsUp }}</td>
             <td>
               <img
                 class="thumbs"
                 src="../assets/thumbs-up.png"
-                v-on:click="updateLandmarkRating(landmark)"
+                @click="updateLandmarkRatingUp(landmark)"
                 @mouseover="mouseOver"
               />
               <img
                 class="thumbs"
                 src="../assets/thumbs-down-icon.png"
-                v-on:click="updateLandmarkRating(landmark)"
+                v-on:click="updateLandmarkRatingDown(landmark)"
                 @mouseover="mouseOver"
               />
             </td>
@@ -66,7 +66,7 @@
         </button>
       </div>
     </div>
-    <button class="btn btn-outline-info" v-on:click="showForm = !showForm">
+    <!-- <button class="btn btn-outline-info" v-on:click="showForm = !showForm">
       Edit Itinerary
     </button>
     <form v-if="showForm" v-on:submit="update()">
@@ -93,7 +93,7 @@
       <button v-on:click="showForm = !showForm" class="btn-cancel">
         Cancel
       </button>
-    </form>
+    </form> -->
     <div class="map-search">
       <map-search />
     </div>
@@ -119,7 +119,6 @@ export default {
       oldIndex: "",
       newIndex: "",
       counter: 2,
-      thumbsCounter: 0,
       active: false,
       landmarks: [],
       isLoading: true,
@@ -129,8 +128,16 @@ export default {
     };
   },
   methods: {
-    updateLandmarkRating(landmark){
+    updateLandmarkRatingUp(landmark){
+      landmark.numThumbsUp++;
       LandmarksService.updateLandmarkRating(landmark);
+    },
+
+    updateLandmarkRatingDown(landmark){
+      if(landmark.numThumbsUp != 0) {
+        landmark.numThumbsUp--;
+        LandmarksService.updateLandmarkRating(landmark);
+      }
     },
     
     update() {

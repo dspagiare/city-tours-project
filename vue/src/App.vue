@@ -52,4 +52,8 @@ body{
   margin-top: 10px;
   color: black;
 }
+.LandmarkDetails {
+  height: 100%;
+  padding: 20px;
+}
 </style>
