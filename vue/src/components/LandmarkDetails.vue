@@ -30,9 +30,11 @@
         </tr>
       </tbody>
     </table>
-    <div v-bind:style="{ backgroundImage: ` url (${landmark.imgUrl})` }"></div>
+    
     <!-- <img v-bind:src="landmark.imgUrl" /> -->
     <!-- <div v-bind:style="{ backgroundImage: ` url (${landmark.imgUrl})` }"></div> -->
+  <img v-bind:src="landmark.imgUrl" height=300 />
+
   </div>
 </template>
 <script>
@@ -52,4 +54,5 @@ export default {
 .LandmarkDetails {
   padding: 20px;
 }
+
 </style>

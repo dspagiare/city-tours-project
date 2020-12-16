@@ -58,7 +58,6 @@ public class LandmarksController {
 	@RequestMapping(value = "/landmarks/{id}", method = RequestMethod.PUT)
 	  public void updateLandmarkRating(@PathVariable("id") Long id, @RequestBody Landmark landmark) {
 		landmarksDAO.updateLandmarkRating(id, landmark);
-		
 	  }
 	
 	 /**

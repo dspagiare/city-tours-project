@@ -13,5 +13,6 @@ public interface LandmarksDAO {
 	Landmark getLandmarkDetailsById(Integer landmark_id);
 	
 	void updateLandmarkRating(Long id, Landmark landmark);
+
 	
 }
