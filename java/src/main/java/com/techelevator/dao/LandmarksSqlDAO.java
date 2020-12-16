@@ -54,29 +54,10 @@ public class LandmarksSqlDAO implements LandmarksDAO {
 	@Override
 	public void updateLandmarkRating(Long id, Landmark landmark) {
 		
-//		String sql_get = "SELECT * FROM landmarks WHERE landmark_id = ?";
-//		
-//		SqlRowSet results = jdbcTemplate.queryForRowSet(sql_get, id);
-//		
-//		if (landmark.getNumThumbsUp() + 1 > results.getLong("num_thumbs_up")) {
-//			
-//			String sql = "UPDATE landmarks SET num_thumbs_up = ? WHERE landmark_id = ?";
-//			
-//			jdbcTemplate.update(sql, landmark.getNumThumbsUp()+1, id);
-//			
-//		} else if (landmark.getNumThumbsDown() + 1 > results.getLong("num_thumbs_down") && results.getLong("num_thumbs_down") > 0) {
-//			
-//			String sql = "UPDATE landmarks SET num_thumbs_down = ? WHERE landmark_id = ?";
-//			
-//			jdbcTemplate.update(sql, landmark.getNumThumbsDown()+1, id);
-//		}
-		
 		String sql = "UPDATE landmarks SET num_thumbs_up = ? WHERE landmark_id = ?";
 		
-		jdbcTemplate.update(sql, landmark.getNumThumbsUp()+1, id);
+		jdbcTemplate.update(sql, landmark.getNumThumbsUp(), id);
 		
-		//Need to take care of thumbs down
-
 		
 	}
 
