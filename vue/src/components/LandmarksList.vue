@@ -5,6 +5,10 @@
     </div>
     <div class="isNotLoading" v-if="!isLoading">
       <div class="pane">
+        <p>Search Landmarks by Name: 
+        <input type="text" id="searchLandmarks" placeholder="Search by name"
+          v-model="searchText"/>
+        </p>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -14,7 +18,6 @@
                   <i class="form-icon"></i>
                 </label>
               </th>
-              <th>Index</th>
               <th>Location Name</th>
               <th>Location Type</th>
               <th>Address</th>
@@ -23,7 +26,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="landmark in landmarks" v-bind:key="landmark.id">
+            <tr id="landmarksTable" v-for="landmark in filterBySearchText" v-bind:key="landmark.id">
               <td>
                 <label class="form-checkbox">
                   <input
@@ -34,7 +37,6 @@
                   <i class="form-icon"></i>
                 </label>
               </td>
-              <td>{{ landmark.id }}</td>
               <td>{{ landmark.name }}</td>
               <td>{{ landmark.venueType }}</td>
               <td>{{ landmark.address }}</td>
@@ -86,7 +88,20 @@ export default {
     landmarkDetailsForm: {
       openOn: "right",
     },
+    searchText: "",
   }),
+  computed: {
+    filterBySearchText (){
+      if(this.searchText != ""){
+        return this.landmarks.filter((landmark)=>{
+          return landmark.name.startsWith(this.searchText);
+        })
+      } else{
+        return this.landmarks;
+      }
+    }
+  },
+
   methods: {
     select() {
       this.selected = [];
@@ -111,9 +126,16 @@ export default {
           this.selectedItinerary,
           //this.$route.params.id,
           this.selected,
-          this.$store.state.currentUser
-        );
-        window.location.reload();
+          this.$store.state.currentUser,
+        ).then((response) => {
+          if(response.status === 200) {
+            window.location.reload()
+          }
+        }).catch((response) => {
+            return alert("One or more selected Landmarks already exist on the itinerary. Please try again.");
+            window.location.reload()
+        });
+        
       } else {
         return alert("Please select an itenary to add landmark.");
       }

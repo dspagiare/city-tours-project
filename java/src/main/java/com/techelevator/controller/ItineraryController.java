@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ import com.techelevator.dao.ItineraryDAO;
 import com.techelevator.dao.UserDAO;
 
 import com.techelevator.model.Itinerary;
-
+import com.techelevator.model.LandmarkOnItineraryAlreadyExistsException;
 import com.techelevator.model.LoginDTO;
 
 import com.techelevator.model.RegisterUserDTO;
@@ -98,7 +99,11 @@ public class ItineraryController {
 	  
 	  @RequestMapping(value = "/itineraries/{name}/landmarks/{landId}", method = RequestMethod.POST)
 	  public void addLandmark(@PathVariable String name, @PathVariable List<Integer> landId,  Principal principal ) {
-		 itineraryDAO.addLandmarkToItinerary(name,landId, principal.getName());
+		  try {
+				 itineraryDAO.addLandmarkToItinerary(name, landId, principal.getName());
+			 }catch(DuplicateKeyException e){
+		         throw new LandmarkOnItineraryAlreadyExistsException();
+			 }
 	  }
 	  
 }
