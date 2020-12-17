@@ -20,7 +20,11 @@
         Cancel
       </button>
     </form>
-    <div v-for="itinerary in itineraries" v-bind:key="itinerary.itinerary_id" v-on:click="forceRefresh()">
+    <div
+      v-for="itinerary in itineraries"
+      v-bind:key="itinerary.itinerary_id"
+      v-on:click="forceRefresh()"
+    >
       <router-link
         :to="`/itinerary/${itinerary.itinerary_id}`"
         tag="button"
@@ -53,37 +57,38 @@ export default {
     isLoading: true,
   }),
   methods: {
-    forceRefresh(){
-        window.location.reload();
+    forceRefresh() {
+      window.location.reload();
     },
     saveItinerary() {
-        let arr = [];
-    
-        this.itineraries.forEach(itinerary => {
-          arr.push(itinerary.name);
+      let arr = [];
+
+      this.itineraries.forEach((itinerary) => {
+        arr.push(itinerary.name);
+      });
+
+      if (
+        this.newItinerary.name === "" ||
+        this.newItinerary.itinerary_date === ""
+      ) {
+        return alert("Put in the stuff before you submit");
+      }
+      if (arr.includes(this.newItinerary.name)) {
+        return alert("New itinerary name must not be a duplicate");
+      } else {
+        ItineraryService.saveItinerary(
+          this.newItinerary,
+          this.$store.state.currentUser
+        ).then(() => {
+          this.showForm = false;
+
+          ItineraryService.getUserItineraries(
+            this.$store.state.currentUser
+          ).then((response) => {
+            this.itineraries = response.data;
+          });
         });
-
-        
-        if (this.newItinerary.name === "" || this.newItinerary.itinerary_date === "") {
-            return alert("Put in the stuff before you submit");
-        }
-        if (arr.includes(this.newItinerary.name)) {
-            return alert("New itinerary name must not be a duplicate");
-        } 
-        else {
-            ItineraryService.saveItinerary(
-                this.newItinerary,
-                this.$store.state.currentUser
-            ).then(() => {
-            this.showForm = false;
-
-            ItineraryService.getUserItineraries(this.$store.state.currentUser).then(
-                (response) => {
-                    this.itineraries = response.data;
-                    }   
-                );
-            });
-        }
+      }
     },
   },
 };
@@ -100,6 +105,7 @@ export default {
   border-color: white;
   font-weight: bold;
   font-size: 20px;
+  margin-top: 30px;
 }
 .btn.btn-primary.btn-lg {
   margin-top: 20px;

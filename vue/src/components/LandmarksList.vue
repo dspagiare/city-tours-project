@@ -40,9 +40,13 @@
               <td>{{ landmark.address }}</td>
               <td>{{ landmark.numThumbsUp }}</td>
               <td>
-                <button class="btn btn-secondary" v-on:click.prevent="showPanel(landmark)">
-                  Show Details</button>
-                  <slideout-panel class="slp"></slideout-panel>
+                <button
+                  class="btn btn-secondary"
+                  v-on:click.prevent="showPanel(landmark)"
+                >
+                  Show Details
+                </button>
+                <slideout-panel class="slp"></slideout-panel>
               </td>
             </tr>
           </tbody>
@@ -96,7 +100,8 @@ export default {
       this.$showPanel({
         component: LandmarkDetails,
         cssClass: "LandmarkDetails",
-        openOn: 'right',
+        openOn: "right",
+        width: 900,
         props: { landmark },
       });
     },
@@ -129,6 +134,9 @@ export default {
 </script>
 
 <style scoped>
+tbody {
+  font-size: 15px;
+}
 h1 {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -146,6 +154,7 @@ h2 {
   padding-left: 50px;
   color: black;
 }
+
 .buttons {
   border: 5px black;
   margin: 10px;
@@ -157,7 +166,8 @@ h2 {
 }
 .LandmarkDetails {
   padding: 20px;
-  background: red;
 }
-
+.slp {
+  opacity: 0.2;
+}
 </style>

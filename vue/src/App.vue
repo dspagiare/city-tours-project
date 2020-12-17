@@ -1,33 +1,32 @@
 <template>
   <div id="app">
-    <div class = "nav" id="nav" >
-      <button v-if="$store.state.token != ''" class = "btn btn-light" ><router-link v-bind:to="{ name: 'home' }">Home</router-link></button>
-      <button v-if="$store.state.token != ''" class = "btn btn-light"><router-link v-bind:to="{ name: 'logout' }" >Logout</router-link></button>
-     
+    <div class="nav" id="nav">
+      <button v-if="$store.state.token != ''" class="btn btn-light">
+        <router-link v-bind:to="{ name: 'home' }">Home</router-link>
+      </button>
+      <button v-if="$store.state.token != ''" class="btn btn-light">
+        <router-link v-bind:to="{ name: 'logout' }">Logout</router-link>
+      </button>
     </div>
-  
-     <router-view />
-  
+
+    <router-view />
   </div>
 </template>
 <script>
-export default {
-
-
-}
+export default {};
 </script >
 
-<style > 
-body{
-  
-  overflow-x:hidden;
-  overflow-y:hidden;
+<style >
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
-#app{
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin-top: 100px;
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-top: 100px;
+  height: 100%;
 }
 .nav {
   position: fixed;

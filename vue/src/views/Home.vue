@@ -38,19 +38,24 @@ h1 {
 h2 {
   padding-bottom: 20px;
   padding-top: 20px;
+  font-family: "Gill Sans", Helvetica, Arial, sans-serif;
+  text-align: center;
 }
 .pane {
   display: inline-block;
 }
 p {
   padding-bottom: 10px;
+  text-align: center;
+  font-family: "Gill Sans", Helvetica, Arial, sans-serif;
+  font-size: 20px;
 }
 .home {
   font-family: Avenir, Helvetica, san-serif;
 }
 .main {
-  margin-top: 100px;
-  height: 100vh;
+  margin-top: auto;
+  height: 100%;
   overflow: scroll;
   color: black;
   width: 85%;
@@ -58,5 +63,6 @@ p {
   right: 0;
   padding-left: 50px;
   padding-right: 50px;
+  padding-bottom: 8rem;
 }
 </style>
