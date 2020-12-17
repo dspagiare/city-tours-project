@@ -54,7 +54,7 @@ public class LandmarksSqlDAO implements LandmarksDAO {
 	@Override
 	public Landmark getLandmarkDetailsById(Integer landmark_id){
 		Landmark myLandmark = null;
-		String sql = "SELECT landmark_name,description,available_from_day, available_to_day,available_from_hour, available_to_hour "+
+		String sql = "SELECT landmark_name,description,available_from_day, available_to_day,available_from_hour, available_to_hour,  "+
 		"FROM landmarks  WHERE landmark_id = ?";
 		
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, landmark_id);
@@ -89,6 +89,8 @@ public class LandmarksSqlDAO implements LandmarksDAO {
         landmark.setImgUrl(rs.getString("landmark_img_url"));
         landmark.setNumThumbsUp(rs.getLong("num_thumbs_up"));
         landmark.setNumThumbsDown(rs.getLong("num_thumbs_down"));
+        landmark.setLandLat(rs.getDouble("land_lat"));
+        landmark.setLandLon(rs.getDouble("land_lon"));
      
         return landmark;
     }

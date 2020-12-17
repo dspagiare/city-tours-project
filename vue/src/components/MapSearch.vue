@@ -1,13 +1,13 @@
 <template>
   <div class="ui grid">
-    <!-- <div class="six wide column">
+    <div class="six wide column">
       <form class="ui segment large form">
         <div class="ui segment">
           <div class="field">
             <div class="ui right icon input large">
               <input
                 type="text"
-                placeholder="Enter your address"
+                placeholder="Enter your address or click locator button -->"
                 v-model="coordinates"
               />
               <i
@@ -19,27 +19,20 @@
           <div class="field">
             <div class="two fields">
               <div class="field">
-                <select v-model="type">
-                  <option value="museum">Landmark</option>
-                </select>
+                <b-button @click="drawMarkers">
+                  Draw Markers
+                </b-button>
               </div>
               <div class="field">
-                <select v-model="radius">
-                  <option value="5">5 Miles</option>
-                  <option value="10">10 Miles</option>
-                  <option value="15">15 Miles</option>
-                  <option value="20">20 Miles</option>
-                </select>
+                <b-button @click="clearMarkers">Clear Markers</b-button>
+              </div>
+              <div class="field">
+                <b-button @click="drawDirections">
+                  Generate Directions
+                </b-button>
               </div>
             </div>
           </div>
-          <button
-            class="ui button"
-            :bind="places"
-            v-on:click.prevent="getRoute"
-          >
-            Generate Route
-          </button>
         </div>
       </form>
       <div class="ui segment" style="max-height:500px;overflow:scroll">
@@ -47,27 +40,25 @@
           <div class="item" v-for="place in places" v-bind:key="place.id">
             <div class="content">
               <div class="header">{{ place.name }}</div>
-              <div class="meta">{{ place.vicinity }}</div>
+              <div class="meta">{{ place.address }}</div>
             </div>
           </div>
         </div>
       </div>
-    </div> -->
-    <div class="twelve wide column segemnt ui" id="map">
+    </div>
+    <div class="ten wide column segemnt ui" ref="map">
       <div>
         <div>
           <h2>Search and add a pin</h2>
           <label>
             <gmap-autocomplete @place_changed="setPlace"> </gmap-autocomplete>
-            <button @click="addMarker">Add</button>
+            <button @click="addMarker">Add: {{ this.lat }}</button>
           </label>
           <br />
-          <button class="ui button" :bind="places" @:click.prevent="getRoute">
-            Generate Route
-          </button>
         </div>
         <br />
         <gmap-map
+          ref="map"
           :center="center"
           :zoom="12"
           style="width:100%;  height: 400px;"
@@ -76,8 +67,11 @@
             :key="index"
             v-for="(m, index) in markers"
             :position="m.position"
+            :clickable="true"
+            :draggable="true"
             @click="center = m.position"
           ></gmap-marker>
+          <gmap-polygon :paths="paths"> </gmap-polygon>
         </gmap-map>
       </div>
     </div>
@@ -93,6 +87,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      paths: [],
       map: null,
       center: { lat: 40.4406, lng: 70.9959 },
       markers: [],
@@ -103,15 +98,12 @@ export default {
       radius: "",
       places: [],
       address: "",
-      dist: 0,
-      filteredPlace: [],
     };
   },
   created() {
     LandmarksService.getLandmarksForItinerary(this.$route.params.id).then(
       (response) => {
         this.places = response.data;
-
         this.isLoading = false;
       }
     );
@@ -124,34 +116,31 @@ export default {
 
   computed: {
     coordinates() {
-      return `${this.lat}, ${this.lng}`;
+      return this.address;
     },
   },
   methods: {
-    getRoute: function() {
-      this.directionsService = new google.maps.DirectionsService();
-      this.directionsDisplay = new google.maps.DirectionsRenderer();
-      // this.directionsDisplay.setMap(this.$refs.map.$mapObject);
-      let vm = this;
-      vm.directionsService.route(
-        {
-          origin: new window.google.maps.LatLng(37.66992908, -122.4469157), // Can be coord or also a search query
-          destination: new window.google.map.LatLng(
-            37.7683909618184,
-            122.51089453697205
-          ),
-          travelMode: "DRIVING",
-        },
-        function(response, status) {
-          if (status === "OK") {
-            vm.directionsDisplay.setDirections(response); // draws the polygon to the map
-          } else {
-            console.log("Directions request failed due to " + status);
-          }
-        }
-      );
+    drawMarkers() {
+      for (let place in this.places) {
+        let lat = place.landLat;
+        let lon = place.landLon;
+        let marker = { lat, lon };
+        this.markers.push({ position: marker });
+      }
     },
 
+    drawDirections() {
+      let firstPoint = [this.places[0].landLat, this.places[0].landLon];
+      let lastPoint = [
+        this.places[places.length - 1].landLat,
+        this.places[places.length - 1].landLon,
+      ];
+      this.paths = [firstPoint, lastPoint];
+    },
+    clearMarkers() {
+      this.paths = [];
+      this.markers = [];
+    },
     setPlace(place) {
       this.currentPlace = place;
     },
@@ -175,29 +164,29 @@ export default {
         };
       });
     },
-    created() {
-      function displayGoogleMap() {
-        let map = new window.google.maps.Map(document.getElementById("map"), {
-          zoom: 15,
-          center: new window.google.maps.LatLng(this.lat, this.lng),
-        });
-        let infoWindow = new window.google.maps.InfoWindow();
-        this.places.forEach((place) => {
-          const lat = place.geometry.location.lat;
-          const lng = place.gemoetry.location.lng;
-          let marker = new window.google.maps.Marker({
-            position: new window.google.maps.LatLng(lat, lng),
-            map: map,
-          });
-          google.map.event.addListener(marker, "click", () => {
-            infoWindow.setContent(
-              `<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`
-            );
-            infoWindow.open(map, marker);
-          });
-        });
-      }
-    },
+    // created() {
+    //   function displayGoogleMap() {
+    //     let map = new window.google.maps.Map(document.getElementById("map"), {
+    //       zoom: 15,
+    //       center: new window.google.maps.LatLng(this.lat, this.lng),
+    //     });
+    //     let infoWindow = new window.google.maps.InfoWindow();
+    //     this.places.forEach((place) => {
+    //       const lat = place.geometry.location.lat;
+    //       const lng = place.gemoetry.location.lng;
+    //       let marker = new window.google.maps.Marker({
+    //         position: new window.google.maps.LatLng(lat, lng),
+    //         map: map,
+    //       });
+    //       google.map.event.addListener(marker, "click", () => {
+    //         infoWindow.setContent(
+    //           `<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`
+    //         );
+    //         infoWindow.open(map, marker);
+    //       });
+    //     });
+    //   }
+    // },
 
     findNearByLocations() {
       const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${
