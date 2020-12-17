@@ -58,7 +58,6 @@
         </draggable>
       </table>
       <div class="itin-button">
-        <button class="btn btn-outline-primary">Generate Directions</button>
         <button class="btn btn-outline-primary" @click="deleteItinerary()">
           Delete Itinerary
         </button>

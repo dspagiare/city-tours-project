@@ -80,20 +80,48 @@
           >
             {{ infoContent }}
           </gmap-info-window>
-          <gmap-polygon :paths="paths"> </gmap-polygon>
+          <gmap-polygon
+            :paths.sync="paths"
+            v-bind:options="{ strokeColor: '008000' }"
+          >
+          </gmap-polygon>
         </gmap-map>
+      </div>
+      <div id="panel" style="width: 300px; float: right;">
+        <b-button @click="genRoute">GenRoute</b-button>
       </div>
     </div>
   </div>
 </template>
 <script
+  async
+  defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw&libraries=places,geometry"
   type="text/javascript"
 ></script>
 <script>
+let directionsService = new google.maps.DirectionsService();
+let directionsDisplay = new google.maps.DirectionsRenderer();
+
+directionsDisplay.setPanel("panel");
+let request = {
+  origin: "Pittsburgh",
+  destination: "New York",
+  travelMode: google.maps.DirectionsTravelMode.DRIVING,
+};
+directionsService.route(request, function(response, status) {
+  if (status == google.maps.DirectionsStatus.OK) {
+    directionsDisplay.setDirections(response);
+  }
+});
+</script>
+<script>
 import LandmarksService from "@/services/LandmarksService";
 import axios from "axios";
 export default {
+  components: {
+    DirectionsRenderer,
+  },
   data() {
     return {
       paths: [],
@@ -128,11 +156,11 @@ export default {
       }
     );
   },
-  // mounted() {
-  //   this.geolocate();
-  //   // this.getRoute();
-  //   // this.displayGoogleMap();
-  // },
+  mounted() {
+    // this.geolocate();
+    // // this.getRoute();
+    // // this.displayGoogleMap();
+  },
 
   computed: {
     coordinates() {
@@ -171,12 +199,12 @@ export default {
     },
 
     drawDirections() {
-      let firstPoint = [this.places[0].landLat, this.places[0].landLon];
-      let lastPoint = [
-        this.places[this.places.length - 1].landLat,
-        this.places[this.places.length - 1].landLon,
-      ];
-      this.paths = [firstPoint, lastPoint];
+      this.markers.forEach((m) => {
+        let lat = m.position.lat;
+        let lng = m.position.lng;
+        let path = { lat: parseFloat(lat), lng: parseFloat(lng) };
+        this.paths.push(path);
+      });
     },
     clearMarkers() {
       this.paths = [];
