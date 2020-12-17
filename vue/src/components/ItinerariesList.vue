@@ -4,7 +4,7 @@
       <h1>Details for Itinerary : {{ this.itinerary_name }}</h1>
       <p>
         Add or Remove landmarks, or change your itinerary's starting location
-        here.  <strong>Click + drag locations to re-order your route. </strong>
+        here. <strong>Click + drag locations to re-order your route. </strong>
       </p>
     </div>
     <div class="isloading">
@@ -58,8 +58,8 @@
         </draggable>
       </table>
       <div class="itin-button">
-        <button class="btn btn-outline-info">Generate Directions</button>
-        <button class="btn btn-outline-info" @click="deleteItinerary()">
+        <button class="btn btn-outline-primary">Generate Directions</button>
+        <button class="btn btn-outline-primary" @click="deleteItinerary()">
           Delete Itinerary
         </button>
       </div>
@@ -121,34 +121,32 @@ export default {
     };
   },
   methods: {
-    updateLandmarkRatingUp(landmark){
+    updateLandmarkRatingUp(landmark) {
       landmark.numThumbsUp++;
       LandmarksService.updateLandmarkRating(landmark);
     },
-
-    updateLandmarkRatingDown(landmark){
-      if(landmark.numThumbsUp != 0) {
+    updateLandmarkRatingDown(landmark) {
+      if (landmark.numThumbsUp != 0) {
         landmark.numThumbsUp--;
         LandmarksService.updateLandmarkRating(landmark);
       }
     },
-    
     update() {
       const itinerary = {
         id: this.$route.params.id,
         title: this.itinerary_name,
         date: this.itinerary_date,
       };
-
       ItineraryService.editItinerary(
         itinerary,
         this.$store.state.currentUser
       ).then();
     },
-    onEnd(evt) {console.log(evt) 
+    onEnd(evt) {
+      console.log(evt);
       this.newIndex = evt.newIndex;
       this.oldIndex = evt.oldIndex;
-      },
+    },
     deleteTableRow(landId) {
       this.counter--;
       ItineraryService.deleteLandmarkFromItinerary(
@@ -192,8 +190,13 @@ export default {
 };
 </script>
 <style scoped>
+.table {
+  font-size: 15px;
+}
 h1 {
   padding-bottom: 40px;
+  font-family: "Gill Sans", Helvetica, Arial, sans-serif;
+  font-size: 30px;
 }
 p {
   padding-bottom: 40px;
