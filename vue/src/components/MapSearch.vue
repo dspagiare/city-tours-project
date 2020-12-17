@@ -3,11 +3,11 @@
     <div class="six wide column">
       <form class="ui segment large form">
         <div class="ui segment">
-          <div class="field">
+          <!-- <div class="field">
             <div class="ui right icon input large">
               <input
                 type="text"
-                placeholder="Enter your address or click locator button -->"
+                placeholder="Enter your address or click locator button"
                 v-model="coordinates"
               />
               <i
@@ -15,11 +15,11 @@
                 v-on:click="locatorButtonPressed"
               ></i>
             </div>
-          </div>
+          </div> -->
           <div class="field">
             <div class="two fields">
               <div class="field">
-                <b-button @click="drawMarkers">
+                <b-button @click.prevent="drawMarkers">
                   Draw Markers
                 </b-button>
               </div>
@@ -28,7 +28,7 @@
               </div>
               <div class="field">
                 <b-button @click="drawDirections">
-                  Generate Directions
+                  Generate Route
                 </b-button>
               </div>
             </div>
@@ -40,6 +40,7 @@
           <div class="item" v-for="place in places" v-bind:key="place.id">
             <div class="content">
               <div class="header">{{ place.name }}</div>
+              <div class="meta">{{ place.vicinity }}</div>
               <div class="meta">{{ place.address }}</div>
             </div>
           </div>
@@ -49,10 +50,10 @@
     <div class="ten wide column segemnt ui" ref="map">
       <div>
         <div>
-          <h2>Search and add a pin</h2>
+          <h2>Enter your location below.</h2>
           <label>
             <gmap-autocomplete @place_changed="setPlace"> </gmap-autocomplete>
-            <button @click="addMarker">Add: {{ this.lat }}</button>
+            <button @click="addMarker">Add</button>
           </label>
           <br />
         </div>
@@ -66,11 +67,19 @@
           <gmap-marker
             :key="index"
             v-for="(m, index) in markers"
-            :position="m.position"
+            :position="getPosition(m.position)"
             :clickable="true"
             :draggable="true"
-            @click="center = m.position"
+            @click="toggleInfo(m.position, index)"
           ></gmap-marker>
+          <gmap-info-window
+            :options="infoOptions"
+            :position="infoPosition"
+            :opened="infoOpened"
+            @closeclick="infoOpened = false"
+          >
+            {{ infoContent }}
+          </gmap-info-window>
           <gmap-polygon :paths="paths"> </gmap-polygon>
         </gmap-map>
       </div>
@@ -89,7 +98,7 @@ export default {
     return {
       paths: [],
       map: null,
-      center: { lat: 40.4406, lng: 70.9959 },
+      center: { lat: 40.4406, lng: -79.9959 },
       markers: [],
       currentPlace: null,
       lat: 0,
@@ -98,6 +107,16 @@ export default {
       radius: "",
       places: [],
       address: "",
+      infoPosition: null,
+      infoContent: null,
+      infoOpened: false,
+      infoCurrentKey: null,
+      infoOptions: {
+        pixelOffset: {
+          width: 0,
+          height: -35,
+        },
+      },
     };
   },
   created() {
@@ -105,14 +124,15 @@ export default {
       (response) => {
         this.places = response.data;
         this.isLoading = false;
+        // this.drawMarkers();
       }
     );
   },
-  mounted() {
-    this.geolocate();
-    // this.getRoute();
-    // this.displayGoogleMap();
-  },
+  // mounted() {
+  //   this.geolocate();
+  //   // this.getRoute();
+  //   // this.displayGoogleMap();
+  // },
 
   computed: {
     coordinates() {
@@ -120,20 +140,41 @@ export default {
     },
   },
   methods: {
-    drawMarkers() {
-      for (let place in this.places) {
-        let lat = place.landLat;
-        let lon = place.landLon;
-        let marker = { lat, lon };
-        this.markers.push({ position: marker });
+    getPosition: function(marker) {
+      return {
+        lat: parseFloat(marker.lat),
+        lng: parseFloat(marker.lng),
+      };
+    },
+    toggleInfo: function(marker, key) {
+      this.infoPosition = this.getPosition(marker);
+      this.infoContent = marker.name;
+      if (this.infoCurrentKey == key) {
+        this.infoOpened = !this.infoOpened;
+      } else {
+        this.infoOpened = true;
+        this.infoCurrentKey = key;
       }
+    },
+    drawMarkers() {
+      console.log("I called drawMarkers");
+      this.places.forEach((place) => {
+        let name = place.name;
+        let lat = place.landLat;
+        let lng = place.landLon;
+        let marker = { name: name, lat: parseFloat(lat), lng: parseFloat(lng) };
+        this.markers.push({ position: marker });
+        console.log(marker);
+        console.log(lat);
+        console.log("where am i?");
+      });
     },
 
     drawDirections() {
       let firstPoint = [this.places[0].landLat, this.places[0].landLon];
       let lastPoint = [
-        this.places[places.length - 1].landLat,
-        this.places[places.length - 1].landLon,
+        this.places[this.places.length - 1].landLat,
+        this.places[this.places.length - 1].landLon,
       ];
       this.paths = [firstPoint, lastPoint];
     },
