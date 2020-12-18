@@ -100,9 +100,6 @@
 import LandmarksService from "@/services/LandmarksService";
 import axios from "axios";
 export default {
-  components: {
-    DirectionsRenderer,
-  },
   data() {
     return {
       paths: [],
