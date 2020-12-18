@@ -4,7 +4,8 @@
       <h1>Details for Itinerary : {{ this.itinerary_name }}</h1>
       <p>
         Add or Remove landmarks, or change your itinerary's starting location
-        here. <strong>Click + drag locations to re-order your route. </strong>
+        here. <br />
+        <strong >Click + drag locations to re-order your route. </strong>
       </p>
     </div>
     <div class="isloading">

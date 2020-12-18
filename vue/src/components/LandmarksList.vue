@@ -209,7 +209,5 @@ h2 {
 .LandmarkDetails {
   padding: 20px;
 }
-.slp {
-  opacity: 0.2;
-}
+
 </style>
