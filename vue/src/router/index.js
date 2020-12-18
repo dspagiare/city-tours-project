@@ -10,6 +10,7 @@ import SuiVue from 'semantic-ui-vue'
 import Itinerary from '../views/Itinerary.vue'
 // import Itinerary from '../views/Itinerary.vue'
 
+
 Vue.use(SuiVue)
 Vue.use(Router)
 
@@ -26,7 +27,6 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
- 
     {
       path: '/',
       name: 'home',

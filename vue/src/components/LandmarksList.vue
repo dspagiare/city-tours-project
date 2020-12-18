@@ -5,9 +5,14 @@
     </div>
     <div class="isNotLoading" v-if="!isLoading">
       <div class="pane">
-        <p>Search Landmarks by Name: 
-        <input type="text" id="searchLandmarks" placeholder="Search by name"
-          v-model="searchText"/>
+        <p class="searchBar">
+          Search Landmarks by Name:
+          <input
+            type="text"
+            id="searchLandmarks"
+            placeholder="Search by name"
+            v-model="searchText"
+          />
         </p>
         <table class="table table-hover">
           <thead>
@@ -26,7 +31,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr id="landmarksTable" v-for="landmark in filterBySearchText" v-bind:key="landmark.id">
+            <tr
+              id="landmarksTable"
+              v-for="landmark in filterBySearchText"
+              v-bind:key="landmark.id"
+            >
               <td>
                 <label class="form-checkbox">
                   <input
@@ -91,15 +100,15 @@ export default {
     searchText: "",
   }),
   computed: {
-    filterBySearchText (){
-      if(this.searchText != ""){
-        return this.landmarks.filter((landmark)=>{
+    filterBySearchText() {
+      if (this.searchText != "") {
+        return this.landmarks.filter((landmark) => {
           return landmark.name.startsWith(this.searchText);
-        })
-      } else{
+        });
+      } else {
         return this.landmarks;
       }
-    }
+    },
   },
 
   methods: {
@@ -126,16 +135,19 @@ export default {
           this.selectedItinerary,
           //this.$route.params.id,
           this.selected,
-          this.$store.state.currentUser,
-        ).then((response) => {
-          if(response.status === 200) {
-            window.location.reload()
-          }
-        }).catch((response) => {
-            return alert("One or more selected Landmarks already exist on the itinerary. Please try again.");
-            window.location.reload()
-        });
-        
+          this.$store.state.currentUser
+        )
+          .then((response) => {
+            if (response.status === 200) {
+              window.location.reload();
+            }
+          })
+          .catch(() => {
+            alert(
+              "One or more selected Landmarks already exist on the itinerary. Please try again."
+            );
+            window.location.reload();
+          });
       } else {
         return alert("Please select an itenary to add landmark.");
       }
@@ -156,6 +168,14 @@ export default {
 </script>
 
 <style scoped>
+#searchLandMarks {
+  color: blue;
+}
+.searchBar {
+  font-family: "Gill Sans", "Helevetica", "Arial", "sans=serif";
+  font-size: 20px;
+  font-weight: 500;
+}
 tbody {
   font-size: 15px;
 }

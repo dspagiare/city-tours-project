@@ -14,6 +14,8 @@ public class Landmark {
 	private String imgUrl;
 	private Long numThumbsUp;
 	private Long numThumbsDown;
+	private Double landLat;
+	private Double landLon;
 	
 	
 	public Long getId() {
@@ -87,6 +89,18 @@ public class Landmark {
 	}
 	public void setNumThumbsDown(Long numThumbsdown) {
 		this.numThumbsDown = numThumbsdown;
+	}
+	public Double getLandLat() {
+		return landLat;
+	}
+	public void setLandLat(Double landLat) {
+		this.landLat = landLat;
+	}
+	public Double getLandLon() {
+		return landLon;
+	}
+	public void setLandLon(Double landLon) {
+		this.landLon = landLon;
 	}
 	
 	
