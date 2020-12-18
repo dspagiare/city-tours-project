@@ -87,9 +87,6 @@
           </gmap-polygon>
         </gmap-map>
       </div>
-      <div id="panel" style="width: 300px; float: right;">
-        <b-button @click="genRoute">GenRoute</b-button>
-      </div>
     </div>
   </div>
 </template>
@@ -99,22 +96,6 @@
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC044Lz-PYzRTw3JHlYN7IIX4UBRnOHyBw&libraries=places,geometry"
   type="text/javascript"
 ></script>
-<script>
-let directionsService = new google.maps.DirectionsService();
-let directionsDisplay = new google.maps.DirectionsRenderer();
-
-directionsDisplay.setPanel("panel");
-let request = {
-  origin: "Pittsburgh",
-  destination: "New York",
-  travelMode: google.maps.DirectionsTravelMode.DRIVING,
-};
-directionsService.route(request, function(response, status) {
-  if (status == google.maps.DirectionsStatus.OK) {
-    directionsDisplay.setDirections(response);
-  }
-});
-</script>
 <script>
 import LandmarksService from "@/services/LandmarksService";
 import axios from "axios";
